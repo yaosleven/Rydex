@@ -1,0 +1,7 @@
+{
+  "group": "OEM manufacturer B2B landing page assets",
+  "items": [
+    { "path": "/assets/home-hero.webp", "alt": "B2B manufacturing partner hero image", "purpose": "Desktop B2B landing page hero", "recommendedWidth": 2400, "recommendedHeight": 1350, "routes": ["/lp/oem-manufacturer/"] },
+    { "path": "/assets/home-hero-mobile.webp", "alt": "B2B manufacturing partner mobile hero image", "purpose": "Mobile B2B landing page hero", "recommendedWidth": 1080, "recommendedHeight": 1350, "routes": ["/lp/oem-manufacturer/"] }
+  ]
+}

@@ -1,0 +1,39 @@
+---
+interface Props { defaults: Record<string, any>; }
+const { defaults } = Astro.props;
+const configId = `article-draft-preview-${defaults.slug}`;
+---
+
+<script id={configId} type="application/json" is:inline set:html={JSON.stringify(defaults)}></script>
+<script is:inline data-config-id={configId}>
+(() => {
+  const configId = document.currentScript?.dataset.configId;
+  const defaults = JSON.parse(configId ? document.getElementById(configId)?.textContent || '{}' : '{}');
+  if (new URLSearchParams(window.location.search).get('content-preview') === '1') {
+    try {
+      const draft = JSON.parse(localStorage.getItem('rydex-article-content-draft-v1') || '{}')?.[defaults.slug];
+      if (draft) {
+        const textNodes = [];
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+        while (walker.nextNode()) textNodes.push(walker.currentNode);
+        const date = draft.publishedAt ? new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${draft.publishedAt}T00:00:00Z`)) : '';
+        const replacements = [
+          [defaults.title, draft.title], [defaults.category, draft.category], [defaults.description, draft.description],
+          [defaults.author?.name, draft.authorName], [defaults.readTime, draft.readTime], [defaults.body?.eyebrow, draft.eyebrow],
+          [defaults.body?.lead, draft.lead], [new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${defaults.publishedAt}T00:00:00Z`)), date],
+          ...(defaults.body?.paragraphs || []).map((value, index) => [value, draft.paragraphs?.[index]]),
+        ];
+        replacements.forEach(([source, target]) => textNodes.forEach((node) => { if (source && target && node.nodeValue?.trim() === source) node.nodeValue = node.nodeValue.replace(source, target); }));
+        [[defaults.cover, draft.cover], [defaults.author?.avatar, draft.authorAvatar]].forEach(([source, target]) => {
+          if (!source || !target) return;
+          document.querySelectorAll('[src]').forEach((element) => { if (element.getAttribute('src') === source) element.setAttribute('src', target); });
+        });
+        if (draft.seoTitle) document.title = draft.seoTitle;
+        if (draft.seoDescription) document.querySelector('meta[name="description"]')?.setAttribute('content', draft.seoDescription);
+      }
+    } catch {
+      // Public pages stay safe even if a local draft is malformed.
+    }
+  }
+})();
+</script>

@@ -1,0 +1,29 @@
+---
+const about = {
+  eyebrow: 'About Us',
+  title: 'Discover the passion and expertise behind Rydex, your premier destination for luxury car rentals and unmatched service.',
+  description: 'Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat aenean.',
+  metrics: [
+    { value: '19.5K+', label: 'Total Bookings' },
+    { value: '300+', label: 'Models In Stock' },
+    { value: '99%', label: 'Happy Clients' },
+    { value: '50+', label: 'Daily Bookings' },
+  ],
+  arrow: '/static/picture/6864d28d6d224cfc617cfc39_0b76b173af6046e3baff3b231d198b2e_arrow-right-icon.svg',
+};
+---
+
+<section class="section">
+  <div class="content-wrapper-default">
+    <div class="home-about-content">
+      <div class="min-width-120px"><div class="subheadline"><div class="subheadline-line"></div><div>{about.eyebrow}</div></div></div>
+      <div class="max-width-920px home-about-texts">
+        <div class="home-about-heading"><h2 class="pure-color-heading">{about.title}</h2></div>
+        <div class="home-about-metrics">
+          {about.metrics.map((metric) => <div class="metric-item"><div class="metric-number-wrapper"><div class="_2x-large-text pure-color-text">{metric.value}</div></div><div class="metric-title"><div class="medium-text">{metric.label}</div></div></div>)}
+        </div>
+        <div class="home-about-cta"><div class="max-width-420px"><p>{about.description}</p></div><a href="/about.html" class="primary-button w-inline-block"><div class="link-content-wrapper"><div class="link-text-wrapper"><div class="link-text">Learn More</div><div class="link-text-hover">Learn More</div></div><div class="primary-link-square"><div class="link-arrow-wrapper"><img src={about.arrow} loading="eager" alt="" class="link-arrow" /></div></div></div></a></div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,98 @@
+---
+import { getCollection } from 'astro:content';
+
+const entries = await getCollection('models');
+const models = entries.map(({ data }) => ({
+  slug: data.slug,
+  title: data.title,
+  brand: data.brand,
+  type: data.type,
+  summary: data.summary ?? '',
+  daily: data.pricing.daily,
+  weekly: data.pricing.weekly,
+  monthly: data.pricing.monthly,
+  heroImage: data.media?.hero ?? data.heroImage ?? '',
+  gallery: data.media?.gallery ?? [],
+  specifications: data.specifications,
+  seoTitle: data.seo?.title ?? '',
+  seoDescription: data.seo?.description ?? '',
+}));
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta charset="utf-8" /><meta name="viewport" content="width=device-width" /><meta name="robots" content="noindex, nofollow" /><title>车型内容编辑｜Rydex</title></head>
+  <body>
+    <main class="shell">
+      <aside><a class="brand" href="/admin/"><b>R</b>Rydex</a><nav><a href="/admin/">内容中心</a><a href="/admin/home">首页编辑</a><a class="active" href="/admin/models" aria-current="page">车型编辑</a><a href="/admin/articles">文章编辑</a><a href="/admin/library">页面与品牌</a><a href="/admin/settings">设置与页面</a></nav><p>本机草稿模式<br /><small>不会直接发布到公开网站。</small></p></aside>
+      <section class="workspace">
+        <header><div><p class="eyebrow">MODEL CONTENT</p><h1>车型资料编辑</h1><p>修改名称、卖点、价格、参数、图库与 SEO，然后打开对应车型页查看草稿。</p></div><a class="back" href="/admin/">← 内容中心</a></header>
+        <section class="notice"><strong>当前为本机草稿。</strong> 正式保存到网站将在连接云端 CMS 后开放。</section>
+        <div class="model-switch"><label>选择车型<select id="model-select">{models.map((model) => <option value={model.slug}>{model.title}</option>)}</select></label><a id="preview" target="_blank" rel="noreferrer" href={`/${models[0]?.slug}.html?content-preview=1`}>打开草稿预览 ↗</a></div>
+        <form id="model-form">
+          <section class="card"><h2>基本资料</h2><div class="grid"><label>车型名称<input name="title" /></label><label>品牌<input name="brand" /></label><label>车型类别<input name="type" /></label><label>日租价格<input name="daily" /></label><label>周租价格<input name="weekly" /></label><label>月租价格<input name="monthly" /></label><label class="wide">车型介绍<textarea name="summary" rows="5"></textarea></label></div></section>
+          <section class="card"><h2>图片链接</h2><p class="hint">请填写 `/assets/...` 路径或可公开访问的 HTTPS 图片地址。</p><div class="grid"><label class="wide">主图<input name="heroImage" /></label><label>图库 1<input name="gallery1" /></label><label>图库 2<input name="gallery2" /></label><label>图库 3<input name="gallery3" /></label></div></section>
+          <section class="card"><h2>车型参数</h2><div id="specifications" class="specifications"></div></section>
+          <section class="card"><h2>搜索引擎信息</h2><div class="grid"><label class="wide">SEO 标题<input name="seoTitle" /></label><label class="wide">SEO 描述<textarea name="seoDescription" rows="3"></textarea></label></div></section>
+        </form>
+        <footer><span id="status">尚未保存本机草稿。</span><div><button id="reset" class="secondary" type="button">恢复此车型默认值</button><button id="save" type="button">保存草稿</button></div></footer>
+      </section>
+    </main>
+    <script id="model-data" type="application/json" is:inline set:html={JSON.stringify(models)}></script>
+    <script is:inline>
+      const modelData = JSON.parse(document.querySelector('#model-data')?.textContent || '[]');
+      const storageKey = 'rydex-model-content-draft-v1';
+      const select = document.querySelector('#model-select');
+      const form = document.querySelector('#model-form');
+      const specifications = document.querySelector('#specifications');
+      const preview = document.querySelector('#preview');
+      const status = document.querySelector('#status');
+      let drafts = {};
+
+      try { drafts = JSON.parse(localStorage.getItem(storageKey) || '{}'); } catch { drafts = {}; }
+      const currentDefault = () => modelData.find((model) => model.slug === select?.value) || modelData[0];
+      const field = (name) => form?.elements.namedItem(name);
+      const setField = (name, value) => { const element = field(name); if (element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement) element.value = value || ''; };
+      const current = () => {
+        const base = currentDefault();
+        return { ...base, ...(drafts[base.slug] || {}), gallery: (drafts[base.slug]?.gallery || base.gallery || []), specifications: (drafts[base.slug]?.specifications || base.specifications || []) };
+      };
+      const renderSpecifications = (items) => {
+        if (!specifications) return;
+        specifications.replaceChildren();
+        items.forEach((item, index) => {
+          const row = document.createElement('div'); row.className = 'spec-row';
+          const label = document.createElement('input'); label.name = `spec-label-${index}`; label.value = item.label || ''; label.setAttribute('aria-label', `参数 ${index + 1} 名称`);
+          const value = document.createElement('input'); value.name = `spec-value-${index}`; value.value = item.value || ''; value.setAttribute('aria-label', `参数 ${index + 1} 数值`);
+          row.append(label, value); specifications.append(row);
+        });
+      };
+      const render = () => {
+        const model = current();
+        ['title','brand','type','summary','daily','weekly','monthly','heroImage','seoTitle','seoDescription'].forEach((key) => setField(key, model[key]));
+        setField('gallery1', model.gallery?.[0]); setField('gallery2', model.gallery?.[1]); setField('gallery3', model.gallery?.[2]);
+        renderSpecifications(model.specifications || []);
+        if (preview) preview.href = `/${model.slug}.html?content-preview=1`;
+        status.textContent = drafts[model.slug] ? '已加载此车型的本机草稿。' : '正在编辑网站默认内容。';
+      };
+      const serialize = () => {
+        const base = currentDefault();
+        return {
+          slug: base.slug, title: field('title')?.value || '', brand: field('brand')?.value || '', type: field('type')?.value || '', summary: field('summary')?.value || '',
+          daily: field('daily')?.value || '', weekly: field('weekly')?.value || '', monthly: field('monthly')?.value || '', heroImage: field('heroImage')?.value || '',
+          gallery: ['gallery1','gallery2','gallery3'].map((name) => field(name)?.value || ''), seoTitle: field('seoTitle')?.value || '', seoDescription: field('seoDescription')?.value || '',
+          specifications: [...(specifications?.querySelectorAll('.spec-row') || [])].map((row) => ({ label: row.querySelector('input[name^="spec-label-"]')?.value || '', value: row.querySelector('input[name^="spec-value-"]')?.value || '' })),
+        };
+      };
+      select?.addEventListener('change', render);
+      form?.addEventListener('input', () => { status.textContent = '有未保存的修改。'; });
+      document.querySelector('#save')?.addEventListener('click', () => { const draft = serialize(); drafts[draft.slug] = draft; localStorage.setItem(storageKey, JSON.stringify(drafts)); status.textContent = '草稿已保存到此浏览器。可打开右上角预览查看效果。'; });
+      document.querySelector('#reset')?.addEventListener('click', () => { const model = currentDefault(); delete drafts[model.slug]; localStorage.setItem(storageKey, JSON.stringify(drafts)); render(); status.textContent = '已恢复此车型的网站默认内容。'; });
+      render();
+    </script>
+  </body>
+</html>
+
+<style>
+  :root { font-family: Inter,ui-sans-serif,system-ui,sans-serif; color:#17283a; background:#f3f6fa; }*{box-sizing:border-box}body{margin:0}.shell{min-height:100vh;display:grid;grid-template-columns:250px minmax(0,1fr)}aside{display:flex;flex-direction:column;padding:28px 16px;background:linear-gradient(180deg,#0d2743,#071a2d);color:#c5d5e3}.brand{display:flex;gap:10px;align-items:center;padding:0 10px 31px;color:#fff;text-decoration:none;font-weight:800}.brand b{display:grid;width:37px;height:37px;place-items:center;border-radius:11px;background:#f0df58;color:#102844;font-size:21px}nav{display:grid;gap:5px}nav>*{min-height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 11px;border-radius:8px;color:#b9c9d8;text-decoration:none;font-size:14px}nav .active{background:#17486f;color:#fff;box-shadow:inset 3px 0 #52c1fc}nav span{opacity:.64}nav em{color:#7d95ab;font-size:10px;font-style:normal}aside>p{margin:auto 10px 0;padding:14px;border:1px solid #ffffff1f;border-radius:10px;background:#ffffff0a;font-size:12px;line-height:1.55}aside small{color:#9aafc2}.workspace{width:min(1200px,100%);margin:0 auto;padding:40px 36px 110px}header{display:flex;justify-content:space-between;gap:22px;align-items:flex-start}.eyebrow{margin:0 0 7px;color:#5d7b9a;font-size:11px;font-weight:800;letter-spacing:.09em}h1,h2,p{margin-top:0}h1{margin-bottom:10px;font-size:clamp(28px,3vw,39px);letter-spacing:-.045em}header p:not(.eyebrow){margin-bottom:0;color:#6d8297;line-height:1.55}.back,#preview{display:inline-flex;align-items:center;justify-content:center;min-height:41px;padding:0 15px;border:1px solid #d5e0eb;border-radius:7px;background:#fff;color:#26445f;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap}.notice{margin:27px 0 17px;padding:14px 16px;border:1px solid #e5cf82;border-radius:10px;background:#fff9e6;color:#745913;font-size:13px}.model-switch{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:17px;padding:17px;border:1px solid #dfe8ef;border-radius:11px;background:#fff}.model-switch label{max-width:460px}.card{margin-top:17px;padding:24px;border:1px solid #dfe8ef;border-radius:12px;background:#fff;box-shadow:0 3px 13px #26445f0a}.card h2{margin-bottom:18px;font-size:18px}.hint{margin:-9px 0 18px;color:#72879a;font-size:12px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.wide{grid-column:1/-1}label{display:grid;gap:7px;color:#2a455e;font-size:13px;font-weight:700}input,textarea,select{width:100%;border:1px solid #cfdae5;border-radius:7px;padding:11px 12px;background:#fff;color:#19334b;font:inherit;font-size:14px;font-weight:400}textarea{resize:vertical;line-height:1.45}input:focus,textarea:focus,select:focus{outline:0;border-color:#3c8bc6;box-shadow:0 0 0 3px #3c8bc621}.specifications{display:grid;gap:10px}.spec-row{display:grid;grid-template-columns:1fr 1.2fr;gap:10px}.spec-row input{padding:9px 10px}footer{position:fixed;z-index:5;bottom:0;left:250px;right:0;display:flex;justify-content:space-between;align-items:center;gap:18px;min-height:72px;padding:14px 36px;border-top:1px solid #dbe5ed;background:#fffffff2;backdrop-filter:blur(10px)}footer span{color:#6e8397;font-size:13px}footer div{display:flex;gap:10px}button{min-height:40px;padding:0 16px;border:0;border-radius:7px;background:#103a63;color:#fff;font:inherit;font-size:13px;font-weight:700;cursor:pointer}.secondary{border:1px solid #d5e0eb;background:#fff;color:#26445f}@media(max-width:820px){.shell{grid-template-columns:1fr}aside{display:none}.workspace{padding:25px 16px 98px}header,.model-switch{align-items:stretch;flex-direction:column}.grid{grid-template-columns:1fr}.wide{grid-column:auto}footer{left:0;padding:12px 16px}footer span{display:none}footer div{width:100%}footer button{flex:1}.spec-row{grid-template-columns:1fr}}
+</style>

@@ -1,0 +1,31 @@
+{
+  "page": "contact",
+  "copy": {
+    "heroEyebrow": "Contact Us",
+    "heroTitle": "Get In Touch",
+    "heroBody": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique duis cursus",
+    "methodDescription": "Lorem ipsum dolor sit amet consectetur",
+    "chatLabel": "Chat With Us",
+    "firstNamePlaceholder": "Your First Name",
+    "lastNamePlaceholder": "Your Last Name",
+    "emailPlaceholder": "Your Email Address",
+    "phonePlaceholder": "Your Phone Number",
+    "messagePlaceholder": "Write Your Message Here...",
+    "submitLabel": "Send Message",
+    "submittingLabel": "Please wait...",
+    "successMessage": "Thank you! Your submission has been received!",
+    "errorMessage": "Oops! Something went wrong while submitting the form."
+  },
+  "images": {
+    "success": "/assets/contact/icons/success.svg",
+    "phone": "/assets/contact/icons/phone.svg",
+    "email": "/assets/contact/icons/email.svg",
+    "chat": "/assets/contact/icons/chat.svg"
+  },
+  "team": [],
+  "seo": {
+    "description": "Contact the Rydex team for premium vehicle enquiries and support.",
+    "ogImage": "/assets/home-hero.webp",
+    "title": "Contact Rydex | Rydex"
+  }
+}

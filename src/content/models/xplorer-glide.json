@@ -1,0 +1,151 @@
+{
+  "title": "Xplorer Glide",
+  "slug": "xplorer-glide",
+  "brand": "Velox",
+  "type": "Sedan",
+  "media": {
+    "hero": "/assets/models/xplorer-glide/card.webp",
+    "gallery": [
+      "/assets/models/xplorer-glide/gallery-1.webp",
+      "/assets/models/xplorer-glide/gallery-2.webp",
+      "/assets/models/xplorer-glide/gallery-3.webp"
+    ]
+  },
+  "originalMedia": {
+    "hero": "/static/picture/686f7c9896946e6903f1ce81_xplorer-glide.webp",
+    "gallery": [
+      "/static/picture/688c4c31b702b8d8b58ee8ed_additional-image-1.webp",
+      "/static/picture/688c4c318351b5a1b1a71e56_additional-image-2.webp",
+      "/static/picture/688c4c31b700b10106cf511c_additional-image-3.webp"
+    ]
+  },
+  "pricing": {
+    "daily": "$120",
+    "weekly": "$750",
+    "monthly": "$2,800"
+  },
+  "original": {
+    "title": "Xplorer Glide",
+    "brand": "Velox",
+    "type": "Sedan",
+    "daily": "$120",
+    "weekly": "$750",
+    "monthly": "$2,800",
+    "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidid ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullam laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupida non proident, sunt in culpa qui officia deserunt."
+  },
+  "seo": {
+    "title": "Xplorer Glide | Rydex",
+    "description": "Xplorer Glide Sedan from Velox.",
+    "ogImage": "/assets/models/xplorer-glide/card.webp"
+  },
+  "imageAlt": "Xplorer Glide Sedan vehicle",
+  "mediaAlt": {
+    "hero": "Xplorer Glide Sedan hero image",
+    "gallery": [
+      "Xplorer Glide vehicle gallery image 1",
+      "Xplorer Glide vehicle gallery image 2",
+      "Xplorer Glide vehicle gallery image 3"
+    ]
+  },
+  "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidid ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullam laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupida non proident, sunt in culpa qui officia deserunt.",
+  "specifications": [
+    {
+      "label": "Model Brand",
+      "value": "Velox"
+    },
+    {
+      "label": "Type",
+      "value": "Sedan"
+    },
+    {
+      "label": "Model Year",
+      "value": "2024"
+    },
+    {
+      "label": "Transmission",
+      "value": "Manual"
+    },
+    {
+      "label": "Fuel Type",
+      "value": "Hybrid"
+    },
+    {
+      "label": "Engine",
+      "value": "6.0 L"
+    },
+    {
+      "label": "Mileage",
+      "value": "3,400 KM"
+    },
+    {
+      "label": "Horse Power",
+      "value": "670 HP"
+    },
+    {
+      "label": "Cylinders",
+      "value": "8"
+    },
+    {
+      "label": "Seats",
+      "value": "2"
+    },
+    {
+      "label": "Baggage",
+      "value": "3"
+    },
+    {
+      "label": "Doors",
+      "value": "2"
+    }
+  ],
+  "originalSpecifications": [
+    {
+      "label": "Model Brand",
+      "value": "Velox"
+    },
+    {
+      "label": "Type",
+      "value": "Sedan"
+    },
+    {
+      "label": "Model Year",
+      "value": "2024"
+    },
+    {
+      "label": "Transmission",
+      "value": "Manual"
+    },
+    {
+      "label": "Fuel Type",
+      "value": "Hybrid"
+    },
+    {
+      "label": "Engine",
+      "value": "6.0 L"
+    },
+    {
+      "label": "Mileage",
+      "value": "3,400 KM"
+    },
+    {
+      "label": "Horse Power",
+      "value": "670 HP"
+    },
+    {
+      "label": "Cylinders",
+      "value": "8"
+    },
+    {
+      "label": "Seats",
+      "value": "2"
+    },
+    {
+      "label": "Baggage",
+      "value": "3"
+    },
+    {
+      "label": "Doors",
+      "value": "2"
+    }
+  ]
+}

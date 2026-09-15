@@ -1,0 +1,18 @@
+---
+interface Props {
+  quote: string;
+  name: string;
+  location: string;
+  image: string;
+}
+
+const { quote, name, location, image } = Astro.props;
+---
+
+<article class="testimonial-card">
+  <div class="testimonial-author">
+    <img src={image} alt={`${name}, ${location}`} loading="lazy" />
+    <div><strong>{name}</strong><span>{location}</span></div>
+  </div>
+  <p>“{quote}”</p>
+</article>

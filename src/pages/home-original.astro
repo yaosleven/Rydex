@@ -1,0 +1,32 @@
+---
+import WebflowDocument from '../layouts/WebflowDocument.astro';
+import RawMarkup from '../components/webflow/RawMarkup.astro';
+import HomeHero from '../components/home/HomeHero.astro';
+import HomeAbout from '../components/home/HomeAbout.astro';
+import FeaturedModels from '../components/home/FeaturedModels.astro';
+import ServiceBenefits from '../components/home/ServiceBenefits.astro';
+import DriverTestimonials from '../components/home/DriverTestimonials.astro';
+import BookingSteps from '../components/home/BookingSteps.astro';
+import HomeJournal from '../components/home/HomeJournal.astro';
+import SiteFooter from '../components/shared/SiteFooter.astro';
+import { webflowHome } from '../utils/webflow-home';
+import { getEntry } from 'astro:content';
+
+const home = await getEntry('pages', 'home');
+if (!home) throw new Error('Missing required Home page content.');
+---
+
+<!-- Visual reference: exact original section markup with the original runtime. -->
+<WebflowDocument>
+  <div class="page-wrapper">
+    <RawMarkup markup={webflowHome.customCursor} />
+    <HomeHero markup={webflowHome.hero} content={home} />
+    <HomeAbout markup={webflowHome.about} content={home} />
+    <FeaturedModels markup={webflowHome.models} content={home} />
+    <ServiceBenefits markup={webflowHome.benefits} content={home} />
+    <DriverTestimonials markup={webflowHome.testimonials} content={home} />
+    <BookingSteps markup={webflowHome.steps} content={home} />
+    <HomeJournal markup={webflowHome.blog} content={home} />
+    <SiteFooter markup={webflowHome.footer} />
+  </div>
+</WebflowDocument>

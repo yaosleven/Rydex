@@ -1,0 +1,64 @@
+---
+interface Props {
+  slug: string;
+  defaults: Record<string, unknown>;
+}
+
+const { slug, defaults } = Astro.props;
+const configId = `model-draft-preview-${slug}`;
+---
+
+<script id={configId} type="application/json" is:inline set:html={JSON.stringify({ slug, defaults })}></script>
+<script is:inline>
+  const configElement = document.currentScript?.previousElementSibling;
+  const config = configElement?.textContent ? JSON.parse(configElement.textContent) : null;
+
+  if (config && new URLSearchParams(window.location.search).get('content-preview') === '1') {
+    try {
+      const saved = window.localStorage.getItem('rydex-model-content-draft-v1');
+      const draft = saved ? JSON.parse(saved)?.[config.slug] : null;
+
+      if (draft) {
+        const textPairs = [
+          [config.defaults.title, draft.title],
+          [config.defaults.brand, draft.brand],
+          [config.defaults.type, draft.type],
+          [config.defaults.summary, draft.summary],
+          [config.defaults.pricing?.daily, draft.daily],
+          [config.defaults.pricing?.weekly, draft.weekly],
+          [config.defaults.pricing?.monthly, draft.monthly],
+        ].filter(([from, to]) => typeof from === 'string' && typeof to === 'string' && from && to && from !== to);
+
+        (config.defaults.specifications || []).forEach((specification, index) => {
+          const target = draft.specifications?.[index];
+          if (!target) return;
+          textPairs.push([specification.label, target.label], [specification.value, target.value]);
+        });
+
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+        const nodes = [];
+        while (walker.nextNode()) nodes.push(walker.currentNode);
+        nodes.forEach((node) => {
+          let value = node.nodeValue || '';
+          textPairs.forEach(([from, to]) => { value = value.split(from).join(to); });
+          node.nodeValue = value;
+        });
+
+        const sourceImages = [config.defaults.media?.hero, ...(config.defaults.media?.gallery || [])];
+        const draftImages = [draft.heroImage, ...(draft.gallery || [])];
+        sourceImages.forEach((source, index) => {
+          const target = draftImages[index];
+          if (!source || !target || source === target) return;
+          document.querySelectorAll(`img[src="${CSS.escape(source)}"]`).forEach((image) => {
+            image.src = target;
+            image.removeAttribute('srcset');
+          });
+        });
+
+        if (draft.seoTitle) document.title = draft.seoTitle;
+      }
+    } catch {
+      // A broken local draft must never affect the public detail page.
+    }
+  }
+</script>

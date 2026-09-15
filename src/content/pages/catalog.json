@@ -1,0 +1,30 @@
+{
+  "page": "catalog",
+  "copy": {
+    "pageTitle": "Rydex Models",
+    "brandFilter": "Model Brand",
+    "typeFilter": "Model Type",
+    "featureFilter": "Model Feature",
+    "featurePrefix": "Models With",
+    "luxora": "Luxora",
+    "velox": "Velox",
+    "aurion": "Aurion",
+    "coupe": "Coupe",
+    "sedan": "Sedan",
+    "suv": "SUV",
+    "camera": "360° Camera",
+    "bluetooth": "Bluetooth",
+    "gps": "Built-in GPS",
+    "leather": "Leather Seats",
+    "headlights": "LED Headlights",
+    "sound": "Sound System",
+    "sunroof": "Sunroof"
+  },
+  "images": {},
+  "team": [],
+  "seo": {
+    "description": "Browse the complete Rydex vehicle collection by brand, type and feature.",
+    "ogImage": "/assets/models/rapt-horizon/card.webp",
+    "title": "Rydex Models | Rydex"
+  }
+}

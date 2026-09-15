@@ -1,0 +1,88 @@
+<script>
+  const initialiseContactInteractions = () => {
+    const page = document.querySelector<HTMLElement>('.page-wrapper');
+    if (!page || page.dataset.astroContactInteractionsReady === 'true') return;
+
+    page.dataset.astroContactInteractionsReady = 'true';
+
+    const menus = [
+      {
+        container: page.querySelector<HTMLElement>('.nav-models-dropdown'),
+        toggle: page.querySelector<HTMLElement>('.nav-models-dropdown .nav-dropdown-toggle'),
+        list: page.querySelector<HTMLElement>('.nav-models-dropdown .nav-dropdown-list'),
+        id: 'contact-navigation-models',
+      },
+      {
+        container: page.querySelector<HTMLElement>('.nav-menu-dropdown'),
+        toggle: page.querySelector<HTMLElement>('.nav-menu-dropdown .menu-button'),
+        list: page.querySelector<HTMLElement>('.nav-menu-dropdown .nav-dropdown-list'),
+        id: 'contact-navigation-main',
+      },
+    ].filter(
+      (menu): menu is { container: HTMLElement; toggle: HTMLElement; list: HTMLElement; id: string } =>
+        Boolean(menu.container && menu.toggle && menu.list),
+    );
+
+    const closeMenu = (menu: (typeof menus)[number]) => {
+      menu.container.classList.remove('w--open');
+      menu.toggle.classList.remove('w--open');
+      menu.list.classList.remove('w--open');
+      menu.toggle.setAttribute('aria-expanded', 'false');
+      menu.list.setAttribute('aria-hidden', 'true');
+    };
+
+    const openMenu = (menu: (typeof menus)[number]) => {
+      menus.forEach((item) => {
+        if (item !== menu) closeMenu(item);
+      });
+      menu.container.classList.add('w--open');
+      menu.toggle.classList.add('w--open');
+      menu.list.classList.add('w--open');
+      menu.toggle.setAttribute('aria-expanded', 'true');
+      menu.list.setAttribute('aria-hidden', 'false');
+    };
+
+    menus.forEach((menu) => {
+      menu.toggle.setAttribute('role', 'button');
+      menu.toggle.setAttribute('tabindex', '0');
+      menu.toggle.setAttribute('aria-controls', menu.id);
+      menu.toggle.setAttribute('aria-expanded', 'false');
+      menu.toggle.setAttribute('aria-haspopup', 'menu');
+      menu.list.id = menu.id;
+      menu.list.setAttribute('aria-hidden', 'true');
+      closeMenu(menu);
+
+      const toggleMenu = (event: Event) => {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        if (menu.toggle.getAttribute('aria-expanded') === 'true') closeMenu(menu);
+        else openMenu(menu);
+      };
+
+      menu.toggle.addEventListener('click', toggleMenu, true);
+      menu.toggle.addEventListener(
+        'keydown',
+        (event) => {
+          if (event.key === 'Enter' || event.key === ' ') toggleMenu(event);
+        },
+        true,
+      );
+    });
+
+    document.addEventListener('pointerdown', (event) => {
+      const target = event.target;
+      if (!(target instanceof Node) || menus.some((menu) => menu.container.contains(target))) return;
+      menus.forEach(closeMenu);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') menus.forEach(closeMenu);
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initialiseContactInteractions, { once: true });
+  } else {
+    initialiseContactInteractions();
+  }
+</script>

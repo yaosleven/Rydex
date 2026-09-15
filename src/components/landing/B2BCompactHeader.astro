@@ -1,0 +1,28 @@
+---
+import { getEntry } from 'astro:content';
+
+interface Props { ctaLabel: string; }
+const { ctaLabel } = Astro.props;
+
+const settings = await getEntry('settings', 'site');
+if (!settings) throw new Error('Missing site settings.');
+---
+
+<header class="b2b-header">
+  <a class="b2b-header-logo" href="/" aria-label={`${settings.data.companyName} home`}>
+    <img src={settings.data.branding?.logo ?? '/assets/shared/brand-logo.svg'} alt={settings.data.branding?.logoAlt ?? `${settings.data.companyName} logo`} />
+  </a>
+  <div class="b2b-header-actions">
+    <a class="b2b-header-phone" href={`tel:${settings.data.phone.replace(/[^+\d]/g, '')}`}>{settings.data.phone}</a>
+    <a class="b2b-header-cta" href="#quote-form">{ctaLabel}</a>
+  </div>
+</header>
+
+<style>
+  .b2b-header { position:absolute; z-index:20; top:28px; left:50%; display:flex; width:min(calc(100% - 40px),1316px); min-height:88px; align-items:center; justify-content:space-between; transform:translateX(-50%); }
+  .b2b-header-logo img { display:block; width:auto; height:27px; filter:brightness(0) invert(1); }
+  .b2b-header-actions { display:flex; align-items:center; gap:20px; }
+  .b2b-header-phone { color:#fff; font-size:14px; font-weight:600; }
+  .b2b-header-cta { padding:13px 18px; border-radius:9px; background:#d4d414; color:#111; font-size:14px; font-weight:700; }
+  @media(max-width:767px){ .b2b-header { top:14px; width:calc(100% - 32px); min-height:70px; } .b2b-header-logo img { height:22px; } .b2b-header-phone { display:none; } .b2b-header-cta { padding:11px 14px; font-size:13px; } }
+</style>

@@ -1,0 +1,22 @@
+{
+  "page": "reviews",
+  "copy": {
+    "eyebrow": "Blog Posts",
+    "blogTitle": "Our Blog Posts",
+    "categoryPrefix": "Posts",
+    "filterLabel": "Categories",
+    "all": "All",
+    "reviews": "Reviews",
+    "guides": "Guides",
+    "events": "Events",
+    "next": "Next",
+    "previous": "Previous"
+  },
+  "images": {},
+  "team": [],
+  "seo": {
+    "description": "Customer reviews and premium vehicle insights from Rydex.",
+    "ogImage": "/assets/articles/the-best-sedan-models-that-fit-road-trips/cover.webp",
+    "title": "Rydex Reviews | Rydex"
+  }
+}

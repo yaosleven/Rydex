@@ -1,0 +1,21 @@
+{
+  "name": "rydex-astro-prototype",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "check": "astro check",
+    "preview": "astro preview",
+    "cms:worker:dev": "wrangler dev --config cms-oauth-worker/wrangler.jsonc",
+    "cms:worker:deploy": "wrangler deploy --config cms-oauth-worker/wrangler.jsonc"
+  },
+  "engines": {
+    "node": ">=20.19.0 <25"
+  },
+  "dependencies": {
+    "@astrojs/check": "latest",
+    "astro": "latest",
+    "typescript": "latest"
+  },
+  "devDependencies": {}
+}

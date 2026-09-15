@@ -1,0 +1,6 @@
+---
+import RawMarkup from '../webflow/RawMarkup.astro';
+interface Props { markup: string; }
+const { markup } = Astro.props;
+---
+<RawMarkup markup={markup} />

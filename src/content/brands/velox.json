@@ -1,0 +1,11 @@
+{
+  "name": "Velox",
+  "description": "A current Rydex template model brand.",
+  "logo": "/assets/brands/velox.svg",
+  "seo": {
+    "title": "Velox Models | Rydex",
+    "description": "A current Rydex template model brand.",
+    "ogImage": "/assets/brands/velox.svg"
+  },
+  "logoAlt": "Velox brand logo"
+}

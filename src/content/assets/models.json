@@ -1,0 +1,285 @@
+{
+  "group": "Model detail assets",
+  "items": [
+    {
+      "path": "/assets/models/cest-tunder/card.webp",
+      "alt": "Cest Tunder Coupe hero image",
+      "purpose": "Vehicle detail hero",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/cest-tunder.html"
+      ]
+    },
+    {
+      "path": "/assets/models/cest-tunder/gallery-1.webp",
+      "alt": "Cest Tunder vehicle gallery image 1",
+      "purpose": "Vehicle detail gallery image 1",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/cest-tunder.html"
+      ]
+    },
+    {
+      "path": "/assets/models/cest-tunder/gallery-2.webp",
+      "alt": "Cest Tunder vehicle gallery image 2",
+      "purpose": "Vehicle detail gallery image 2",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/cest-tunder.html"
+      ]
+    },
+    {
+      "path": "/assets/models/cest-tunder/gallery-3.webp",
+      "alt": "Cest Tunder vehicle gallery image 3",
+      "purpose": "Vehicle detail gallery image 3",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/cest-tunder.html"
+      ]
+    },
+    {
+      "path": "/assets/models/glide-vortex/card.webp",
+      "alt": "Glide Vortex SUV hero image",
+      "purpose": "Vehicle detail hero",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/glide-vortex.html"
+      ]
+    },
+    {
+      "path": "/assets/models/glide-vortex/gallery-1.webp",
+      "alt": "Glide Vortex vehicle gallery image 1",
+      "purpose": "Vehicle detail gallery image 1",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/glide-vortex.html"
+      ]
+    },
+    {
+      "path": "/assets/models/glide-vortex/gallery-2.webp",
+      "alt": "Glide Vortex vehicle gallery image 2",
+      "purpose": "Vehicle detail gallery image 2",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/glide-vortex.html"
+      ]
+    },
+    {
+      "path": "/assets/models/glide-vortex/gallery-3.webp",
+      "alt": "Glide Vortex vehicle gallery image 3",
+      "purpose": "Vehicle detail gallery image 3",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/glide-vortex.html"
+      ]
+    },
+    {
+      "path": "/assets/models/rapt-horizon/card.webp",
+      "alt": "Rapt Horizon Coupe hero image",
+      "purpose": "Vehicle detail hero",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/rapt-horizon.html"
+      ]
+    },
+    {
+      "path": "/assets/models/rapt-horizon/gallery-1.webp",
+      "alt": "Rapt Horizon vehicle gallery image 1",
+      "purpose": "Vehicle detail gallery image 1",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/rapt-horizon.html"
+      ]
+    },
+    {
+      "path": "/assets/models/rapt-horizon/gallery-2.webp",
+      "alt": "Rapt Horizon vehicle gallery image 2",
+      "purpose": "Vehicle detail gallery image 2",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/rapt-horizon.html"
+      ]
+    },
+    {
+      "path": "/assets/models/rapt-horizon/gallery-3.webp",
+      "alt": "Rapt Horizon vehicle gallery image 3",
+      "purpose": "Vehicle detail gallery image 3",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/rapt-horizon.html"
+      ]
+    },
+    {
+      "path": "/assets/models/senity-pulse/card.webp",
+      "alt": "Senity Pulse Coupe hero image",
+      "purpose": "Vehicle detail hero",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/senity-pulse.html"
+      ]
+    },
+    {
+      "path": "/assets/models/senity-pulse/gallery-1.webp",
+      "alt": "Senity Pulse vehicle gallery image 1",
+      "purpose": "Vehicle detail gallery image 1",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/senity-pulse.html"
+      ]
+    },
+    {
+      "path": "/assets/models/senity-pulse/gallery-2.webp",
+      "alt": "Senity Pulse vehicle gallery image 2",
+      "purpose": "Vehicle detail gallery image 2",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/senity-pulse.html"
+      ]
+    },
+    {
+      "path": "/assets/models/senity-pulse/gallery-3.webp",
+      "alt": "Senity Pulse vehicle gallery image 3",
+      "purpose": "Vehicle detail gallery image 3",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/senity-pulse.html"
+      ]
+    },
+    {
+      "path": "/assets/models/sumit-senity/card.webp",
+      "alt": "Sumit Senity Sedan hero image",
+      "purpose": "Vehicle detail hero",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/sumit-senity.html"
+      ]
+    },
+    {
+      "path": "/assets/models/sumit-senity/gallery-1.webp",
+      "alt": "Sumit Senity vehicle gallery image 1",
+      "purpose": "Vehicle detail gallery image 1",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/sumit-senity.html"
+      ]
+    },
+    {
+      "path": "/assets/models/sumit-senity/gallery-2.webp",
+      "alt": "Sumit Senity vehicle gallery image 2",
+      "purpose": "Vehicle detail gallery image 2",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/sumit-senity.html"
+      ]
+    },
+    {
+      "path": "/assets/models/sumit-senity/gallery-3.webp",
+      "alt": "Sumit Senity vehicle gallery image 3",
+      "purpose": "Vehicle detail gallery image 3",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/sumit-senity.html"
+      ]
+    },
+    {
+      "path": "/assets/models/velocit-crest/card.webp",
+      "alt": "Velocit Crest SUV hero image",
+      "purpose": "Vehicle detail hero",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/velocit-crest.html"
+      ]
+    },
+    {
+      "path": "/assets/models/velocit-crest/gallery-1.webp",
+      "alt": "Velocit Crest vehicle gallery image 1",
+      "purpose": "Vehicle detail gallery image 1",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/velocit-crest.html"
+      ]
+    },
+    {
+      "path": "/assets/models/velocit-crest/gallery-2.webp",
+      "alt": "Velocit Crest vehicle gallery image 2",
+      "purpose": "Vehicle detail gallery image 2",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/velocit-crest.html"
+      ]
+    },
+    {
+      "path": "/assets/models/velocit-crest/gallery-3.webp",
+      "alt": "Velocit Crest vehicle gallery image 3",
+      "purpose": "Vehicle detail gallery image 3",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/velocit-crest.html"
+      ]
+    },
+    {
+      "path": "/assets/models/xplorer-glide/card.webp",
+      "alt": "Xplorer Glide Sedan hero image",
+      "purpose": "Vehicle detail hero",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/xplorer-glide.html"
+      ]
+    },
+    {
+      "path": "/assets/models/xplorer-glide/gallery-1.webp",
+      "alt": "Xplorer Glide vehicle gallery image 1",
+      "purpose": "Vehicle detail gallery image 1",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/xplorer-glide.html"
+      ]
+    },
+    {
+      "path": "/assets/models/xplorer-glide/gallery-2.webp",
+      "alt": "Xplorer Glide vehicle gallery image 2",
+      "purpose": "Vehicle detail gallery image 2",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/xplorer-glide.html"
+      ]
+    },
+    {
+      "path": "/assets/models/xplorer-glide/gallery-3.webp",
+      "alt": "Xplorer Glide vehicle gallery image 3",
+      "purpose": "Vehicle detail gallery image 3",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/xplorer-glide.html"
+      ]
+    }
+  ]
+}

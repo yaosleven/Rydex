@@ -1,0 +1,390 @@
+# Replace the OAuth Worker placeholder after the Worker is deployed.
+backend:
+  name: github
+  repo: yaosleven/Rydex
+  branch: main
+  base_url: https://RYDEX_CMS_OAUTH.WORKERS.DEV
+  auth_endpoint: auth
+  use_graphql: true
+
+media_folder: public/uploads
+public_folder: /uploads
+publish_mode: simple
+
+collections:
+  - name: settings
+    label: 全站设置
+    format: json
+    files:
+      - name: site
+        label: 品牌、联系信息与全站 SEO
+        file: src/content/settings/site.json
+        fields:
+          - { label: 公司名称, name: companyName, widget: string }
+          - { label: 邮箱, name: email, widget: string }
+          - { label: 电话, name: phone, widget: string }
+          - { label: 地址, name: address, widget: string }
+          - { label: WhatsApp 链接, name: whatsappUrl, widget: string }
+          - { label: 页脚介绍, name: footerDescription, widget: text }
+          - label: 默认 SEO
+            name: defaultSeo
+            widget: object
+            fields:
+              - { label: 标题, name: title, widget: string }
+              - { label: 描述, name: description, widget: text }
+              - { label: OG 图片, name: ogImage, widget: image, required: false }
+          - label: 社媒
+            name: social
+            widget: object
+            fields:
+              - { label: Instagram, name: instagram, widget: string }
+              - { label: X / Twitter, name: twitter, widget: string }
+              - { label: YouTube, name: youtube, widget: string }
+          - label: 品牌资源
+            name: branding
+            widget: object
+            required: false
+            fields:
+              - { label: Logo, name: logo, widget: image }
+              - { label: Logo Alt 文本, name: logoAlt, widget: string }
+              - { label: 网站图标, name: favicon, widget: image }
+          - label: 导航文字
+            name: navigation
+            widget: object
+            required: false
+            fields:
+              - { label: Models, name: modelsLabel, widget: string }
+              - { label: 搜索提示, name: searchPlaceholder, widget: string }
+              - { label: Home, name: homeLabel, widget: string }
+              - { label: About, name: aboutLabel, widget: string }
+              - { label: Blog, name: blogLabel, widget: string }
+              - { label: Contact, name: contactLabel, widget: string }
+              - { label: 主按钮, name: primaryCtaLabel, widget: string }
+          - label: 页脚文字
+            name: footer
+            widget: object
+            required: false
+            fields:
+              - { label: 主按钮, name: primaryCtaLabel, widget: string }
+              - { label: 主页面标题, name: mainPagesLabel, widget: string }
+              - { label: 社媒标题, name: followUsLabel, widget: string }
+              - { label: 地址标题, name: visitUsLabel, widget: string }
+              - { label: 联系标题, name: contactUsLabel, widget: string }
+              - { label: Powered by, name: poweredByLabel, widget: string }
+              - { label: Designed by, name: designedByLabel, widget: string }
+              - { label: Style Guide, name: styleGuideLabel, widget: string }
+              - { label: Licenses, name: licensesLabel, widget: string }
+              - { label: Changelog, name: changelogLabel, widget: string }
+          - label: 全站链接
+            name: links
+            widget: object
+            fields:
+              - { label: Home, name: home, widget: string }
+              - { label: About, name: about, widget: string }
+              - { label: Models, name: models, widget: string }
+              - { label: Blog, name: blog, widget: string }
+              - { label: Contact, name: contact, widget: string }
+              - { label: Style Guide, name: styleGuide, widget: string }
+              - { label: Licenses, name: licenses, widget: string }
+              - { label: Changelog, name: changelog, widget: string }
+              - { label: 主按钮, name: primaryCta, widget: string }
+
+  - name: models
+    label: 车型
+    folder: src/content/models
+    format: json
+    create: false
+    slug: '{{fields.slug}}'
+    fields:
+      - { label: 名称, name: title, widget: string }
+      - { label: URL 标识, name: slug, widget: string, pattern: ['^[a-z0-9-]+$', '请使用英文小写、数字和连字符'] }
+      - { label: 品牌, name: brand, widget: string }
+      - { label: 类型, name: type, widget: string }
+      - { label: 摘要, name: summary, widget: text, required: false }
+      - label: 图片
+        name: media
+        widget: object
+        fields:
+          - { label: 主图, name: hero, widget: image }
+          - label: 图库
+            name: gallery
+            widget: list
+            min: 3
+            max: 3
+            field: { label: 图片, name: image, widget: image }
+      - label: 价格
+        name: pricing
+        widget: object
+        fields:
+          - { label: 日价, name: daily, widget: string }
+          - { label: 周价, name: weekly, widget: string }
+          - { label: 月价, name: monthly, widget: string }
+      - label: 参数
+        name: specifications
+        widget: list
+        fields:
+          - { label: 标签, name: label, widget: string }
+          - { label: 参数值, name: value, widget: string }
+      - label: SEO
+        name: seo
+        widget: object
+        required: false
+        fields:
+          - { label: 标题, name: title, widget: string }
+          - { label: 描述, name: description, widget: text }
+          - { label: OG 图片, name: ogImage, widget: image, required: false }
+      - label: 保留的原版映射（不要改动）
+        name: original
+        widget: object
+        fields:
+          - { label: 原名称, name: title, widget: string }
+          - { label: 原品牌, name: brand, widget: string }
+          - { label: 原类型, name: type, widget: string }
+          - { label: 原摘要, name: summary, widget: text }
+          - { label: 原日价, name: daily, widget: string }
+          - { label: 原周价, name: weekly, widget: string }
+          - { label: 原月价, name: monthly, widget: string }
+      - label: 保留的原版图库映射（不要改动）
+        name: originalMedia
+        widget: object
+        required: false
+        fields:
+          - { label: 原主图, name: hero, widget: string }
+          - label: 原图库
+            name: gallery
+            widget: list
+            field: { label: 图片, name: image, widget: string }
+      - label: 图片 Alt 文本
+        name: mediaAlt
+        widget: object
+        required: false
+        fields:
+          - { label: 主图 Alt, name: hero, widget: string }
+          - label: 图库 Alt
+            name: gallery
+            widget: list
+            field: { label: Alt, name: alt, widget: string }
+      - label: 保留的原版参数（不要改动）
+        name: originalSpecifications
+        widget: list
+        required: false
+        fields:
+          - { label: 标签, name: label, widget: string }
+          - { label: 参数值, name: value, widget: string }
+
+  - name: articles
+    label: 文章
+    folder: src/content/articles
+    format: json
+    create: true
+    slug: '{{fields.slug}}'
+    fields:
+      - { label: 标题, name: title, widget: string }
+      - { label: URL 标识, name: slug, widget: string, pattern: ['^[a-z0-9-]+$', '请使用英文小写、数字和连字符'] }
+      - { label: 分类, name: category, widget: select, options: ['Events', 'Guides', 'Reviews'] }
+      - { label: 摘要, name: description, widget: text }
+      - { label: 发布日期, name: publishedAt, widget: datetime, format: 'YYYY-MM-DD', date_format: 'YYYY-MM-DD', time_format: false }
+      - { label: 封面图片, name: cover, widget: image }
+      - { label: 封面 Alt 文本, name: coverAlt, widget: string }
+      - label: 作者
+        name: author
+        widget: object
+        fields:
+          - { label: 姓名, name: name, widget: string }
+          - { label: 头像, name: avatar, widget: image }
+      - { label: 阅读时长, name: readTime, widget: string }
+      - label: 正文
+        name: body
+        widget: object
+        fields:
+          - { label: 栏目标签, name: eyebrow, widget: string }
+          - { label: 引言, name: lead, widget: text }
+          - label: 段落
+            name: paragraphs
+            widget: list
+            min: 5
+            max: 5
+            field: { label: 段落, name: paragraph, widget: text }
+      - label: SEO
+        name: seo
+        widget: object
+        required: false
+        fields:
+          - { label: 标题, name: title, widget: string }
+          - { label: 描述, name: description, widget: text }
+          - { label: OG 图片, name: ogImage, widget: image, required: false }
+
+  - name: brands
+    label: 品牌
+    folder: src/content/brands
+    format: json
+    create: true
+    slug: '{{fields.name | lower}}'
+    fields:
+      - { label: 名称, name: name, widget: string }
+      - { label: 介绍, name: description, widget: text }
+      - { label: Logo, name: logo, widget: image }
+      - { label: Logo Alt 文本, name: logoAlt, widget: string }
+      - label: SEO
+        name: seo
+        widget: object
+        required: false
+        fields:
+          - { label: 标题, name: title, widget: string }
+          - { label: 描述, name: description, widget: text }
+          - { label: OG 图片, name: ogImage, widget: image, required: false }
+
+  - name: landing_pages
+    label: B2B 落地页
+    format: json
+    files:
+      - name: oem_manufacturer
+        label: OEM / ODM 主落地页
+        file: src/content/landing-pages/oem-manufacturer.json
+        fields:
+          - { label: URL 标识, name: slug, widget: string }
+          - label: SEO
+            name: seo
+            widget: object
+            fields:
+              - { label: 标题, name: title, widget: string }
+              - { label: 描述, name: description, widget: text }
+              - { label: OG 图片, name: ogImage, widget: image }
+          - label: 页头
+            name: header
+            widget: object
+            fields:
+              - { label: 询盘按钮, name: ctaLabel, widget: string }
+          - label: 首屏
+            name: hero
+            widget: object
+            fields:
+              - { label: 左侧标签, name: location, widget: string }
+              - { label: 顶部标题, name: collection, widget: string }
+              - { label: 说明, name: description, widget: text }
+              - { label: 栏目标签, name: eyebrow, widget: string }
+              - { label: 主标题, name: title, widget: string }
+              - { label: 主按钮, name: primaryCta, widget: string }
+              - { label: 次按钮, name: secondaryCta, widget: string }
+              - { label: 桌面端图片, name: desktopImage, widget: image }
+              - { label: 移动端图片, name: mobileImage, widget: image }
+              - { label: 桌面端 Alt 文本, name: desktopAlt, widget: string }
+              - { label: 移动端 Alt 文本, name: mobileAlt, widget: string }
+          - label: 询盘表单
+            name: quoteForm
+            widget: object
+            fields:
+              - { label: 栏目标签, name: eyebrow, widget: string }
+              - { label: 标题, name: title, widget: string }
+              - { label: 说明, name: description, widget: text }
+              - { label: 卖点, name: benefits, widget: list, field: { label: 卖点, name: benefit, widget: string } }
+              - label: 字段标签
+                name: fields
+                widget: object
+                fields:
+                  - { label: 姓名, name: name, widget: string }
+                  - { label: 公司, name: company, widget: string }
+                  - { label: 邮箱, name: email, widget: string }
+                  - { label: 电话, name: phone, widget: string }
+                  - { label: 国家, name: country, widget: string }
+                  - { label: 产品, name: product, widget: string }
+                  - { label: 需求, name: requirements, widget: string }
+                  - { label: 需求提示, name: requirementsPlaceholder, widget: text }
+              - { label: 同意说明, name: consent, widget: text }
+              - { label: 提交按钮, name: submitLabel, widget: string }
+              - { label: 预览提示, name: previewMessage, widget: text }
+              - { label: 提交反馈, name: submitFeedback, widget: text }
+          - label: 页面区块
+            name: sections
+            widget: object
+            fields:
+              - label: 企业介绍
+                name: about
+                widget: object
+                fields:
+                  - { label: 栏目标签, name: eyebrow, widget: string }
+                  - { label: 标题, name: title, widget: text }
+                  - { label: 按钮, name: cta, widget: string }
+                  - { label: 指标, name: metrics, widget: list, field: { label: 指标, name: metric, widget: string } }
+              - label: 产品范围
+                name: models
+                widget: object
+                fields:
+                  - { label: 栏目标签, name: eyebrow, widget: string }
+                  - { label: 标题, name: title, widget: string }
+                  - { label: 说明, name: body, widget: text }
+                  - { label: 按钮, name: cta, widget: string }
+              - label: 优势
+                name: benefits
+                widget: object
+                fields:
+                  - { label: 栏目标签, name: eyebrow, widget: string }
+                  - { label: 标题, name: title, widget: text }
+                  - label: 卡片
+                    name: cards
+                    widget: list
+                    fields:
+                      - { label: 标题, name: title, widget: string }
+              - label: 买家评价
+                name: testimonials
+                widget: object
+                fields:
+                  - { label: 栏目标签, name: eyebrow, widget: string }
+                  - { label: 标题, name: title, widget: string }
+              - label: 流程
+                name: steps
+                widget: object
+                fields:
+                  - { label: 栏目标签, name: eyebrow, widget: string }
+                  - { label: 标题, name: title, widget: text }
+                  - { label: 按钮, name: cta, widget: string }
+                  - label: 步骤
+                    name: cards
+                    widget: list
+                    fields:
+                      - { label: 标题, name: title, widget: string }
+              - label: 资源文章
+                name: journal
+                widget: object
+                fields:
+                  - { label: 栏目标签, name: eyebrow, widget: string }
+                  - { label: 标题, name: title, widget: string }
+                  - { label: 按钮, name: cta, widget: string }
+          - label: 询盘行动横幅
+            name: leadBand
+            widget: object
+            fields:
+              - { label: 栏目标签, name: eyebrow, widget: string }
+              - { label: 标题, name: title, widget: string }
+              - { label: 主按钮, name: primaryCta, widget: string }
+              - { label: 次按钮, name: secondaryCta, widget: string }
+          - label: 移动端悬浮询盘按钮
+            name: stickyCta
+            widget: object
+            fields:
+              - { label: 主按钮, name: primaryLabel, widget: string }
+              - { label: 次按钮, name: secondaryLabel, widget: string }
+          - label: 采购信息
+            name: procurement
+            widget: object
+            fields:
+              - { label: 栏目标签, name: eyebrow, widget: string }
+              - { label: 标题, name: title, widget: text }
+              - label: 卡片
+                name: cards
+                widget: list
+                fields:
+                  - { label: 标题, name: title, widget: string }
+                  - { label: 内容, name: body, widget: text }
+          - label: 常见问题
+            name: faq
+            widget: object
+            fields:
+              - { label: 栏目标签, name: eyebrow, widget: string }
+              - { label: 标题, name: title, widget: string }
+              - label: 问答
+                name: items
+                widget: list
+                fields:
+                  - { label: 问题, name: question, widget: string }
+                  - { label: 回答, name: answer, widget: text }

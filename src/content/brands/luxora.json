@@ -1,0 +1,11 @@
+{
+  "name": "Luxora",
+  "description": "A current Rydex template model brand.",
+  "logo": "/assets/brands/luxora.svg",
+  "seo": {
+    "title": "Luxora Models | Rydex",
+    "description": "A current Rydex template model brand.",
+    "ogImage": "/assets/brands/luxora.svg"
+  },
+  "logoAlt": "Luxora brand logo"
+}

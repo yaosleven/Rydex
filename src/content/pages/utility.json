@@ -1,0 +1,107 @@
+{
+  "page": "utility",
+  "copy": {
+    "searchTitle": "Search results",
+    "searchPlaceholder": "Search…",
+    "searchBrowse": "Browse {count} local results.",
+    "searchAvailable": "{count} local results available.",
+    "searchEmpty": "No matching results. Try another search term.",
+    "notFoundCode": "404",
+    "notFoundTitle": "Page Not Found",
+    "notFoundBody": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.",
+    "notFoundCta": "Back To Home",
+    "changelogDescription": "All versions, updates, and improvements of this template will be documented and tracked here.",
+    "changelogVersion": "Version 1.1",
+    "changelogRelease": "Initial Release of the Rydex Webflow Template",
+    "licenseIntro": "All graphical assets in this template are licensed for personal and commercial use. If you'd like to use a specific asset, please check the license below.",
+    "styleGuideIntro": "Maintain a consistent, polished, and visually appealing design throughout your website with the help of this style guide."
+  },
+  "images": {},
+  "team": [],
+  "searchItems": [
+    {
+      "title": "Models",
+      "type": "Page",
+      "href": "/models.html",
+      "description": "Browse the complete Rydex vehicle collection.",
+      "keywords": [
+        "car",
+        "vehicle",
+        "brand",
+        "type",
+        "feature"
+      ]
+    },
+    {
+      "title": "About",
+      "type": "Page",
+      "href": "/about.html",
+      "description": "Learn about the Rydex luxury rental experience.",
+      "keywords": [
+        "company",
+        "rydex",
+        "service"
+      ]
+    },
+    {
+      "title": "Contact",
+      "type": "Page",
+      "href": "/contact.html",
+      "description": "Get in touch with the Rydex team.",
+      "keywords": [
+        "book",
+        "booking",
+        "phone",
+        "email"
+      ]
+    },
+    {
+      "title": "Reviews",
+      "type": "Page",
+      "href": "/reviews.html",
+      "description": "Read feedback from Rydex drivers.",
+      "keywords": [
+        "testimonials",
+        "customers"
+      ]
+    },
+    {
+      "title": "Events",
+      "type": "Page",
+      "href": "/events.html",
+      "description": "Rydex automotive events and news.",
+      "keywords": [
+        "news",
+        "racing",
+        "show"
+      ]
+    },
+    {
+      "title": "Guides",
+      "type": "Page",
+      "href": "/guides.html",
+      "description": "Rental and vehicle guides.",
+      "keywords": [
+        "blog",
+        "tips",
+        "maintenance"
+      ]
+    },
+    {
+      "title": "Blog",
+      "type": "Page",
+      "href": "/blog.html",
+      "description": "Latest Rydex stories and updates.",
+      "keywords": [
+        "journal",
+        "news",
+        "articles"
+      ]
+    }
+  ],
+  "seo": {
+    "description": "Search, legal and template information for Rydex.",
+    "ogImage": "/assets/home-hero.webp",
+    "title": "Rydex Information | Rydex"
+  }
+}

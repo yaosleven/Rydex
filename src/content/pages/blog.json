@@ -1,0 +1,22 @@
+{
+  "page": "blog",
+  "copy": {
+    "eyebrow": "Blog Posts",
+    "blogTitle": "Our Blog Posts",
+    "categoryPrefix": "Posts",
+    "filterLabel": "Categories",
+    "all": "All",
+    "reviews": "Reviews",
+    "guides": "Guides",
+    "events": "Events",
+    "next": "Next",
+    "previous": "Previous"
+  },
+  "images": {},
+  "team": [],
+  "seo": {
+    "description": "Latest Rydex vehicle stories, guides and events.",
+    "ogImage": "/assets/articles/exclusive-rydex-car-show-in-dubai-unveiled/cover.webp",
+    "title": "Rydex Blog | Rydex"
+  }
+}

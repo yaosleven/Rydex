@@ -1,0 +1,22 @@
+{
+  "page": "guides",
+  "copy": {
+    "eyebrow": "Blog Posts",
+    "blogTitle": "Our Blog Posts",
+    "categoryPrefix": "Posts",
+    "filterLabel": "Categories",
+    "all": "All",
+    "reviews": "Reviews",
+    "guides": "Guides",
+    "events": "Events",
+    "next": "Next",
+    "previous": "Previous"
+  },
+  "images": {},
+  "team": [],
+  "seo": {
+    "description": "Vehicle rental and maintenance guides from Rydex.",
+    "ogImage": "/assets/articles/guides-for-maintaining-your-rental-car-perfectly/cover.webp",
+    "title": "Rydex Guides | Rydex"
+  }
+}

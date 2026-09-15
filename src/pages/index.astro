@@ -1,0 +1,77 @@
+---
+import WebflowDocument from '../layouts/WebflowDocument.astro';
+import RawMarkup from '../components/webflow/RawMarkup.astro';
+import HomeHero from '../components/home/HomeHero.astro';
+import HomeAbout from '../components/home/HomeAbout.astro';
+import FeaturedModels from '../components/home/FeaturedModels.astro';
+import ServiceBenefits from '../components/home/ServiceBenefits.astro';
+import DriverTestimonials from '../components/home/DriverTestimonials.astro';
+import BookingSteps from '../components/home/BookingSteps.astro';
+import HomeJournal from '../components/home/HomeJournal.astro';
+import SiteFooter from '../components/shared/SiteFooter.astro';
+import HomeNavigationInteractions from '../components/home/HomeNavigationInteractions.astro';
+import { webflowHome } from '../utils/webflow-home';
+import { getEntry } from 'astro:content';
+
+const home = await getEntry('pages', 'home');
+if (!home) throw new Error('Missing required Home page content.');
+---
+
+<WebflowDocument title={home.data.seo?.title} description={home.data.seo?.description} ogImage={home.data.seo?.ogImage}>
+  <div class="page-wrapper">
+    <RawMarkup markup={webflowHome.customCursor} />
+    <HomeHero markup={webflowHome.hero} content={home} />
+    <HomeAbout markup={webflowHome.about} content={home} />
+    <FeaturedModels markup={webflowHome.models} content={home} />
+    <ServiceBenefits markup={webflowHome.benefits} content={home} />
+    <DriverTestimonials markup={webflowHome.testimonials} content={home} />
+    <BookingSteps markup={webflowHome.steps} content={home} />
+    <HomeJournal markup={webflowHome.blog} content={home} />
+    <SiteFooter markup={webflowHome.footer} />
+    <HomeNavigationInteractions />
+  </div>
+</WebflowDocument>
+
+<script is:inline>
+  const previewParams = new URLSearchParams(window.location.search);
+  const previewStorageKey = 'rydex-home-content-draft-v1';
+
+  if (previewParams.get('content-preview') === '1') {
+    try {
+      const savedDraft = window.localStorage.getItem(previewStorageKey);
+      const draft = savedDraft ? JSON.parse(savedDraft) : null;
+
+      if (draft) {
+        const setText = (selector, value) => {
+          if (!value) return;
+          document.querySelectorAll(selector).forEach((element) => {
+            element.textContent = value;
+          });
+        };
+
+        const setImage = (selector, value) => {
+          if (!value) return;
+          const image = document.querySelector(selector);
+          if (image instanceof HTMLImageElement) {
+            image.src = value;
+            image.removeAttribute('srcset');
+          }
+        };
+
+        setText('.hero-text-location .pearl-color-text', draft.location);
+        setText('.hero-content-top .grow-if-possible .pearl-color-text', draft.collection);
+        setText('.hero-text-right .pearl-color-text', draft.description);
+        setText('.hero-subheadline-wrapper .subheadline > div:last-child', draft.eyebrow);
+        setText('.home-hero-text h1', draft.title);
+        setText('.hero-button-1 .link-text, .hero-button-1 .link-text-hover', draft.primaryCta);
+        setText('.hero-button-2 .link-text, .hero-button-2 .link-text-hover', draft.secondaryCta);
+        setImage('.hero-image.desktop-tablet-only img', draft.desktopImage);
+        setImage('.hero-image.mobile-only img', draft.mobileImage);
+
+        if (draft.companyName) document.title = `${draft.companyName} | Home preview`;
+      }
+    } catch {
+      // A broken draft must never prevent the public Home page from loading.
+    }
+  }
+</script>

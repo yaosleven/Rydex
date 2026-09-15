@@ -1,0 +1,107 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+
+const [settings, pages, models, brands, articles, landingPages] = await Promise.all([
+  getEntry('settings', 'site'),
+  getCollection('pages'),
+  getCollection('models'),
+  getCollection('brands'),
+  getCollection('articles'),
+  getCollection('landingPages'),
+]);
+
+if (!settings) throw new Error('Missing required site settings content entry.');
+
+const collections = [
+  { label: '首页内容', count: 1, description: '首屏、品牌信息与主视觉草稿编辑。', href: '/admin/home', action: '开始编辑' },
+  { label: '车型资料', count: models.length, description: '车型名称、价格、参数、图库与 SEO。', href: '/admin/models', action: '开始编辑' },
+  { label: '品牌资料', count: brands.length, description: '品牌 Logo、介绍与品牌页 SEO。', href: '/admin/library', action: '开始编辑' },
+  { label: '文章内容', count: articles.length, description: '文章标题、作者、正文、封面与 SEO。', href: '/admin/articles', action: '开始编辑' },
+  { label: '普通页面', count: pages.length, description: 'About、Contact、列表、搜索、404 和辅助页。', href: '/admin/library', action: '开始编辑' },
+  { label: 'B2B 落地页', count: landingPages.length, description: '广告落地页的卖点、表单和 CTA。', href: '/admin/settings', action: '开始编辑' },
+];
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>内容管理后台｜Rydex</title>
+  </head>
+  <body>
+    <main class="shell">
+      <aside class="sidebar" aria-label="后台导航">
+        <a class="brand" href="/admin/" aria-current="page"><span>R</span><strong>{settings.data.companyName}</strong></a>
+        <nav>
+          <a class="active" href="/admin/">内容中心</a>
+          <a href="/admin/home">首页编辑</a>
+          <a href="/admin/models">车型管理</a>
+          <a href="/admin/articles">文章管理</a>
+          <a href="/admin/library">页面与品牌</a>
+          <span>询盘数据 <em>待接入</em></span>
+          <a href="/admin/settings">网站设置与页面</a>
+        </nav>
+        <p class="sidebar-note">阶段 C / 可视化维护<br /><small>前台不会因后台草稿而改变。</small></p>
+      </aside>
+
+      <section class="workspace">
+        <header>
+          <div>
+            <p class="eyebrow">CONTENT STUDIO</p>
+            <h1>内容管理中心</h1>
+            <p class="lede">先在本机创建和预览草稿；接入云端 CMS 后，才能由后台一键发布。</p>
+          </div>
+          <a class="preview" href="/" target="_blank" rel="noreferrer">查看公开网站 ↗</a>
+        </header>
+
+        <section class="notice" aria-label="当前阶段说明">
+          <strong>阶段 C：本机草稿编辑已就绪。</strong>
+          <span>首页和车型支持前台草稿预览；文章、网站设置、About、Contact 与 B2B 页面已提供字段编辑与本机草稿保存。接入云端 CMS 后，才能由后台一键发布。</span>
+        </section>
+
+        <section class="overview" aria-label="内容总览">
+          <article><strong>{pages.length}</strong><span>普通页面</span></article>
+          <article><strong>{models.length}</strong><span>车型</span></article>
+          <article><strong>{articles.length}</strong><span>文章</span></article>
+          <article><strong>{brands.length}</strong><span>品牌</span></article>
+        </section>
+
+        <section class="collection-grid" aria-label="可管理内容">
+          {collections.map((collection) => (
+            <article class="collection-card">
+              <div class="collection-count">{collection.count}</div>
+              <h2>{collection.label}</h2>
+              <p>{collection.description}</p>
+              {collection.href === '#next' ? (
+                <span class="muted-action">{collection.action}</span>
+              ) : (
+                <a class="card-action" href={collection.href}>{collection.action} →</a>
+              )}
+            </article>
+          ))}
+        </section>
+
+        <section id="next" class="next-step">
+          <p class="eyebrow">NEXT MILESTONE</p>
+          <h2>从“本机草稿”到“正式发布”</h2>
+          <p>正式发布功能需要连接一个受控内容源，例如 GitHub 仓库 + Decap CMS，或 Cloudflare D1/KV + 登录。未连接前，后台不会假装保存或发布你的正式内容。</p>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
+
+<style>
+  :root { color: #17283a; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f3f6fa; }
+  * { box-sizing: border-box; } body { margin: 0; }
+  .shell { min-height: 100vh; display: grid; grid-template-columns: 250px minmax(0, 1fr); }
+  .sidebar { min-height: 100vh; display: flex; flex-direction: column; padding: 28px 16px; background: linear-gradient(180deg, #0d2743, #071a2d); color: #c5d5e3; }
+  .brand { display: flex; gap: 10px; align-items: center; padding: 0 10px 31px; color: #fff; text-decoration: none; }.brand > span { display: grid; width: 37px; height: 37px; place-items: center; border-radius: 11px; background: #f0df58; color: #102844; font-size: 21px; font-weight: 800; }.brand strong { font-size: 15px; }
+  nav { display: grid; gap: 5px; } nav > * { min-height: 44px; display: flex; align-items: center; justify-content: space-between; padding: 0 11px; border-radius: 8px; color: #b9c9d8; text-decoration: none; font-size: 14px; } nav .active { background: #17486f; color: #fff; box-shadow: inset 3px 0 #52c1fc; } nav span { opacity: .64; } nav em { color: #7d95ab; font-size: 10px; font-style: normal; }.sidebar-note { margin: auto 10px 0; padding: 14px; border: 1px solid rgba(255,255,255,.12); border-radius: 10px; background: rgba(255,255,255,.04); font-size: 12px; line-height: 1.55; }.sidebar-note small { color: #9aafc2; }
+  .workspace { width: min(1280px, 100%); margin: 0 auto; padding: 42px 38px 88px; } header { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }.eyebrow { margin: 0 0 7px; color: #5d7b9a; letter-spacing: .09em; font-size: 11px; font-weight: 800; }h1,h2,p { margin-top: 0; }h1 { margin-bottom: 11px; font-size: clamp(28px, 3vw, 39px); letter-spacing: -.045em; }.lede { max-width: 650px; margin-bottom: 0; color: #6d8297; line-height: 1.6; }.preview { display: inline-flex; min-height: 41px; align-items: center; justify-content: center; padding: 0 15px; border: 1px solid #d5e0eb; border-radius: 7px; background: #fff; color: #26445f; text-decoration: none; font-size: 13px; font-weight: 700; white-space: nowrap; }
+  .notice { display: flex; gap: 10px; align-items: flex-start; margin: 31px 0 23px; padding: 15px 17px; border: 1px solid #e5cf82; border-radius: 10px; background: #fff9e6; color: #745913; line-height: 1.55; font-size: 13px; }.notice strong { white-space: nowrap; }.overview { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }.overview article, .collection-card, .next-step { border: 1px solid #dfe8ef; border-radius: 12px; background: #fff; box-shadow: 0 3px 13px rgba(38,68,95,.04); }.overview article { display: grid; gap: 4px; padding: 20px; }.overview strong { color: #123c64; font-size: 29px; letter-spacing: -.04em; }.overview span { color: #70859a; font-size: 13px; }
+  .collection-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 18px; }.collection-card { min-height: 206px; padding: 22px; display: flex; flex-direction: column; }.collection-count { color: #2070a7; font-size: 12px; font-weight: 800; }.collection-card h2 { margin: 14px 0 8px; font-size: 18px; letter-spacing: -.02em; }.collection-card p { margin-bottom: 18px; color: #708498; font-size: 13px; line-height: 1.55; }.card-action,.muted-action { margin-top: auto; font-size: 13px; font-weight: 800; }.card-action { color: #176396; text-decoration: none; }.muted-action { color: #9aaab8; }.next-step { margin-top: 20px; padding: 25px; background: linear-gradient(110deg, #102e4d, #1d527b); color: #fff; }.next-step .eyebrow { color: #9bccec; }.next-step h2 { margin-bottom: 8px; font-size: 20px; }.next-step p:not(.eyebrow) { max-width: 760px; margin-bottom: 0; color: #d6e5f1; line-height: 1.6; font-size: 14px; }
+  @media (max-width: 820px) { .shell { grid-template-columns: 1fr; }.sidebar { display: none; }.workspace { padding: 25px 16px 64px; } header { flex-direction: column; }.overview { grid-template-columns: repeat(2, minmax(0, 1fr)); }.collection-grid { grid-template-columns: 1fr; }.notice { flex-direction: column; gap: 4px; } }
+</style>

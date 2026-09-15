@@ -1,0 +1,32 @@
+---
+interface Props {
+  content: { eyebrow: string; title: string; primaryCta: string; secondaryCta: string };
+}
+const { content } = Astro.props;
+---
+
+<section class="b2b-lead-band" aria-label="Request a quotation">
+  <div class="b2b-lead-band-inner">
+    <div>
+      <div class="b2b-lead-band-eyebrow">{content.eyebrow}</div>
+      <h2>{content.title}</h2>
+    </div>
+    <div class="b2b-lead-band-actions">
+      <a href="#quote-form" class="b2b-lead-band-primary">{content.primaryCta} <span aria-hidden="true">→</span></a>
+      <a href="#quote-form" class="b2b-lead-band-secondary">{content.secondaryCta}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .b2b-lead-band { padding: 20px; background: #070806; }
+  .b2b-lead-band-inner { display:flex; width:min(100%,1316px); align-items:center; justify-content:space-between; gap:32px; margin:0 auto; padding:34px 38px; border:1px solid rgba(212,212,20,.7); border-radius:18px; background:linear-gradient(110deg,#1a1a1a,#11120e); color:#fff; }
+  .b2b-lead-band-eyebrow { margin-bottom:10px; color:#d4d414; font-size:12px; font-weight:700; letter-spacing:.12em; }
+  .b2b-lead-band h2 { max-width:620px; margin:0; font-size:clamp(25px,2.7vw,38px); font-weight:500; line-height:1.1; }
+  .b2b-lead-band-actions { display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
+  .b2b-lead-band-primary,.b2b-lead-band-secondary { display:inline-flex; min-height:50px; align-items:center; justify-content:center; padding:0 20px; border-radius:10px; font-size:15px; font-weight:600; white-space:nowrap; }
+  .b2b-lead-band-primary { gap:24px; background:#d4d414; color:#111; }
+  .b2b-lead-band-primary span { font-size:21px; }
+  .b2b-lead-band-secondary { border:1px solid rgba(255,255,255,.55); color:#fff; }
+  @media (max-width: 767px) { .b2b-lead-band { padding:16px; } .b2b-lead-band-inner { align-items:flex-start; flex-direction:column; padding:28px 24px; } .b2b-lead-band-actions { width:100%; } .b2b-lead-band-primary,.b2b-lead-band-secondary { flex:1; } }
+</style>

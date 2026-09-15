@@ -1,0 +1,13 @@
+---
+import RawMarkup from '../webflow/RawMarkup.astro';
+import { applyWebflowContent, type WebflowReplacement } from '../../utils/webflow-content';
+
+interface Props {
+  markup: string;
+  replacements?: readonly WebflowReplacement[];
+}
+
+const { markup, replacements = [] } = Astro.props;
+---
+
+<RawMarkup markup={applyWebflowContent(markup, replacements)} />

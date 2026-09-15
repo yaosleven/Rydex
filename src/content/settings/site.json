@@ -1,0 +1,55 @@
+{
+  "companyName": "Rydex",
+  "email": "info@rydex.com",
+  "phone": "+1 (123) 456-7890",
+  "address": "19 Jumeirah Beach Road, Umm Suqeim, UAE.",
+  "whatsappUrl": "https://whatsapp.com/",
+  "footerDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit suspendisse varius enim in eros.",
+  "social": {
+    "instagram": "https://instagram.com/",
+    "twitter": "https://x.com/",
+    "youtube": "https://youtube.com/"
+  },
+  "defaultSeo": {
+    "title": "Rydex - Webflow HTML website template",
+    "description": "Rydex is a stylish and modern Webflow template for luxury car rentals.",
+    "ogImage": "/assets/home-hero.webp"
+  },
+  "branding": {
+    "logo": "/assets/shared/brand-logo.svg",
+    "logoAlt": "Rydex logo",
+    "favicon": "/assets/logo.svg"
+  },
+  "navigation": {
+    "modelsLabel": "Models",
+    "searchPlaceholder": "Search…",
+    "homeLabel": "Home",
+    "aboutLabel": "About",
+    "blogLabel": "Blog",
+    "contactLabel": "Contact",
+    "primaryCtaLabel": "Book Now"
+  },
+  "footer": {
+    "primaryCtaLabel": "Book Now",
+    "mainPagesLabel": "Main Pages",
+    "followUsLabel": "Follow Us",
+    "visitUsLabel": "Visit Us",
+    "contactUsLabel": "Contact us",
+    "poweredByLabel": "Powered by",
+    "designedByLabel": "Designed by",
+    "styleGuideLabel": "Style Guide",
+    "licensesLabel": "Licenses",
+    "changelogLabel": "Changelog"
+  },
+  "links": {
+    "home": "/",
+    "about": "/about.html",
+    "models": "/models.html",
+    "blog": "/blog.html",
+    "contact": "/contact.html",
+    "styleGuide": "/style-guide.html",
+    "licenses": "/licenses.html",
+    "changelog": "/changelog.html",
+    "primaryCta": "/contact.html"
+  }
+}

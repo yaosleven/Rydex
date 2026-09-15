@@ -1,0 +1,151 @@
+{
+  "title": "Rapt Horizon",
+  "slug": "rapt-horizon",
+  "brand": "Velox",
+  "type": "Coupe",
+  "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidid ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullam laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupida non proident, sunt in culpa qui officia deserunt.",
+  "heroImage": "/assets/models/rapt-horizon/card.webp",
+  "media": {
+    "hero": "/assets/models/rapt-horizon/card.webp",
+    "gallery": [
+      "/assets/models/rapt-horizon/gallery-1.webp",
+      "/assets/models/rapt-horizon/gallery-2.webp",
+      "/assets/models/rapt-horizon/gallery-3.webp"
+    ]
+  },
+  "originalMedia": {
+    "hero": "/static/picture/686f7eca3b34d2e8df938a4b_raptor-horizon.webp",
+    "gallery": [
+      "/static/picture/688c4c31b702b8d8b58ee8ed_additional-image-1.webp",
+      "/static/picture/688c4c318351b5a1b1a71e56_additional-image-2.webp",
+      "/static/picture/688c4c31b700b10106cf511c_additional-image-3.webp"
+    ]
+  },
+  "pricing": {
+    "daily": "$130",
+    "weekly": "$680",
+    "monthly": "$2,500"
+  },
+  "specifications": [
+    {
+      "label": "Model Brand",
+      "value": "Velox"
+    },
+    {
+      "label": "Type",
+      "value": "Coupe"
+    },
+    {
+      "label": "Model Year",
+      "value": "2024"
+    },
+    {
+      "label": "Transmission",
+      "value": "Auto"
+    },
+    {
+      "label": "Fuel Type",
+      "value": "Hybrid"
+    },
+    {
+      "label": "Engine",
+      "value": "6.5 L"
+    },
+    {
+      "label": "Mileage",
+      "value": "2,100 KM"
+    },
+    {
+      "label": "Horse Power",
+      "value": "990 HP"
+    },
+    {
+      "label": "Cylinders",
+      "value": "8"
+    },
+    {
+      "label": "Seats",
+      "value": "4"
+    },
+    {
+      "label": "Baggage",
+      "value": "4"
+    },
+    {
+      "label": "Doors",
+      "value": "4"
+    }
+  ],
+  "seo": {
+    "title": "Rapt Horizon - Rydex",
+    "description": "Rapt Horizon model details, pricing and specifications."
+  },
+  "original": {
+    "title": "Rapt Horizon",
+    "brand": "Velox",
+    "type": "Coupe",
+    "daily": "$130",
+    "weekly": "$680",
+    "monthly": "$2,500",
+    "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidid ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullam laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupida non proident, sunt in culpa qui officia deserunt."
+  },
+  "imageAlt": "Rapt Horizon Coupe vehicle",
+  "mediaAlt": {
+    "hero": "Rapt Horizon Coupe hero image",
+    "gallery": [
+      "Rapt Horizon vehicle gallery image 1",
+      "Rapt Horizon vehicle gallery image 2",
+      "Rapt Horizon vehicle gallery image 3"
+    ]
+  },
+  "originalSpecifications": [
+    {
+      "label": "Model Brand",
+      "value": "Velox"
+    },
+    {
+      "label": "Type",
+      "value": "Coupe"
+    },
+    {
+      "label": "Model Year",
+      "value": "2024"
+    },
+    {
+      "label": "Transmission",
+      "value": "Auto"
+    },
+    {
+      "label": "Fuel Type",
+      "value": "Hybrid"
+    },
+    {
+      "label": "Engine",
+      "value": "6.5 L"
+    },
+    {
+      "label": "Mileage",
+      "value": "2,100 KM"
+    },
+    {
+      "label": "Horse Power",
+      "value": "990 HP"
+    },
+    {
+      "label": "Cylinders",
+      "value": "8"
+    },
+    {
+      "label": "Seats",
+      "value": "4"
+    },
+    {
+      "label": "Baggage",
+      "value": "4"
+    },
+    {
+      "label": "Doors",
+      "value": "4"
+    }
+  ]
+}

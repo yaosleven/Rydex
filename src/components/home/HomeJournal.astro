@@ -1,0 +1,8 @@
+---
+import RawMarkup from '../webflow/RawMarkup.astro';
+import type { CollectionEntry } from 'astro:content';
+import { applyHomeSectionCopy, homeImageReplacements } from '../../data/home-copy';
+interface Props { markup: string; content: CollectionEntry<'pages'>; }
+const { markup, content } = Astro.props;
+---
+<RawMarkup markup={applyHomeSectionCopy('journal', markup, content)} replacements={homeImageReplacements(content)} />

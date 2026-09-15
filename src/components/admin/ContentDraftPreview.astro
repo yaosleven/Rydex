@@ -1,0 +1,71 @@
+---
+interface Props {
+  storageKey: string;
+  entryId?: string;
+  section?: string;
+  defaults: Record<string, unknown>;
+}
+
+const { storageKey, entryId, section, defaults } = Astro.props;
+const configId = `content-draft-preview-${entryId ?? section ?? 'site'}`;
+---
+
+<script id={configId} type="application/json" is:inline set:html={JSON.stringify({ storageKey, entryId, section, defaults })}></script>
+<script is:inline data-config-id={configId}>
+(() => {
+  const configId = document.currentScript?.dataset.configId;
+  const config = JSON.parse(configId ? document.getElementById(configId)?.textContent || '{}' : '{}');
+  const previewEnabled = new URLSearchParams(window.location.search).get('content-preview') === '1';
+
+  if (previewEnabled && config.storageKey) {
+    try {
+      const saved = JSON.parse(window.localStorage.getItem(config.storageKey) || '{}');
+      const draft = config.section ? saved?.[config.section] : config.entryId ? saved?.[config.entryId] : saved;
+
+      if (draft && typeof draft === 'object') {
+        const textNodes = [];
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+        while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+        const valueAt = (object, path) => path.reduce((value, key) => value?.[key], object);
+        const walk = (object, path = []) => {
+          if (typeof object === 'string') {
+            const replacement = valueAt(draft, path);
+            if (typeof replacement !== 'string' || !replacement || replacement === object) return;
+
+            if (/^(\/|https?:\/\/)/.test(object)) {
+              document.querySelectorAll('[src], [srcset], [href]').forEach((element) => {
+                const source = element.getAttribute('src');
+                const href = element.getAttribute('href');
+                if (source === object) element.setAttribute('src', replacement);
+                if (href === object) element.setAttribute('href', replacement);
+              });
+              return;
+            }
+
+            textNodes.forEach((node) => {
+              if (node.nodeValue?.trim() === object) node.nodeValue = node.nodeValue.replace(object, replacement);
+            });
+            document.querySelectorAll('input[placeholder], textarea[placeholder], meta[content]').forEach((element) => {
+              if (element.getAttribute('placeholder') === object) element.setAttribute('placeholder', replacement);
+              if (element.getAttribute('content') === object) element.setAttribute('content', replacement);
+            });
+          } else if (Array.isArray(object)) {
+            object.forEach((value, index) => walk(value, [...path, index]));
+          } else if (object && typeof object === 'object') {
+            Object.entries(object).forEach(([key, value]) => walk(value, [...path, key]));
+          }
+        };
+
+        walk(config.defaults);
+        const seoTitle = valueAt(draft, ['seo', 'title']);
+        const seoDescription = valueAt(draft, ['seo', 'description']);
+        if (seoTitle) document.title = seoTitle;
+        if (seoDescription) document.querySelector('meta[name="description"]')?.setAttribute('content', seoDescription);
+      }
+    } catch {
+      // An invalid local draft must never affect public rendering.
+    }
+  }
+})();
+</script>

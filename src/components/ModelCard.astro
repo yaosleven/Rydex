@@ -1,0 +1,31 @@
+---
+interface Props {
+  name: string;
+  brand: 'Velox' | 'Aurion';
+  type: string;
+  price: string;
+  mileage: string;
+  horsepower: string;
+  engine: string;
+  image: string;
+  logo: string;
+}
+
+const { name, brand, type, price, mileage, horsepower, engine, image, logo } = Astro.props;
+---
+
+<a class="model-card" href="#contact" data-reveal>
+  <img class="model-card-image" src={image} alt={`${brand} ${name}`} loading="lazy" />
+  <div class="model-card-shade"></div>
+  <div class="model-card-content">
+    <div class="model-brand"><img src={logo} alt="" width="34" height="28" />{brand}</div>
+    <div class="model-card-bottom">
+      <div class="model-card-title"><div><h3>{name}</h3><div class="model-meta"><strong>{price}</strong><span>Daily Rental · {type}</span></div></div><span class="card-arrow">↗</span></div>
+      <div class="model-specs" aria-label={`${name} specifications`}>
+        <span><b>{mileage}</b><small>Mileage</small></span>
+        <span><b>{horsepower}</b><small>Horsepower</small></span>
+        <span><b>{engine}</b><small>Engine</small></span>
+      </div>
+    </div>
+  </div>
+</a>

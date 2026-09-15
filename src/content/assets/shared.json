@@ -1,0 +1,12 @@
+{
+  "group": "Shared, brand and contact assets",
+  "items": [
+    { "path": "/assets/shared/brand-logo.svg", "alt": "Rydex logo", "purpose": "Global header, footer and B2B header logo", "recommendedWidth": 480, "recommendedHeight": 120, "routes": ["/", "/about.html", "/contact.html", "/models.html", "/lp/oem-manufacturer/"] },
+    { "path": "/assets/brands/luxora.svg", "alt": "Luxora logo", "purpose": "Brand filter and model listing logo", "recommendedWidth": 400, "recommendedHeight": 240, "routes": ["/models.html", "/luxora.html"] },
+    { "path": "/assets/brands/velox.svg", "alt": "Velox logo", "purpose": "Brand filter and model listing logo", "recommendedWidth": 400, "recommendedHeight": 240, "routes": ["/models.html", "/velox.html"] },
+    { "path": "/assets/brands/aurion.svg", "alt": "Aurion logo", "purpose": "Brand filter and model listing logo", "recommendedWidth": 400, "recommendedHeight": 240, "routes": ["/models.html", "/aurion.html"] },
+    { "path": "/assets/contact/icons/phone.svg", "alt": "Phone contact icon", "purpose": "Contact method icon", "recommendedWidth": 96, "recommendedHeight": 96, "routes": ["/contact.html"] },
+    { "path": "/assets/contact/icons/email.svg", "alt": "Email contact icon", "purpose": "Contact method icon", "recommendedWidth": 96, "recommendedHeight": 96, "routes": ["/contact.html"] },
+    { "path": "/assets/contact/icons/chat.svg", "alt": "Chat contact icon", "purpose": "Contact method icon", "recommendedWidth": 96, "recommendedHeight": 96, "routes": ["/contact.html"] }
+  ]
+}

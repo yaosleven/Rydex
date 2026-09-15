@@ -1,0 +1,8 @@
+---
+import RawMarkup from '../webflow/RawMarkup.astro';
+import type { CollectionEntry } from 'astro:content';
+import { homeImageReplacements, homeReplacements } from '../../data/home-copy';
+interface Props { markup: string; content: CollectionEntry<'pages'>; }
+const { markup, content } = Astro.props;
+---
+<RawMarkup markup={markup} replacements={[...homeReplacements('hero', content), ...homeImageReplacements(content)]} />

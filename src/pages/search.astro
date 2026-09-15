@@ -1,0 +1,109 @@
+---
+import RawMarkup from '../components/webflow/RawMarkup.astro';
+import BlogInteractions from '../components/blog/BlogInteractions.astro';
+import { getCollection } from 'astro:content';
+import { getEntry } from 'astro:content';
+import WebflowDocument from '../layouts/WebflowDocument.astro';
+import aboutSource from '../reference/original-about.html?raw';
+import { sanitizeWebflowBody } from '../utils/webflow-page';
+import { modelsAssetReplacements } from '../data/models-assets';
+
+const query = Astro.url.searchParams.get('query')?.trim() || '';
+const utility = await getEntry('pages', 'utility');
+if (!utility) throw new Error('Missing required utility page content.');
+const { copy } = utility.data;
+const modelEntries = await getCollection('models');
+const articleEntries = await getCollection('articles');
+const searchItems = [
+  ...modelEntries.map((entry) => ({
+    title: entry.data.title,
+    type: 'Model' as const,
+    href: `/${entry.data.slug}.html`,
+    description: `${entry.data.brand} ${entry.data.type.toLowerCase()} · ${entry.data.pricing.daily}/day`,
+    keywords: [entry.data.slug, entry.data.brand.toLowerCase(), entry.data.type.toLowerCase(), 'rental'],
+  })),
+  ...articleEntries.map((entry) => ({
+    title: entry.data.title,
+    type: 'Article' as const,
+    href: `/${entry.data.slug}.html`,
+    description: entry.data.description,
+    keywords: [entry.data.slug, entry.data.category.toLowerCase(), 'article'],
+  })),
+  ...utility.data.searchItems,
+];
+const aboutBody = sanitizeWebflowBody(aboutSource.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] || '', '/about.html');
+const shellHeader = aboutBody.match(/^([\s\S]*?)(?=<section\b)/i)?.[1] || '';
+const shellFooter = aboutBody.match(/(<section class="footer"[\s\S]*)$/i)?.[1] || '';
+---
+
+<WebflowDocument title={`${copy.searchTitle}${query ? ` — ${query}` : ''} | Rydex`} description={utility.data.seo?.description ?? 'Search the Rydex collection.'} ogImage={utility.data.seo?.ogImage}>
+  <RawMarkup markup={shellHeader} replacements={modelsAssetReplacements} />
+  <main class="search-reference">
+    <div class="search-reference-inner">
+      <h1>{copy.searchTitle}</h1>
+      <form class="search-reference-form" action="/search" method="get" role="search">
+        <label class="sr-only" for="site-search">Search</label>
+        <input id="site-search" name="query" type="search" value={query} placeholder={copy.searchPlaceholder} autocomplete="off" />
+        <button type="submit" aria-label="Submit search"><span aria-hidden="true">⌕</span></button>
+      </form>
+      <p class="search-reference-summary" data-search-summary>
+        {query ? copy.searchAvailable.replace('{count}', String(searchItems.length)) : copy.searchBrowse.replace('{count}', String(searchItems.length))}
+      </p>
+      <div class="search-reference-results">
+        {searchItems.map((item) => (
+          <a class="search-reference-card" href={item.href} data-search-item data-search-text={`${item.title} ${item.description} ${item.keywords.join(' ')}`.toLowerCase()}>
+            <strong>{item.title}</strong>
+            <span>{item.href.replace(/^\//, 'rydex.local/')}</span>
+            <p>{item.description}</p>
+          </a>
+        ))}
+      </div>
+      <p class="search-reference-empty" data-search-empty hidden>{copy.searchEmpty}</p>
+    </div>
+  </main>
+  <RawMarkup markup={shellFooter} replacements={modelsAssetReplacements} />
+  <BlogInteractions />
+</WebflowDocument>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const query = (params.get('query') || '').trim().toLowerCase();
+  const input = document.querySelector<HTMLInputElement>('#site-search');
+  const summary = document.querySelector<HTMLElement>('[data-search-summary]');
+  const empty = document.querySelector<HTMLElement>('[data-search-empty]');
+  const items = [...document.querySelectorAll<HTMLElement>('[data-search-item]')];
+  const terms = query.split(/\s+/).filter(Boolean);
+  const matches = items.filter((item) => {
+    const matched = terms.every((term) => (item.dataset.searchText || '').includes(term));
+    item.hidden = terms.length > 0 && !matched;
+    return matched;
+  });
+
+  if (input) input.value = query;
+  if (summary) summary.hidden = terms.length > 0;
+  if (empty) empty.hidden = matches.length !== 0;
+</script>
+
+<style>
+  .search-reference { padding: 178px 20px 96px; background: #070806; }
+  .search-reference-inner { width: min(100%, 1316px); margin: 0 auto; }
+  .search-reference h1 { margin: 0; color: #fff; font-size: clamp(42px, 4.2vw, 60px); line-height: 1.04; text-align: center; }
+  .search-reference-form { position: relative; display: flex; max-width: 620px; margin: 22px auto 40px; border: 1px solid rgba(255,255,255,.42); border-radius: 16px; overflow: hidden; background: #30312f; }
+  .search-reference-form input { width: 100%; height: 55px; min-width: 0; padding: 0 68px 0 20px; border: 0; outline: 0; color: #fff; background: transparent; font: inherit; font-size: 16px; }
+  .search-reference-form button { position: absolute; top: 4px; right: 4px; display: grid; width: 47px; height: 47px; place-items: center; border: 0; border-radius: 12px; color: #111; background: #fff; cursor: pointer; font-size: 33px; line-height: 1; }
+  .search-reference-summary, .search-reference-empty { margin: -24px 0 28px; color: rgba(255,255,255,.6); text-align: center; }
+  .search-reference-results { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .search-reference-card { min-height: 268px; padding: 34px 32px; border: 1px solid rgba(255,255,255,.28); border-radius: 16px; background: #1d1e1c; color: #fff; transition: border-color .2s ease, transform .2s ease; }
+  .search-reference-card:hover { border-color: #d6dc00; transform: translateY(-2px); }
+  .search-reference-card strong, .search-reference-card span, .search-reference-card p { display: block; }
+  .search-reference-card strong { max-width: 530px; font-size: clamp(22px, 2vw, 27px); line-height: 1.2; font-weight: 500; }
+  .search-reference-card span { margin-top: 8px; color: rgba(255,255,255,.58); font-size: 14px; }
+  .search-reference-card p { margin: 25px 0 0; color: #fff; font-size: 16px; line-height: 1.55; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+  @media (max-width: 767px) {
+    .search-reference { padding: 128px 16px 64px; }
+    .search-reference-form { margin-bottom: 28px; }
+    .search-reference-results { grid-template-columns: 1fr; gap: 16px; }
+    .search-reference-card { min-height: 0; padding: 25px 22px; }
+  }
+</style>

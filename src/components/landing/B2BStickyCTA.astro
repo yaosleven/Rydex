@@ -1,0 +1,9 @@
+---
+interface Props { content: { primaryLabel: string; secondaryLabel: string }; }
+const { content } = Astro.props;
+---
+
+<div class="b2b-sticky-cta"><a href="#quote-form">{content.primaryLabel}</a><a href="#quote-form">{content.secondaryLabel}</a></div>
+<style>
+  .b2b-sticky-cta { display:none; } @media(max-width:767px){ .b2b-sticky-cta { position:fixed; z-index:40; right:12px; bottom:12px; left:12px; display:grid; grid-template-columns:1fr 1fr; overflow:hidden; border-radius:10px; box-shadow:0 8px 28px rgba(0,0,0,.35); transition:transform .22s ease,opacity .22s ease; } .b2b-sticky-cta.is-hidden { opacity:0; pointer-events:none; transform:translateY(calc(100% + 24px)); } .b2b-sticky-cta a { padding:15px 8px; color:#111; background:#d4d414; text-align:center; font-size:13px; font-weight:700; } .b2b-sticky-cta a+ a { color:#fff; background:#292a28; } }
+</style>

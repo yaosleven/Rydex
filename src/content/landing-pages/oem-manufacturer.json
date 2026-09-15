@@ -1,0 +1,83 @@
+{
+  "slug": "oem-manufacturer",
+  "seo": {
+    "title": "OEM & ODM Manufacturing Solutions | Rydex",
+    "description": "A B2B landing-page prototype built from the current Rydex website assets.",
+    "ogImage": "/assets/home-hero.webp"
+  },
+  "header": { "ctaLabel": "Get a Quote" },
+  "hero": {
+    "location": "Global Supply",
+    "collection": "B2B Manufacturing Solutions",
+    "description": "Share your specifications and receive a tailored quotation from our team.",
+    "eyebrow": "OEM / ODM Supplier",
+    "title": "Reliable Manufacturing Partner For Your Next Project",
+    "primaryCta": "Request a Quote",
+    "secondaryCta": "Talk to Our Team",
+    "desktopImage": "/assets/home-hero.webp",
+    "mobileImage": "/assets/home-hero-mobile.webp",
+    "desktopAlt": "B2B manufacturing partner hero image",
+    "mobileAlt": "B2B manufacturing partner mobile hero image"
+  },
+  "sections": {
+    "about": {
+      "eyebrow": "Manufacturing Capability",
+      "title": "A dependable partner for custom production, quality control, and global delivery.",
+      "cta": "Explore Our Capability",
+      "metrics": ["Projects Delivered", "Product Solutions", "Client Satisfaction", "Global Enquiries"]
+    },
+    "models": {
+      "eyebrow": "Product Range",
+      "title": "Explore Our Featured Product Range",
+      "body": "Browse existing product examples. Specifications, customization, and quotations are available on request.",
+      "cta": "View All Products"
+    },
+    "benefits": {
+      "eyebrow": "Why Partner With Us",
+      "title": "Reliable Quality, Flexible Customization, Global Delivery",
+      "cards": [{"title":"OEM & ODM Support"},{"title":"Clear Quotation Process"},{"title":"Flexible Order Planning"},{"title":"Quality-Controlled Production"}]
+    },
+    "testimonials": { "eyebrow": "Buyer Feedback", "title": "Trusted By International Buyers" },
+    "steps": {
+      "eyebrow": "How To Start Your Enquiry",
+      "title": "Send your requirements, confirm the solution, and keep every production step transparent.",
+      "cta": "Request a Quote",
+      "cards": [{"title":"Share Your Requirements"},{"title":"Confirm Product Details"},{"title":"Receive Your Quotation"},{"title":"Start Production & Delivery"}]
+    },
+    "journal": { "eyebrow": "Resources & Updates", "title": "Explore Product, Sourcing, and Industry Insights", "cta": "View Resources" }
+  },
+  "quoteForm": {
+    "eyebrow": "REQUEST A QUOTATION",
+    "title": "Tell us what you need.",
+    "description": "Share basic requirements and our team can prepare the right solution, quotation, and next steps.",
+    "benefits": ["Product and customization discussion", "MOQ, sample, and delivery planning", "Direct response from the sales team"],
+    "fields": {
+      "name": "Full name", "company": "Company", "email": "Email", "phone": "WhatsApp / phone", "country": "Country", "product": "Product interest", "requirements": "Requirements", "requirementsPlaceholder": "Quantity, specification, customization, target delivery date…"
+    },
+    "consent": "I agree that my details may be used to respond to this enquiry.",
+    "submitLabel": "Send Enquiry",
+    "previewMessage": "Preview mode: form delivery will be connected before launch.",
+    "submitFeedback": "This preview does not send enquiries yet. A delivery endpoint will be connected before launch."
+  },
+  "leadBand": { "eyebrow": "READY TO DISCUSS YOUR PROJECT?", "title": "Start your product enquiry today.", "primaryCta": "Request a Quote", "secondaryCta": "Contact Our Team" },
+  "procurement": {
+    "eyebrow": "PROCUREMENT INFORMATION",
+    "title": "Everything buyers need before requesting a quotation.",
+    "cards": [
+      {"title":"Customization","body":"Discuss materials, specifications, packaging, and branding requirements."},
+      {"title":"Quality Process","body":"Confirm inspection standards, documentation, and quality expectations before production."},
+      {"title":"Order Planning","body":"Align MOQ, samples, lead time, delivery destination, and trade terms."}
+    ]
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Common questions from B2B buyers.",
+    "items": [
+      {"question":"Can you support OEM or ODM projects?","answer":"Project requirements can be reviewed before quotation so the right product and customization options can be confirmed."},
+      {"question":"What information is needed for a quotation?","answer":"Product specifications, estimated quantity, destination country, customization needs, and delivery expectations help us prepare an accurate quote."},
+      {"question":"Can I request samples?","answer":"Sample availability, costs, and delivery timing should be confirmed with the sales team for each product requirement."},
+      {"question":"How do you confirm lead time and shipping?","answer":"Lead time and logistics are reviewed after specifications, order quantity, production schedule, and delivery destination are confirmed."}
+    ]
+  },
+  "stickyCta": { "primaryLabel": "Get a Quote", "secondaryLabel": "Contact Our Team" }
+}

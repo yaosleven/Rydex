@@ -1,0 +1,22 @@
+:root {
+  --clean-ink: #0a0a09;
+  --clean-surface: #151513;
+  --clean-surface-raised: #20201d;
+  --clean-text: #f9f9f5;
+  --clean-muted: #a1a19a;
+  --clean-accent: #d8dc18;
+  --clean-line: rgba(255, 255, 255, 0.2);
+  --clean-soft-line: rgba(255, 255, 255, 0.12);
+  --clean-content-width: 1355px;
+  --clean-gutter: clamp(20px, 5vw, 80px);
+  --clean-space-1: 0.5rem;
+  --clean-space-2: 0.75rem;
+  --clean-space-3: 1rem;
+  --clean-space-4: 1.5rem;
+  --clean-space-5: 2rem;
+  --clean-space-6: 3rem;
+  --clean-space-7: 5rem;
+  --clean-radius: 0;
+  --clean-font: 'Figtree', Arial, sans-serif;
+  --clean-transition: 180ms ease;
+}

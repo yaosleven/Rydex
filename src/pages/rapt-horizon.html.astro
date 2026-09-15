@@ -1,0 +1,42 @@
+---
+import { getEntry } from 'astro:content';
+import WebflowDocument from '../layouts/WebflowDocument.astro';
+import ModelDetail from '../components/models/ModelDetail.astro';
+import ModelDetailInteractions from '../components/models/ModelDetailInteractions.astro';
+import { webflowRaptHorizon } from '../utils/webflow-rapt-horizon';
+import { modelDetailSharedAssetReplacements } from '../data/models-assets';
+import { applyModelContent } from '../data/model-content';
+import ModelDraftPreview from '../components/admin/ModelDraftPreview.astro';
+
+const raptHorizon = await getEntry('models', 'rapt-horizon');
+
+if (!raptHorizon) {
+  throw new Error('The Rapt Horizon content entry is missing.');
+}
+
+const content = raptHorizon.data;
+const seo = content.seo ?? {
+  title: 'Rapt Horizon - Rydex',
+  description: 'Rapt Horizon model details, pricing and specifications.',
+};
+const replacements = [
+  [content.original.title, content.title],
+  [content.original.brand, content.brand],
+  [content.original.type, content.type],
+  [content.original.daily, content.pricing.daily],
+  [content.original.weekly, content.pricing.weekly],
+  [content.original.monthly, content.pricing.monthly],
+] as const;
+const mediaReplacements = content.media && content.originalMedia
+  ? [
+      [content.originalMedia.hero, content.media.hero],
+      ...content.originalMedia.gallery.map((image, index) => [image, content.media!.gallery[index]] as const),
+    ] as const
+  : [];
+---
+
+<WebflowDocument pageId="686b92fa263dce960074d5c1" collectionId="686b92fa263dce960074d57e" itemSlug={content.slug} title={seo.title} description={seo.description} ogImage={seo.ogImage}>
+  <ModelDetail markup={applyModelContent(webflowRaptHorizon, content)} replacements={[...modelDetailSharedAssetReplacements, ...mediaReplacements, ...replacements]} />
+  <ModelDetailInteractions />
+  <ModelDraftPreview slug={content.slug} defaults={content} />
+</WebflowDocument>

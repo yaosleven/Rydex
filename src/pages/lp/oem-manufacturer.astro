@@ -1,0 +1,119 @@
+---
+import WebflowDocument from '../../layouts/WebflowDocument.astro';
+import RawMarkup from '../../components/webflow/RawMarkup.astro';
+import SiteFooter from '../../components/shared/SiteFooter.astro';
+import B2BLeadBand from '../../components/landing/B2BLeadBand.astro';
+import B2BCompactHeader from '../../components/landing/B2BCompactHeader.astro';
+import B2BQuoteForm from '../../components/landing/B2BQuoteForm.astro';
+import B2BTrustAndFAQ from '../../components/landing/B2BTrustAndFAQ.astro';
+import B2BStickyCTA from '../../components/landing/B2BStickyCTA.astro';
+import B2BLandingInteractions from '../../components/landing/B2BLandingInteractions.astro';
+import ContentDraftPreview from '../../components/admin/ContentDraftPreview.astro';
+import { getEntry } from 'astro:content';
+import { webflowHome } from '../../utils/webflow-home';
+import { homeAssets } from '../../data/home-assets';
+
+const landing = await getEntry('landingPages', 'oem-manufacturer');
+
+if (!landing) {
+  throw new Error('Missing required B2B landing-page content entry.');
+}
+
+const content = landing.data;
+
+const b2bLanding = {
+  hero: [
+    ['Dubai, UAE', content.hero.location],
+    ['Prime Collection by Rydex!', content.hero.collection],
+    ['Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet nunc ut.', content.hero.description],
+    ['Car Rental', content.hero.eyebrow],
+    ['Enjoy Easy Rides, Pick Your Way', content.hero.title],
+    ['Book a Car', content.hero.primaryCta],
+    ['Get in Touch', content.hero.secondaryCta],
+    [homeAssets.heroDesktop, content.hero.desktopImage],
+    [homeAssets.heroMobile, content.hero.mobileImage],
+  ],
+  about: [
+    ['About Us', content.sections.about.eyebrow],
+    ['Discover the passion and expertise behind Rydex, your premier destination for luxury car rentals and unmatched service.', content.sections.about.title],
+    ['Learn More', content.sections.about.cta],
+    ['Total Bookings', content.sections.about.metrics[0]],
+    ['Models In Stock', content.sections.about.metrics[1]],
+    ['Happy Clients', content.sections.about.metrics[2]],
+    ['Daily Bookings', content.sections.about.metrics[3]],
+  ],
+  models: [
+    ['Our Models', content.sections.models.eyebrow],
+    ['Our Featured Models', content.sections.models.title],
+    ['Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae.', content.sections.models.body],
+    ['See All Models', content.sections.models.cta],
+  ],
+  benefits: [
+    ['Why Choose Us?', content.sections.benefits.eyebrow],
+    ['Exceptional Service in Every Mile, Every Time', content.sections.benefits.title],
+    ['Luxurious Car Rentals', content.sections.benefits.cards[0].title],
+    ['Easy Booking Process', content.sections.benefits.cards[1].title],
+    ['Flexible Pricing Plans', content.sections.benefits.cards[2].title],
+    ['Well-Maintained Fleet', content.sections.benefits.cards[3].title],
+  ],
+  testimonials: [
+    ['Testimonials', content.sections.testimonials.eyebrow],
+    ['Heartfelt Reviews By Rydex Drivers', content.sections.testimonials.title],
+  ],
+  steps: [
+    ['How It Works', content.sections.steps.eyebrow],
+    ['Follow these simple steps to choose your ideal vehicle and drive away effortlessly.', content.sections.steps.title],
+    ['Book Now', content.sections.steps.cta],
+    ['Browse Our Elite Fleet', content.sections.steps.cards[0].title],
+    ['Pick Your Ideal Vehicle', content.sections.steps.cards[1].title],
+    ['Submit Your Enquiry', content.sections.steps.cards[2].title],
+    ['Collect and Drive Away', content.sections.steps.cards[3].title],
+  ],
+  journal: [
+    ['Blog Posts', content.sections.journal.eyebrow],
+    ['Engage with Premium Rental Posts', content.sections.journal.title],
+    ['See All Posts', content.sections.journal.cta],
+  ],
+} as const;
+
+const b2bHeroMarkup = webflowHome.hero
+  .replaceAll('/models.html', '#quote-form')
+  .replaceAll('/contact.html', '#quote-form');
+---
+
+<WebflowDocument title={content.seo.title} description={content.seo.description} ogImage={content.seo.ogImage}>
+  <div class="page-wrapper b2b-landing-page">
+    <RawMarkup markup={webflowHome.customCursor} />
+    <B2BCompactHeader ctaLabel={content.header.ctaLabel} />
+    <RawMarkup markup={b2bHeroMarkup} replacements={b2bLanding.hero} />
+    <B2BQuoteForm content={content.quoteForm} />
+    <RawMarkup markup={webflowHome.about} replacements={b2bLanding.about} />
+    <RawMarkup markup={webflowHome.models} replacements={b2bLanding.models} />
+    <B2BLeadBand content={content.leadBand} />
+    <RawMarkup markup={webflowHome.benefits} replacements={b2bLanding.benefits} />
+    <RawMarkup markup={webflowHome.steps} replacements={b2bLanding.steps} />
+    <B2BTrustAndFAQ procurement={content.procurement} faq={content.faq} />
+    <RawMarkup markup={webflowHome.testimonials} replacements={b2bLanding.testimonials} />
+    <RawMarkup markup={webflowHome.blog} replacements={b2bLanding.journal} />
+    <SiteFooter markup={webflowHome.footer} />
+    <B2BStickyCTA content={content.stickyCta} />
+    <B2BLandingInteractions />
+    <ContentDraftPreview storageKey="rydex-site-page-draft-v1" section="b2b" defaults={{ heroTitle: content.hero.title, heroDescription: content.hero.description, primaryCta: content.hero.primaryCta, desktopImage: content.hero.desktopImage, mobileImage: content.hero.mobileImage, quoteTitle: content.quoteForm.title, quoteDescription: content.quoteForm.description, submitLabel: content.quoteForm.submitLabel }} />
+  </div>
+</WebflowDocument>
+
+<style is:global>
+  .b2b-landing-page .home-navbar-wrapper { display:none; }
+  .b2b-landing-page .hero-content-top { position:relative; top:46px; }
+
+  @media(max-width:991px){
+    .b2b-landing-page .hero-content-top { top:48px; }
+  }
+
+  @media(max-width:767px){
+    .b2b-landing-page .hero-content-top { top:40px; }
+    .b2b-landing-page .hero-text-left .max-width-160px { max-width:none; white-space:nowrap; }
+    .b2b-landing-page .hero-text-right { margin-top:20px; }
+    .b2b-landing-page .footer { padding-bottom:92px; }
+  }
+</style>

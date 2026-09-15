@@ -1,0 +1,214 @@
+---
+import ModelDetail from '../components/models/ModelDetail.astro';
+import AboutInteractions from '../components/about/AboutInteractions.astro';
+import ContactInteractions from '../components/contact/ContactInteractions.astro';
+import BlogInteractions from '../components/blog/BlogInteractions.astro';
+import ModelDetailInteractions from '../components/models/ModelDetailInteractions.astro';
+import ModelsInteractions from '../components/models/ModelsInteractions.astro';
+import { getCollection, getEntry } from 'astro:content';
+import WebflowDocument from '../layouts/WebflowDocument.astro';
+import { toWebflowPage } from '../utils/webflow-page';
+import { modelDetailSharedAssetReplacements } from '../data/models-assets';
+import { aboutPageReplacements, applyAboutMetricValues, articleListingPageReplacements, catalogPageReplacements, contactPageReplacements, routePageReplacements, utilityPageReplacements } from '../data/page-content';
+import { articlePageReplacements } from '../data/article-content';
+import { applyModelContent } from '../data/model-content';
+import ModelDraftPreview from '../components/admin/ModelDraftPreview.astro';
+import ContentDraftPreview from '../components/admin/ContentDraftPreview.astro';
+import ArticleDraftPreview from '../components/admin/ArticleDraftPreview.astro';
+
+export async function getStaticPaths() {
+  const modelEntries = await getCollection('models');
+  const modelsBySlug = new Map(modelEntries.map((entry) => [entry.data.slug, entry.data]));
+  const sources = await Promise.all([
+    import('../reference/original-cest-tunder.html?raw'),
+    import('../reference/original-glide-vortex.html?raw'),
+    import('../reference/original-senity-pulse.html?raw'),
+    import('../reference/original-sumit-senity.html?raw'),
+    import('../reference/original-velocit-crest.html?raw'),
+    import('../reference/original-velox.html?raw'),
+    import('../reference/original-xplorer-glide.html?raw'),
+    import('../reference/original-aurion.html?raw'),
+    import('../reference/original-luxora.html?raw'),
+    import('../reference/original-coupe.html?raw'),
+    import('../reference/original-sedan.html?raw'),
+    import('../reference/original-suv.html?raw'),
+    import('../reference/original-360deg-camera.html?raw'),
+    import('../reference/original-bluetooth.html?raw'),
+    import('../reference/original-built-in-gps.html?raw'),
+    import('../reference/original-leather-seats.html?raw'),
+    import('../reference/original-led-headlights.html?raw'),
+    import('../reference/original-sound-system.html?raw'),
+    import('../reference/original-sunroof-6rm2o-xlnu2.html?raw'),
+    import('../reference/original-about.html?raw'),
+    import('../reference/original-blog.html?raw'),
+    import('../reference/original-blog-2.html?raw'),
+    import('../reference/original-changelog.html?raw'),
+    import('../reference/original-contact.html?raw'),
+    import('../reference/original-events.html?raw'),
+    import('../reference/original-exclusive-rydex-car-show-in-dubai-unveiled.html?raw'),
+    import('../reference/original-the-best-sedan-models-that-fit-road-trips.html?raw'),
+    import('../reference/original-guide-to-choose-the-right-car-in-a-showroom.html?raw'),
+    import('../reference/original-guides.html?raw'),
+    import('../reference/original-guides-for-maintaining-your-rental-car-perfectly.html?raw'),
+    import('../reference/original-licenses.html?raw'),
+    import('../reference/original-reviews.html?raw'),
+    import('../reference/original-rydex-hosts-annual-auto-racing-grand-event.html?raw'),
+    import('../reference/original-style-guide.html?raw'),
+    import('../reference/original-top-luxury-cars-to-rent-this-summer-season.html?raw'),
+    import('../reference/original-ultimate-guide-to-choosing-coupe-rentals.html?raw'),
+  ]);
+
+  return [
+    ['cest-tunder', 'Cest Tunder'],
+    ['glide-vortex', 'Glide Vortex'],
+    ['senity-pulse', 'Senity Pulse'],
+    ['sumit-senity', 'Sumit Senity'],
+    ['velocit-crest', 'Velocit Crest'],
+    ['velox', 'Velox'],
+    ['xplorer-glide', 'Xplorer Glide'],
+    ['aurion', 'Aurion'],
+    ['luxora', 'Luxora'],
+    ['coupe', 'Coupe'],
+    ['sedan', 'Sedan'],
+    ['suv', 'SUV'],
+    ['360deg-camera', '360° Camera'],
+    ['bluetooth', 'Bluetooth'],
+    ['built-in-gps', 'Built-in GPS'],
+    ['leather-seats', 'Leather Seats'],
+    ['led-headlights', 'LED Headlights'],
+    ['sound-system', 'Sound System'],
+    ['sunroof-6rm2o-xlnu2', 'Sunroof'],
+    ['about', 'About - Rydex'],
+    ['blog', 'Blog - Rydex'],
+    ['blog-2', 'Blog - Rydex'],
+    ['changelog', 'Changelog - Rydex'],
+    ['contact', 'Contact - Rydex'],
+    ['events', 'Events - Rydex'],
+    ['exclusive-rydex-car-show-in-dubai-unveiled', 'Exclusive Rydex Car Show In Dubai Unveiled - Rydex'],
+    ['the-best-sedan-models-that-fit-road-trips', 'The Best Sedan Models That Fit Road Trips - Rydex'],
+    ['guide-to-choose-the-right-car-in-a-showroom', 'Guide To Choose The Right Car In A Showroom - Rydex'],
+    ['guides', 'Guides - Rydex'],
+    ['guides-for-maintaining-your-rental-car-perfectly', 'Guides For Maintaining Your Rental Car Perfectly - Rydex'],
+    ['licenses', 'Licenses - Rydex'],
+    ['reviews', 'Reviews - Rydex'],
+    ['rydex-hosts-annual-auto-racing-grand-event', 'Rydex Hosts Annual Auto Racing Grand Event - Rydex'],
+    ['style-guide', 'Style Guide - Rydex'],
+    ['top-luxury-cars-to-rent-this-summer-season', 'Top Luxury Cars To Rent This Summer Season - Rydex'],
+    ['ultimate-guide-to-choosing-coupe-rentals', 'Ultimate Guide To Choosing Coupe Rentals - Rydex'],
+  ].map(([slug, name], index) => ({
+    params: { model: slug },
+    props: { name, page: toWebflowPage(sources[index].default, `/${slug}.html`), content: modelsBySlug.get(slug) },
+  }));
+}
+
+const { name, page, content } = Astro.props;
+const { model } = Astro.params;
+const articleEntries = await getCollection('articles');
+const pageEntries = await getCollection('pages');
+const articleContent = model ? articleEntries.find((entry) => entry.id === model) : undefined;
+const brandContent = model && ['aurion', 'luxora', 'velox'].includes(model) ? await getEntry('brands', model) : undefined;
+const routePage = model ? pageEntries.find((entry) => entry.id === model) : undefined;
+const aboutPage = model === 'about' ? await getEntry('pages', 'about') : undefined;
+const contactPage = model === 'contact' ? await getEntry('pages', 'contact') : undefined;
+const catalogSlugs = new Set(['luxora', 'velox', 'aurion', 'coupe', 'sedan', 'suv', '360deg-camera', 'bluetooth', 'built-in-gps', 'leather-seats', 'led-headlights', 'sound-system', 'sunroof-6rm2o-xlnu2']);
+const catalogPage = model && catalogSlugs.has(model) ? await getEntry('pages', 'catalog') : undefined;
+const utilitySlugs = new Set(['changelog', 'licenses', 'style-guide']);
+const utilityPage = model && utilitySlugs.has(model) ? await getEntry('pages', 'utility') : undefined;
+const articleListingSlugs = new Set(['blog', 'blog-2', 'guides', 'events', 'reviews']);
+const articleListingPage = model && articleListingSlugs.has(model) ? await getEntry('pages', model) : undefined;
+
+if ((model === 'about' && !aboutPage) || (model === 'contact' && !contactPage) || (model && catalogSlugs.has(model) && !catalogPage) || (model && utilitySlugs.has(model) && !utilityPage) || (model && articleListingSlugs.has(model) && !articleListingPage)) {
+  throw new Error(`Missing required editable content for the ${model} page.`);
+}
+
+const pageTitle = content?.seo?.title ?? articleContent?.data.seo?.title ?? brandContent?.data.seo?.title ?? routePage?.data.seo?.title ?? (name.endsWith(' - Rydex') ? name : `${name} - Rydex`);
+const pageDescription = content?.seo?.description ?? articleContent?.data.seo?.description ?? brandContent?.data.seo?.description ?? routePage?.data.seo?.description;
+const pageOgImage = content?.seo?.ogImage ?? articleContent?.data.seo?.ogImage ?? brandContent?.data.seo?.ogImage ?? routePage?.data.seo?.ogImage;
+const replacements = content
+  ? [
+      [content.original.title, content.title],
+      [content.original.brand, content.brand],
+      [content.original.type, content.type],
+      [content.original.daily, content.pricing.daily],
+      [content.original.weekly, content.pricing.weekly],
+      [content.original.monthly, content.pricing.monthly],
+    ] as const
+  : [];
+const mediaReplacements = content?.media && content.originalMedia
+  ? [
+      [content.originalMedia.hero, content.media.hero],
+      ...content.originalMedia.gallery.map((image, index) => [image, content.media!.gallery[index]] as const),
+    ] as const
+  : [];
+const pageReplacements = aboutPage
+  ? aboutPageReplacements(aboutPage)
+  : contactPage
+    ? contactPageReplacements(contactPage)
+    : catalogPage
+      ? catalogPageReplacements(catalogPage)
+      : utilityPage
+        ? utilityPageReplacements(utilityPage)
+        : articleListingPage
+          ? articleListingPageReplacements(articleListingPage)
+        : [];
+const routeReplacements = routePage ? routePageReplacements(routePage) : [];
+---
+
+<WebflowDocument
+  pageId={page.pageId}
+  collectionId={page.collectionId}
+  itemSlug={page.itemSlug}
+  title={pageTitle}
+  description={pageDescription}
+  ogImage={pageOgImage}
+>
+  <ModelDetail markup={content ? applyModelContent(page.body, content) : aboutPage ? applyAboutMetricValues(page.body, aboutPage.data.metrics) : page.body} replacements={[...modelDetailSharedAssetReplacements, ...articlePageReplacements(articleEntries), ...mediaReplacements, ...pageReplacements, ...routeReplacements, ...replacements]} />
+  {content && <ModelDraftPreview slug={content.slug} defaults={content} />}
+  {articleContent && <ArticleDraftPreview defaults={articleContent.data} />}
+  {aboutPage && <ContentDraftPreview storageKey="rydex-site-page-draft-v1" section="about" defaults={{ heroTitle: aboutPage.data.copy.heroTitle, introTitle: aboutPage.data.copy.introTitle, introBody: aboutPage.data.copy.introBody, showroomTitle: aboutPage.data.copy.showroomTitle, showroomAddress: aboutPage.data.copy.showroomAddress, heroDesktop: aboutPage.data.images.heroDesktop, heroMobile: aboutPage.data.images.heroMobile }} />}
+  {contactPage && <ContentDraftPreview storageKey="rydex-site-page-draft-v1" section="contact" defaults={{ heroTitle: contactPage.data.copy.heroTitle, heroBody: contactPage.data.copy.heroBody, chatLabel: contactPage.data.copy.chatLabel, firstNamePlaceholder: contactPage.data.copy.firstNamePlaceholder, emailPlaceholder: contactPage.data.copy.emailPlaceholder, messagePlaceholder: contactPage.data.copy.messagePlaceholder, submitLabel: contactPage.data.copy.submitLabel }} />}
+  {brandContent && <ContentDraftPreview storageKey="rydex-page-content-draft-v1" entryId={`brand:${brandContent.id}`} defaults={brandContent.data} />}
+  {routePage && <ContentDraftPreview storageKey="rydex-page-content-draft-v1" entryId={`page:${routePage.id}`} defaults={routePage.data} />}
+  {model === 'about' && <AboutInteractions />}
+  {model === 'contact' && <ContactInteractions />}
+  {(
+    model === 'cest-tunder' ||
+    model === 'glide-vortex' ||
+    model === 'senity-pulse' ||
+    model === 'sumit-senity' ||
+    model === 'velocit-crest' ||
+    model === 'velox' ||
+    model === 'xplorer-glide' ||
+    model === 'aurion'
+  ) && <ModelDetailInteractions />}
+  {(
+    model === 'luxora' ||
+    model === 'coupe' ||
+    model === 'sedan' ||
+    model === 'suv' ||
+    model === '360deg-camera' ||
+    model === 'bluetooth' ||
+    model === 'built-in-gps' ||
+    model === 'leather-seats' ||
+    model === 'led-headlights' ||
+    model === 'sound-system' ||
+    model === 'sunroof-6rm2o-xlnu2'
+  ) && <ModelsInteractions />}
+  {(
+    model === 'blog' ||
+    model === 'blog-2' ||
+    model === 'guides' ||
+    model === 'events' ||
+    model === 'reviews' ||
+    model === 'exclusive-rydex-car-show-in-dubai-unveiled' ||
+    model === 'the-best-sedan-models-that-fit-road-trips' ||
+    model === 'rydex-hosts-annual-auto-racing-grand-event' ||
+    model === 'guides-for-maintaining-your-rental-car-perfectly' ||
+    model === 'guide-to-choose-the-right-car-in-a-showroom' ||
+    model === 'top-luxury-cars-to-rent-this-summer-season' ||
+    model === 'ultimate-guide-to-choosing-coupe-rentals'
+    || model === 'style-guide'
+    || model === 'licenses'
+    || model === 'changelog'
+  ) && <BlogInteractions />}
+</WebflowDocument>

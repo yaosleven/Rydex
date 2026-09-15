@@ -1,0 +1,84 @@
+---
+const models = ['Rapt Horizon', 'Velocit Crest', 'Xplorer Glide', 'Cest Tunder', 'Glide Vortex', 'Sumit Senity', 'Senity Pulse'];
+---
+
+<header class="site-header">
+  <a class="brand" href="/" aria-label="Rydex home">
+    <img src="/assets/logo.svg" alt="Rydex" width="92" height="36" />
+  </a>
+
+  <div class="header-tools">
+    <div class="models-menu">
+      <button class="models-toggle" type="button" aria-expanded="false" aria-controls="models-dropdown">
+        Models <img src="/assets/68695011fff14c231d733695_18e4deb9ce7150d6021fead5b7f630a7_arrow-bottom-icon.svg" alt="" />
+      </button>
+      <div id="models-dropdown" class="models-dropdown" hidden>
+        {models.map((model) => <a href="#models">{model}</a>)}
+      </div>
+    </div>
+    <form class="header-search" action="/search" method="get">
+      <label class="sr-only" for="search-field">Search</label>
+      <input id="search-field" name="query" type="search" placeholder="Search…" required />
+      <button type="submit" aria-label="Submit search"><img src="/assets/search-icon.svg" alt="" /></button>
+    </form>
+  </div>
+
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu">
+    <span></span><span></span><span></span>
+    <span class="sr-only">Open menu</span>
+  </button>
+</header>
+
+<div id="site-menu" class="site-menu" aria-hidden="true">
+  <button class="menu-close" type="button" aria-label="Close menu">×</button>
+  <div class="site-menu-inner">
+    <p class="eyebrow">Rydex navigation</p>
+    <nav aria-label="Main navigation" class="site-menu-links">
+      <a href="#hero">Home <span>↗</span></a>
+      <a href="#about">About <span>↗</span></a>
+      <a href="#models">Models <span>↗</span></a>
+      <a href="#journal">Blog <span>↗</span></a>
+      <a href="#contact">Contact <span>↗</span></a>
+    </nav>
+    <div class="site-menu-bottom">
+      <form class="menu-search" action="/search" method="get">
+        <label class="sr-only" for="mobile-search-field">Search</label>
+        <input id="mobile-search-field" name="query" type="search" placeholder="Search…" required />
+        <button type="submit" aria-label="Submit search"><img src="/assets/search-icon.svg" alt="" /></button>
+      </form>
+      <a class="button button-primary" href="#contact">Book now <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const menuToggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const menuClose = document.querySelector<HTMLButtonElement>('.menu-close');
+  const siteMenu = document.querySelector<HTMLElement>('#site-menu');
+  const modelsToggle = document.querySelector<HTMLButtonElement>('.models-toggle');
+  const modelsDropdown = document.querySelector<HTMLElement>('#models-dropdown');
+
+  const setMenu = (open: boolean) => {
+    menuToggle?.setAttribute('aria-expanded', String(open));
+    siteMenu?.setAttribute('aria-hidden', String(!open));
+    document.documentElement.classList.toggle('menu-is-open', open);
+  };
+
+  menuToggle?.addEventListener('click', () => setMenu(menuToggle.getAttribute('aria-expanded') !== 'true'));
+  menuClose?.addEventListener('click', () => setMenu(false));
+  siteMenu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
+
+  modelsToggle?.addEventListener('click', () => {
+    const open = modelsToggle.getAttribute('aria-expanded') !== 'true';
+    modelsToggle.setAttribute('aria-expanded', String(open));
+    if (modelsDropdown) modelsDropdown.hidden = !open;
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      setMenu(false);
+      modelsToggle?.setAttribute('aria-expanded', 'false');
+      if (modelsDropdown) modelsDropdown.hidden = true;
+    }
+  });
+</script>

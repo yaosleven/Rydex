@@ -1,0 +1,21 @@
+---
+import { getEntry } from 'astro:content';
+import { siteReplacements } from '../../data/webflow-reference';
+import { applyWebflowContent, type WebflowReplacement } from '../../utils/webflow-content';
+
+interface Props { markup: string; replacements?: readonly WebflowReplacement[]; }
+
+const { markup, replacements = [] } = Astro.props;
+const siteSettings = await getEntry('settings', 'site');
+
+if (!siteSettings) {
+  throw new Error('Missing required site settings content entry.');
+}
+
+const renderedMarkup = applyWebflowContent(markup, [
+  ...replacements,
+  ...siteReplacements(siteSettings.data),
+]);
+---
+
+<Fragment set:html={renderedMarkup} />

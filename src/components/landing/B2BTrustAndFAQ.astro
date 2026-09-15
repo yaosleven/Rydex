@@ -1,0 +1,38 @@
+---
+interface Props {
+  procurement: {
+    eyebrow: string;
+    title: string;
+    cards: Array<{ title: string; body: string }>;
+  };
+  faq: {
+    eyebrow: string;
+    title: string;
+    items: Array<{ question: string; answer: string }>;
+  };
+}
+
+const { procurement, faq } = Astro.props;
+---
+
+<section class="b2b-proof" aria-labelledby="proof-heading">
+  <div class="b2b-proof-inner">
+    <div class="b2b-proof-heading"><div>{procurement.eyebrow}</div><h2 id="proof-heading">{procurement.title}</h2></div>
+    <div class="b2b-proof-cards">
+      {procurement.cards.map((card) => <article><strong>{card.title}</strong><span>{card.body}</span></article>)}
+    </div>
+  </div>
+</section>
+<section class="b2b-faq" aria-labelledby="faq-heading">
+  <div class="b2b-faq-inner"><div><div class="b2b-faq-eyebrow">{faq.eyebrow}</div><h2 id="faq-heading">{faq.title}</h2></div><div class="b2b-faq-list">
+    {faq.items.map((item, index) => <details open={index === 0}><summary>{item.question}</summary><p>{item.answer}</p></details>)}
+  </div></div>
+</section>
+<style>
+  .b2b-proof,.b2b-faq { padding:100px 20px; background:#070806; color:#fff; } .b2b-proof-inner,.b2b-faq-inner { width:min(100%,1316px); margin:0 auto; }
+  .b2b-proof-heading { display:flex; align-items:end; justify-content:space-between; gap:30px; } .b2b-proof-heading>div,.b2b-faq-eyebrow { color:#d4d414; font-size:12px; font-weight:700; letter-spacing:.12em; } .b2b-proof h2,.b2b-faq h2 { max-width:750px; margin:12px 0 0; font-size:clamp(32px,3.7vw,54px); font-weight:500; line-height:1.06; }
+  .b2b-proof-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:42px; } .b2b-proof-cards article { display:grid; gap:16px; min-height:154px; padding:28px; border:1px solid rgba(255,255,255,.2); border-radius:14px; background:#1a1b19; } .b2b-proof-cards strong { color:#d4d414; font-size:20px; } .b2b-proof-cards span,.b2b-faq p { color:rgba(255,255,255,.66); line-height:1.6; }
+  .b2b-faq { padding-top:20px; } .b2b-faq-inner { display:grid; grid-template-columns:.75fr 1.25fr; gap:80px; } .b2b-faq-list { border-top:1px solid rgba(255,255,255,.2); } .b2b-faq details { padding:21px 0; border-bottom:1px solid rgba(255,255,255,.2); } .b2b-faq summary { cursor:pointer; font-size:18px; font-weight:600; } .b2b-faq p { margin:14px 36px 0 0; }
+  @media(max-width:991px){ .b2b-faq-inner { grid-template-columns:1fr; gap:34px; } .b2b-faq-list { margin-top:0; } }
+  @media(max-width:767px){ .b2b-proof,.b2b-faq { padding:62px 16px; } .b2b-proof-heading,.b2b-faq-inner { display:block; } .b2b-proof-cards { grid-template-columns:1fr; margin-top:30px; } .b2b-faq { padding-top:0; } .b2b-faq-list { margin-top:32px; } }
+</style>

@@ -1,0 +1,151 @@
+{
+  "title": "Cest Tunder",
+  "slug": "cest-tunder",
+  "brand": "Luxora",
+  "type": "Coupe",
+  "media": {
+    "hero": "/assets/models/cest-tunder/card.webp",
+    "gallery": [
+      "/assets/models/cest-tunder/gallery-1.webp",
+      "/assets/models/cest-tunder/gallery-2.webp",
+      "/assets/models/cest-tunder/gallery-3.webp"
+    ]
+  },
+  "originalMedia": {
+    "hero": "/static/picture/686f7b026be181cd253bea32_crest-thunder.webp",
+    "gallery": [
+      "/static/picture/688c4c31b702b8d8b58ee8ed_additional-image-1.webp",
+      "/static/picture/688c4c318351b5a1b1a71e56_additional-image-2.webp",
+      "/static/picture/688c4c31b700b10106cf511c_additional-image-3.webp"
+    ]
+  },
+  "pricing": {
+    "daily": "$130",
+    "weekly": "$800",
+    "monthly": "$2,900"
+  },
+  "original": {
+    "title": "Cest Tunder",
+    "brand": "Luxora",
+    "type": "Coupe",
+    "daily": "$130",
+    "weekly": "$800",
+    "monthly": "$2,900",
+    "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidid ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullam laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupida non proident, sunt in culpa qui officia deserunt."
+  },
+  "seo": {
+    "title": "Cest Tunder | Rydex",
+    "description": "Cest Tunder Coupe from Luxora.",
+    "ogImage": "/assets/models/cest-tunder/card.webp"
+  },
+  "imageAlt": "Cest Tunder Coupe vehicle",
+  "mediaAlt": {
+    "hero": "Cest Tunder Coupe hero image",
+    "gallery": [
+      "Cest Tunder vehicle gallery image 1",
+      "Cest Tunder vehicle gallery image 2",
+      "Cest Tunder vehicle gallery image 3"
+    ]
+  },
+  "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidid ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullam laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupida non proident, sunt in culpa qui officia deserunt.",
+  "specifications": [
+    {
+      "label": "Model Brand",
+      "value": "Luxora"
+    },
+    {
+      "label": "Type",
+      "value": "Coupe"
+    },
+    {
+      "label": "Model Year",
+      "value": "2024"
+    },
+    {
+      "label": "Transmission",
+      "value": "Auto"
+    },
+    {
+      "label": "Fuel Type",
+      "value": "Petrol"
+    },
+    {
+      "label": "Engine",
+      "value": "4.0 L"
+    },
+    {
+      "label": "Mileage",
+      "value": "1,900 KM"
+    },
+    {
+      "label": "Horse Power",
+      "value": "750 HP"
+    },
+    {
+      "label": "Cylinders",
+      "value": "8"
+    },
+    {
+      "label": "Seats",
+      "value": "4"
+    },
+    {
+      "label": "Baggage",
+      "value": "4"
+    },
+    {
+      "label": "Doors",
+      "value": "2"
+    }
+  ],
+  "originalSpecifications": [
+    {
+      "label": "Model Brand",
+      "value": "Luxora"
+    },
+    {
+      "label": "Type",
+      "value": "Coupe"
+    },
+    {
+      "label": "Model Year",
+      "value": "2024"
+    },
+    {
+      "label": "Transmission",
+      "value": "Auto"
+    },
+    {
+      "label": "Fuel Type",
+      "value": "Petrol"
+    },
+    {
+      "label": "Engine",
+      "value": "4.0 L"
+    },
+    {
+      "label": "Mileage",
+      "value": "1,900 KM"
+    },
+    {
+      "label": "Horse Power",
+      "value": "750 HP"
+    },
+    {
+      "label": "Cylinders",
+      "value": "8"
+    },
+    {
+      "label": "Seats",
+      "value": "4"
+    },
+    {
+      "label": "Baggage",
+      "value": "4"
+    },
+    {
+      "label": "Doors",
+      "value": "2"
+    }
+  ]
+}

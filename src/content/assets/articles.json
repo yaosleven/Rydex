@@ -1,0 +1,180 @@
+{
+  "group": "Article assets",
+  "items": [
+    {
+      "path": "/assets/articles/exclusive-rydex-car-show-in-dubai-unveiled/cover.webp",
+      "alt": "Exclusive Rydex Car Show In Dubai Unveiled",
+      "purpose": "Article cover image",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/exclusive-rydex-car-show-in-dubai-unveiled.html",
+        "/blog.html",
+        "/blog-2.html",
+        "/guides.html",
+        "/events.html",
+        "/reviews.html"
+      ]
+    },
+    {
+      "path": "/assets/authors/cory-nash.webp",
+      "alt": "Portrait of Cory Nash",
+      "purpose": "Article author avatar",
+      "recommendedWidth": 400,
+      "recommendedHeight": 400,
+      "routes": [
+        "/exclusive-rydex-car-show-in-dubai-unveiled.html"
+      ]
+    },
+    {
+      "path": "/assets/articles/guide-to-choose-the-right-car-in-a-showroom/cover.webp",
+      "alt": "Guide To Choose The Right Car In A Showroom",
+      "purpose": "Article cover image",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/guide-to-choose-the-right-car-in-a-showroom.html",
+        "/blog.html",
+        "/blog-2.html",
+        "/guides.html",
+        "/events.html",
+        "/reviews.html"
+      ]
+    },
+    {
+      "path": "/assets/authors/tina-raye.webp",
+      "alt": "Portrait of Tina Raye",
+      "purpose": "Article author avatar",
+      "recommendedWidth": 400,
+      "recommendedHeight": 400,
+      "routes": [
+        "/guide-to-choose-the-right-car-in-a-showroom.html"
+      ]
+    },
+    {
+      "path": "/assets/articles/guides-for-maintaining-your-rental-car-perfectly/cover.webp",
+      "alt": "Guides For Maintaining Your Rental Car Perfectly",
+      "purpose": "Article cover image",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/guides-for-maintaining-your-rental-car-perfectly.html",
+        "/blog.html",
+        "/blog-2.html",
+        "/guides.html",
+        "/events.html",
+        "/reviews.html"
+      ]
+    },
+    {
+      "path": "/assets/authors/evan-holt.webp",
+      "alt": "Portrait of Evan Holt",
+      "purpose": "Article author avatar",
+      "recommendedWidth": 400,
+      "recommendedHeight": 400,
+      "routes": [
+        "/guides-for-maintaining-your-rental-car-perfectly.html"
+      ]
+    },
+    {
+      "path": "/assets/articles/rydex-hosts-annual-auto-racing-grand-event/cover.webp",
+      "alt": "Rydex Hosts Annual Auto Racing Grand Event",
+      "purpose": "Article cover image",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/rydex-hosts-annual-auto-racing-grand-event.html",
+        "/blog.html",
+        "/blog-2.html",
+        "/guides.html",
+        "/events.html",
+        "/reviews.html"
+      ]
+    },
+    {
+      "path": "/assets/authors/tina-raye.webp",
+      "alt": "Portrait of Tina Raye",
+      "purpose": "Article author avatar",
+      "recommendedWidth": 400,
+      "recommendedHeight": 400,
+      "routes": [
+        "/rydex-hosts-annual-auto-racing-grand-event.html"
+      ]
+    },
+    {
+      "path": "/assets/articles/the-best-sedan-models-that-fit-road-trips/cover.webp",
+      "alt": "The Best Sedan Models That Fit Road Trips",
+      "purpose": "Article cover image",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/the-best-sedan-models-that-fit-road-trips.html",
+        "/blog.html",
+        "/blog-2.html",
+        "/guides.html",
+        "/events.html",
+        "/reviews.html"
+      ]
+    },
+    {
+      "path": "/assets/authors/cory-nash.webp",
+      "alt": "Portrait of Cory Nash",
+      "purpose": "Article author avatar",
+      "recommendedWidth": 400,
+      "recommendedHeight": 400,
+      "routes": [
+        "/the-best-sedan-models-that-fit-road-trips.html"
+      ]
+    },
+    {
+      "path": "/assets/articles/top-luxury-cars-to-rent-this-summer-season/cover.webp",
+      "alt": "Top Luxury Cars To Rent This Summer Season",
+      "purpose": "Article cover image",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/top-luxury-cars-to-rent-this-summer-season.html",
+        "/blog.html",
+        "/blog-2.html",
+        "/guides.html",
+        "/events.html",
+        "/reviews.html"
+      ]
+    },
+    {
+      "path": "/assets/authors/cory-nash.webp",
+      "alt": "Portrait of Cory Nash",
+      "purpose": "Article author avatar",
+      "recommendedWidth": 400,
+      "recommendedHeight": 400,
+      "routes": [
+        "/top-luxury-cars-to-rent-this-summer-season.html"
+      ]
+    },
+    {
+      "path": "/assets/articles/ultimate-guide-to-choosing-coupe-rentals/cover.webp",
+      "alt": "Ultimate Guide To Choosing Coupe Rentals",
+      "purpose": "Article cover image",
+      "recommendedWidth": 1600,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/ultimate-guide-to-choosing-coupe-rentals.html",
+        "/blog.html",
+        "/blog-2.html",
+        "/guides.html",
+        "/events.html",
+        "/reviews.html"
+      ]
+    },
+    {
+      "path": "/assets/authors/evan-holt.webp",
+      "alt": "Portrait of Evan Holt",
+      "purpose": "Article author avatar",
+      "recommendedWidth": 400,
+      "recommendedHeight": 400,
+      "routes": [
+        "/ultimate-guide-to-choosing-coupe-rentals.html"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+---
+interface Props {
+  content: {
+    eyebrow: string; title: string; description: string; benefits: string[];
+    fields: { name: string; company: string; email: string; phone: string; country: string; product: string; requirements: string; requirementsPlaceholder: string };
+    consent: string; submitLabel: string; previewMessage: string; submitFeedback: string;
+  };
+}
+const { content } = Astro.props;
+---
+
+<section id="quote-form" class="b2b-quote-section" aria-labelledby="quote-heading">
+  <div class="b2b-quote-shell">
+    <div class="b2b-quote-intro">
+      <div class="b2b-quote-eyebrow">{content.eyebrow}</div>
+      <h2 id="quote-heading">{content.title}</h2>
+      <p>{content.description}</p>
+      <ul>
+        {content.benefits.map((benefit) => <li>{benefit}</li>)}
+      </ul>
+    </div>
+    <form class="b2b-quote-form" data-b2b-quote-form data-submit-feedback={content.submitFeedback} novalidate>
+      <div class="b2b-field-grid">
+        <label>{content.fields.name}<input name="name" autocomplete="name" required /></label>
+        <label>{content.fields.company}<input name="company" autocomplete="organization" /></label>
+        <label>{content.fields.email}<input name="email" type="email" autocomplete="email" required /></label>
+        <label>{content.fields.phone}<input name="phone" type="tel" autocomplete="tel" required /></label>
+        <label>{content.fields.country}<input name="country" autocomplete="country-name" /></label>
+        <label>{content.fields.product}<input name="product" /></label>
+      </div>
+      <label class="b2b-message-field">{content.fields.requirements}<textarea name="message" rows="4" placeholder={content.fields.requirementsPlaceholder}></textarea></label>
+      <label class="b2b-consent"><input type="checkbox" name="consent" required /> {content.consent}</label>
+      <button type="submit">{content.submitLabel} <span aria-hidden="true">→</span></button>
+      <p class="b2b-form-status" data-b2b-form-status aria-live="polite">{content.previewMessage}</p>
+    </form>
+  </div>
+</section>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-b2b-quote-form]');
+  const status = document.querySelector<HTMLElement>('[data-b2b-form-status]');
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    window.dispatchEvent(new CustomEvent('b2b_lead_intent'));
+    if (status) status.textContent = form.dataset.submitFeedback ?? '';
+  });
+</script>
+
+<style>
+  .b2b-quote-section { padding:80px 20px; background:#070806; color:#fff; }
+  .b2b-quote-shell { display:grid; width:min(100%,1316px); grid-template-columns:.82fr 1.18fr; gap:64px; margin:0 auto; padding:52px; border-radius:20px; background:#1a1b19; }
+  .b2b-quote-eyebrow { color:#d4d414; font-size:12px; font-weight:700; letter-spacing:.12em; }
+  .b2b-quote-intro h2 { margin:15px 0; font-size:clamp(34px,3.2vw,51px); font-weight:500; line-height:1.04; }
+  .b2b-quote-intro p,.b2b-quote-intro li { color:rgba(255,255,255,.68); line-height:1.6; }
+  .b2b-quote-intro ul { margin:25px 0 0; padding:0; list-style:none; }
+  .b2b-quote-intro li { display:flex; gap:10px; margin:10px 0; }
+  .b2b-quote-intro li::before { color:#d4d414; content:'✓'; }
+  .b2b-quote-form { display:grid; gap:17px; }
+  .b2b-field-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .b2b-quote-form label { display:grid; gap:7px; color:rgba(255,255,255,.84); font-size:13px; }
+  .b2b-quote-form input,.b2b-quote-form textarea { width:100%; box-sizing:border-box; border:1px solid rgba(255,255,255,.24); border-radius:8px; padding:13px 14px; outline:0; color:#fff; background:#292a28; font:inherit; }
+  .b2b-quote-form input:focus,.b2b-quote-form textarea:focus { border-color:#d4d414; }
+  .b2b-consent { grid-template-columns:auto 1fr; align-items:start; } .b2b-consent input { width:15px; margin-top:2px; }
+  .b2b-quote-form button { display:flex; min-height:53px; align-items:center; justify-content:space-between; padding:0 18px; border:0; border-radius:9px; color:#111; background:#d4d414; font:inherit; font-weight:700; cursor:pointer; }
+  .b2b-form-status { margin:0; color:rgba(255,255,255,.54); font-size:12px; line-height:1.5; }
+  @media(max-width:991px){ .b2b-quote-shell { grid-template-columns:1fr; gap:38px; padding:42px; } }
+  @media(max-width:767px){ .b2b-quote-section { padding:55px 16px; } .b2b-quote-shell { gap:30px; padding:30px 22px; } .b2b-field-grid { grid-template-columns:1fr; } }
+</style>

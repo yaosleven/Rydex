@@ -1,0 +1,22 @@
+{
+  "page": "events",
+  "copy": {
+    "eyebrow": "Blog Posts",
+    "blogTitle": "Our Blog Posts",
+    "categoryPrefix": "Posts",
+    "filterLabel": "Categories",
+    "all": "All",
+    "reviews": "Reviews",
+    "guides": "Guides",
+    "events": "Events",
+    "next": "Next",
+    "previous": "Previous"
+  },
+  "images": {},
+  "team": [],
+  "seo": {
+    "description": "Automotive news and Rydex events.",
+    "ogImage": "/assets/articles/rydex-hosts-annual-auto-racing-grand-event/cover.webp",
+    "title": "Rydex Events | Rydex"
+  }
+}

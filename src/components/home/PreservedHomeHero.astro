@@ -1,0 +1,61 @@
+---
+const picture = (file: string) => `/static/picture/${file}`;
+
+const models = [
+  { name: 'Rapt Horizon', href: '/rapt-horizon.html' },
+  { name: 'Velocit Crest', href: '/velocit-crest.html' },
+  { name: 'Xplorer Glide', href: '/xplorer-glide.html' },
+  { name: 'Cest Tunder', href: '/cest-tunder.html' },
+  { name: 'Glide Vortex', href: '/glide-vortex.html' },
+  { name: 'Sumit Senity', href: '/sumit-senity.html' },
+  { name: 'Senity Pulse', href: '/senity-pulse.html' },
+];
+
+const navigation = [
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about.html' },
+  { name: 'Models', href: '/models.html' },
+  { name: 'Blog', href: '/blog.html' },
+  { name: 'Contact', href: '/contact.html' },
+];
+
+const hero = {
+  location: 'Dubai, UAE',
+  collection: 'Prime Collection by Rydex!',
+  description: 'Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet nunc ut.',
+  eyebrow: 'Car Rental',
+  title: 'Enjoy Easy Rides, Pick Your Way',
+  desktopImage: picture('6867580e8c3ea59bc8be0567_c37a5846c76d515300a0ec5a573c45fd_home-hero-image.webp'),
+  mobileImage: picture('68693eff1f14ac6704da31bf_home-hero-mobile.webp'),
+  logo: picture('6863a7d749380244400cadf0_ec84ea29b2cc7723b4b9b2449bd3b59c_logo.svg'),
+  arrow: picture('6867dee03e172481e1f00bf9_arrow-right-icon-2.svg'),
+  dropdownArrow: picture('68695011fff14c231d733695_18e4deb9ce7150d6021fead5b7f630a7_arrow-bottom-icon.svg'),
+};
+---
+
+<section class="section margin-top">
+  <div class="content-wrapper-large">
+    <div class="hero-content-wrapper">
+      <div class="home-navbar-wrapper">
+        <div data-animation="default" data-collapse="all" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar w-nav">
+          <div class="content-wrapper-default"><div class="navbar-wrapper">
+            <div class="nav-logo-link"><a href="/" aria-current="page" class="logo-link w-nav-brand w--current"><div class="link-text-wrapper"><img src={hero.logo} loading="eager" alt="Rydex" class="link-text" /><img src={hero.logo} loading="eager" alt="" class="link-text-hover" /></div></a></div>
+            <div class="nav-content">
+              <div class="nav-models-search">
+                <div data-hover="false" data-delay="0" class="nav-models-dropdown w-dropdown"><div class="nav-dropdown-toggle w-dropdown-toggle"><div>Models</div><img src={hero.dropdownArrow} loading="eager" alt="" class="nav-dropdown-icon" /></div><nav class="nav-dropdown-list w-dropdown-list"><div class="collection-list-wrapper w-dyn-list"><div role="list" class="collection-list nav-models-list w-dyn-items">{models.map((model) => <div role="listitem" class="collection-item w-dyn-item"><a href={model.href} class="link-regular w-inline-block"><div class="link-text-wrapper"><div class="link-text">{model.name}</div><div class="link-text-hover">{model.name}</div></div></a></div>)}</div></div></nav></div>
+                <form action="/search" class="nav-search-wrapper w-form"><label class="preserved-sr-only" for="preserved-hero-search">Search</label><input class="nav-search-input w-input" maxlength="256" name="query" placeholder="Search…" type="search" id="preserved-hero-search" required /><input type="submit" class="nav-search-button w-button" value="" /></form>
+              </div>
+              <div data-hover="false" data-delay="0" class="nav-menu-dropdown w-dropdown"><div class="menu-button w-dropdown-toggle"><div class="menu-icon"><div class="top"></div><div class="middle"></div><div class="bottom"></div></div></div><nav class="nav-dropdown-list nav-menu-dropdown w-dropdown-list"><div class="nav-menu-list">{navigation.map((item) => <a href={item.href} aria-current={item.href === '/' ? 'page' : undefined} class:list={['link-large', 'w-inline-block', { 'w--current': item.href === '/' }]}><div class="link-text-wrapper"><div class="link-text">{item.name}</div><div class="link-text-hover">{item.name}</div></div></a>)}<div class="nav-menu-cta"><div class="nav-cta"><a href="/contact.html" class="secondary-button w-inline-block"><div class="link-content-wrapper"><div class="link-text-wrapper"><div class="link-text">Book Now</div><div class="link-text-hover">Book Now</div></div><div class="secondary-link-square">↗</div></div></a></div></div></div></nav></div>
+            </div>
+          </div></div>
+        </div>
+      </div>
+      <div class="hero-image-wrapper"><div class="hero-image desktop-tablet-only"><img src={hero.desktopImage} loading="eager" alt="Home Hero Image" class="image-default" /></div><div class="hero-image mobile-only"><img src={hero.mobileImage} loading="eager" alt="Home Hero Image" class="image-default" /></div><div class="hero-image-overlay"></div></div>
+      <div class="hero-texts-wrapper"><div class="hero-texts-content"><div class="content-wrapper-default"><div class="hero-content-top"><div class="hero-text-left"><div class="hero-text-location"><div class="pearl-color-text">{hero.location}</div><div class="hero-text-divider"></div></div><div class="grow-if-possible"><div class="max-width-160px"><div class="pearl-color-text">{hero.collection}</div></div></div></div><div class="hero-text-right"><div class="max-width-320px"><p class="pearl-color-text right-align">{hero.description}</p></div></div></div></div><div class="hero-content-bottom"><div class="content-wrapper-default"><div class="home-hero-text"><div class="hero-subheadline-wrapper"><div class="subheadline"><div class="subheadline-line"></div><div>{hero.eyebrow}</div></div></div><div class="hero-heading"><h1 class="pure-color-heading">{hero.title}</h1></div></div></div><div class="hero-buttons-wrapper"><div class="content-wrapper-default hero-buttons-content"><div class="hero-buttons"><a href="/models.html" class="hero-button-item hero-button-1 w-inline-block"><div class="hero-button-content"><div class="link-text-wrapper"><div class="link-text">Book a Car</div><div class="link-text-hover">Book a Car</div></div><div class="link-arrow-wrapper"><img src={hero.arrow} alt="" class="link-arrow" /></div></div></a><a href="/contact.html" class="hero-button-item hero-button-2 w-inline-block"><div class="hero-button-content"><div class="link-text-wrapper"><div class="link-text">Get in Touch</div><div class="link-text-hover">Get in Touch</div></div><div class="link-arrow-wrapper"><img src={hero.arrow} alt="" class="link-arrow" /></div></div></a></div></div></div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .preserved-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+</style>

@@ -1,0 +1,73 @@
+{
+  "page": "about",
+  "copy": {
+    "heroEyebrow": "About Us",
+    "heroTitle": "Try Rydex Rides, Cruise With Joy",
+    "introEyebrow": "Who We Are",
+    "introTitle": "Driven by Passion, built on Precision! Rydex Delivers More Than Cars, We bring Trust.",
+    "introBody": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elem tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libe vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem.",
+    "introCta": "Book Now",
+    "statisticsEyebrow": "Our Numbers",
+    "statisticsTitle": "Key Statistics That Define Our Journey",
+    "showroomEyebrow": "Our Showroom",
+    "showroomTitle": "Discover Rydex Elite Showroom Site",
+    "showroomAddress": "19 Jumeirah Beach Road, Umm Suqeim District, Dubai City, United Arab Emirates.",
+    "teamEyebrow": "Our Team",
+    "teamTitle": "Meet Rydex Dedicated Team Members",
+    "teamCta": "View",
+    "metricBookings": "Total Bookings",
+    "metricModels": "Models In Stock",
+    "metricClients": "Clients Satisfaction",
+    "metricDaily": "Daily Bookings"
+  },
+  "images": {
+    "heroDesktop": "/assets/about/hero-desktop.webp",
+    "heroMobile": "/assets/about/hero-mobile.webp",
+    "intro": "/assets/about/intro.webp",
+    "showroom": "/assets/about/showroom.webp",
+    "partner1": "/assets/about/partners/partner-1.svg",
+    "partner2": "/assets/about/partners/partner-2.svg",
+    "partner3": "/assets/about/partners/partner-3.svg",
+    "partner4": "/assets/about/partners/partner-4.svg",
+    "partner5": "/assets/about/partners/partner-5.svg",
+    "partner6": "/assets/about/partners/partner-6.svg",
+    "partner7": "/assets/about/partners/partner-7.svg"
+  },
+  "metrics": [
+    { "label": "Total Bookings", "value": "2.5", "suffix": "K+" },
+    { "label": "Models In Stock", "value": "300", "suffix": "+" },
+    { "label": "Clients Satisfaction", "value": "99", "suffix": "%" },
+    { "label": "Daily Bookings", "value": "50", "suffix": "+" }
+  ],
+  "team": [
+    {
+      "name": "Ryan Cole",
+      "role": "Founder",
+      "image": "/assets/about/team/ryan-cole.webp",
+      "alt": "Ryan Cole, Founder"
+    },
+    {
+      "name": "Cory Nash",
+      "role": "Manager",
+      "image": "/assets/about/team/cory-nash.webp",
+      "alt": "Cory Nash, Manager"
+    },
+    {
+      "name": "Tina Raye",
+      "role": "Salesman",
+      "image": "/assets/about/team/tina-raye.webp",
+      "alt": "Tina Raye, Salesman"
+    },
+    {
+      "name": "Evan Holt",
+      "role": "Mechanic",
+      "image": "/assets/about/team/evan-holt.webp",
+      "alt": "Evan Holt, Mechanic"
+    }
+  ],
+  "seo": {
+    "description": "Discover the passion, people and premium vehicle experience behind Rydex.",
+    "ogImage": "/assets/about/hero-desktop.webp",
+    "title": "About Rydex | Rydex"
+  }
+}

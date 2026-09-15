@@ -1,0 +1,33 @@
+<script>
+  const initialiseB2BLandingInteractions = () => {
+    const landing = document.querySelector<HTMLElement>('.b2b-landing-page');
+    if (!landing || landing.dataset.b2bLandingReady === 'true') return;
+    landing.dataset.b2bLandingReady = 'true';
+
+    landing.querySelectorAll<HTMLAnchorElement>('a.primary-button').forEach((link) => {
+      link.href = '#quote-form';
+    });
+
+    const hero = landing.querySelector<HTMLElement>('.home-hero-content');
+    hero?.querySelectorAll<HTMLAnchorElement>('a').forEach((link) => {
+      const label = link.textContent?.replace(/\s+/g, ' ').trim();
+      if (label === 'Request a Quote' || label === 'Talk to Our Team') {
+        link.href = '#quote-form';
+      }
+    });
+
+    const formSection = landing.querySelector<HTMLElement>('#quote-form');
+    const stickyCta = landing.querySelector<HTMLElement>('.b2b-sticky-cta');
+    if (formSection && stickyCta && 'IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => {
+        stickyCta.classList.toggle('is-hidden', entry.isIntersecting);
+      }, { threshold: 0.15 }).observe(formSection);
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initialiseB2BLandingInteractions, { once: true });
+  } else {
+    initialiseB2BLandingInteractions();
+  }
+</script>

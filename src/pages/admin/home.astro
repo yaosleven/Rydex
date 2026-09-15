@@ -1,0 +1,289 @@
+---
+import { getEntry } from 'astro:content';
+
+const siteSettings = await getEntry('settings', 'site');
+const homePage = await getEntry('pages', 'home');
+
+if (!siteSettings || !homePage) {
+  throw new Error('Missing required site or Home page content entry.');
+}
+
+const defaults = {
+  companyName: siteSettings.data.companyName,
+  email: siteSettings.data.email,
+  phone: siteSettings.data.phone,
+  whatsappUrl: siteSettings.data.whatsappUrl,
+  location: homePage.data.copy.heroLocation,
+  collection: homePage.data.copy.heroCollection,
+  eyebrow: homePage.data.copy.heroEyebrow,
+  title: homePage.data.copy.heroTitle,
+  description: homePage.data.copy.heroDescription,
+  primaryCta: homePage.data.copy.heroPrimaryCta,
+  secondaryCta: homePage.data.copy.heroSecondaryCta,
+  desktopImage: homePage.data.images.heroDesktop,
+  mobileImage: homePage.data.images.heroMobile,
+};
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#102844" />
+    <title>首页内容后台｜预览版</title>
+  </head>
+  <body>
+    <main class="admin-shell">
+      <aside class="sidebar" aria-label="后台导航">
+        <a class="brand" href="/admin/" aria-label="内容后台首页">
+          <span class="brand-mark">R</span>
+          <span><strong>Rydex</strong><small>内容管理后台</small></span>
+        </a>
+        <nav>
+          <a class="nav-item" href="/admin/"><span>⌂</span>内容中心</a>
+          <a class="nav-item active" href="/admin/home" aria-current="page"><span>✎</span>首页内容</a>
+          <a class="nav-item" href="/admin/models"><span>▣</span>产品管理</a>
+          <a class="nav-item" href="/admin/articles"><span>▧</span>文章管理</a>
+          <a class="nav-item" href="/admin/library"><span>▤</span>页面与品牌</a>
+          <span class="nav-item disabled"><span>◉</span>询盘数据 <em>后续功能</em></span>
+          <a class="nav-item" href="/admin/settings"><span>⚙</span>网站设置与页面</a>
+        </nav>
+        <div class="sidebar-note">
+          <strong>首页编辑样例</strong>
+          <p>目前保存为此浏览器的本机草稿，不会影响已发布的网站。</p>
+        </div>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">CONTENT MANAGEMENT</p>
+            <h1>首页内容</h1>
+          </div>
+          <div class="topbar-actions">
+            <a class="preview-link" href="/index.html?content-preview=1" target="_blank" rel="noreferrer">查看草稿预览 ↗</a>
+            <button class="primary-button" id="save-draft" type="button">保存草稿</button>
+          </div>
+        </header>
+
+        <div class="prototype-banner" role="status">
+          <span aria-hidden="true">i</span>
+          <p><strong>这是可操作的后台原型。</strong> 你可以填写内容、选择图片并打开首页预览。正式版会增加账号登录、在线图片库与一键发布。</p>
+        </div>
+
+        <form id="home-content-form" class="content-form">
+          <section class="card">
+            <div class="card-heading">
+              <div>
+                <p class="section-kicker">01 / 品牌与联系</p>
+                <h2>基础信息</h2>
+              </div>
+              <p>这些信息将用于页脚、询盘与品牌展示。</p>
+            </div>
+            <div class="field-grid two-columns">
+              <label>公司名称<input name="companyName" value={defaults.companyName} autocomplete="organization" /></label>
+              <label>联系邮箱<input name="email" value={defaults.email} type="email" autocomplete="email" /></label>
+              <label>联系电话<input name="phone" value={defaults.phone} type="tel" autocomplete="tel" /></label>
+              <label>WhatsApp 链接<input name="whatsappUrl" value={defaults.whatsappUrl} type="url" inputmode="url" /></label>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-heading">
+              <div>
+                <p class="section-kicker">02 / 首屏内容</p>
+                <h2>Hero 主视觉</h2>
+              </div>
+              <p>访客进入首页第一眼看到的标题、卖点和行动按钮。</p>
+            </div>
+            <div class="field-grid two-columns">
+              <label>地点或服务区域<input name="location" value={defaults.location} /></label>
+              <label>顶部短句<input name="collection" value={defaults.collection} /></label>
+              <label>栏目标签<input name="eyebrow" value={defaults.eyebrow} /></label>
+              <label>主标题<input name="title" value={defaults.title} /></label>
+              <label class="full-width">补充说明<textarea name="description" rows="3">{defaults.description}</textarea></label>
+              <label>主按钮文字<input name="primaryCta" value={defaults.primaryCta} /></label>
+              <label>次按钮文字<input name="secondaryCta" value={defaults.secondaryCta} /></label>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-heading">
+              <div>
+                <p class="section-kicker">03 / 首屏图片</p>
+                <h2>主视觉素材</h2>
+              </div>
+              <p>本原型会把你选择的图片仅保存到当前浏览器，以便预览效果。</p>
+            </div>
+            <div class="image-editor-grid">
+              <div class="image-field">
+                <img id="desktop-image-preview" src={defaults.desktopImage} alt="桌面端首页首屏预览" />
+                <div class="image-field-copy">
+                  <strong>桌面端横图</strong>
+                  <small>建议使用 16:9 或更宽的图片</small>
+                </div>
+                <label class="file-picker">选择图片<input id="desktop-image-file" type="file" accept="image/png,image/jpeg,image/webp" /></label>
+                <label class="url-field">或填写图片地址<input name="desktopImage" value={defaults.desktopImage} /></label>
+              </div>
+              <div class="image-field mobile-image-field">
+                <img id="mobile-image-preview" src={defaults.mobileImage} alt="移动端首页首屏预览" />
+                <div class="image-field-copy">
+                  <strong>移动端竖图</strong>
+                  <small>建议使用 4:5 或 9:16 的图片</small>
+                </div>
+                <label class="file-picker">选择图片<input id="mobile-image-file" type="file" accept="image/png,image/jpeg,image/webp" /></label>
+                <label class="url-field">或填写图片地址<input name="mobileImage" value={defaults.mobileImage} /></label>
+              </div>
+            </div>
+          </section>
+
+          <section class="next-card">
+            <div>
+              <p class="section-kicker">下一步</p>
+              <h2>首页其他板块</h2>
+              <p>“关于我们、精选产品、服务优势、客户评价、博客和页脚”已经具备内容数据基础，可按这套体验继续加入后台。</p>
+            </div>
+            <span>已规划</span>
+          </section>
+        </form>
+
+        <footer class="save-bar">
+          <p id="save-status">未保存任何本机草稿。</p>
+          <div>
+            <button class="text-button" id="reset-draft" type="button">恢复默认内容</button>
+            <button class="primary-button" id="save-draft-bottom" type="button">保存草稿</button>
+          </div>
+        </footer>
+      </section>
+    </main>
+
+    <script id="home-admin-defaults" type="application/json" is:inline set:html={JSON.stringify(defaults)}></script>
+    <script is:inline>
+      const storageKey = 'rydex-home-content-draft-v1';
+      const form = document.querySelector('#home-content-form');
+      const status = document.querySelector('#save-status');
+      const defaultsElement = document.querySelector('#home-admin-defaults');
+      const defaults = defaultsElement ? JSON.parse(defaultsElement.textContent || '{}') : {};
+
+      const setStatus = (message, saved = false) => {
+        if (!status) return;
+        status.textContent = message;
+        status.classList.toggle('saved', saved);
+      };
+
+      const valuesFromForm = () => Object.fromEntries(new FormData(form).entries());
+
+      const renderImagePreview = (inputName, imageId) => {
+        const input = form?.elements.namedItem(inputName);
+        const image = document.querySelector(`#${imageId}`);
+        if (input instanceof HTMLInputElement && image instanceof HTMLImageElement && input.value.trim()) {
+          image.src = input.value.trim();
+        }
+      };
+
+      const populate = (content) => {
+        Object.entries(content).forEach(([name, value]) => {
+          const field = form?.elements.namedItem(name);
+          if (field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement) field.value = String(value);
+        });
+        renderImagePreview('desktopImage', 'desktop-image-preview');
+        renderImagePreview('mobileImage', 'mobile-image-preview');
+      };
+
+      const saveDraft = () => {
+        try {
+          window.localStorage.setItem(storageKey, JSON.stringify(valuesFromForm()));
+          setStatus(`草稿已保存到此浏览器 · ${new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })}`, true);
+        } catch {
+          setStatus('图片或内容过大，无法保存。请改用较小的图片后重试。');
+        }
+      };
+
+      const connectImagePicker = (fileInputId, textInputName, imageId) => {
+        const fileInput = document.querySelector(`#${fileInputId}`);
+        fileInput?.addEventListener('change', () => {
+          const file = fileInput.files?.[0];
+          if (!file) return;
+          if (file.size > 3 * 1024 * 1024) {
+            setStatus('为了保证本机预览稳定，请选择小于 3MB 的图片。');
+            fileInput.value = '';
+            return;
+          }
+          const reader = new FileReader();
+          reader.addEventListener('load', () => {
+            const value = typeof reader.result === 'string' ? reader.result : '';
+            const textInput = form?.elements.namedItem(textInputName);
+            if (textInput instanceof HTMLInputElement) textInput.value = value;
+            renderImagePreview(textInputName, imageId);
+            setStatus('图片已加入草稿，点击“保存草稿”后可打开首页预览。');
+          });
+          reader.readAsDataURL(file);
+        });
+      };
+
+      try {
+        const stored = window.localStorage.getItem(storageKey);
+        if (stored) {
+          populate(JSON.parse(stored));
+          setStatus('已加载此浏览器之前保存的草稿。', true);
+        }
+      } catch {
+        window.localStorage.removeItem(storageKey);
+      }
+
+      form?.addEventListener('input', (event) => {
+        const field = event.target;
+        if (field instanceof HTMLInputElement && field.name === 'desktopImage') renderImagePreview('desktopImage', 'desktop-image-preview');
+        if (field instanceof HTMLInputElement && field.name === 'mobileImage') renderImagePreview('mobileImage', 'mobile-image-preview');
+        setStatus('有未保存的修改。');
+      });
+
+      document.querySelectorAll('#save-draft, #save-draft-bottom').forEach((button) => button.addEventListener('click', saveDraft));
+      document.querySelector('#reset-draft')?.addEventListener('click', () => {
+        window.localStorage.removeItem(storageKey);
+        populate(defaults);
+        setStatus('已恢复默认内容。');
+      });
+
+      connectImagePicker('desktop-image-file', 'desktopImage', 'desktop-image-preview');
+      connectImagePicker('mobile-image-file', 'mobileImage', 'mobile-image-preview');
+    </script>
+  </body>
+</html>
+
+<style>
+  :root { color: #13233a; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f3f6fa; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f3f6fa; }
+  .admin-shell { min-height: 100vh; display: grid; grid-template-columns: 250px minmax(0, 1fr); }
+  .sidebar { min-height: 100vh; padding: 28px 16px; background: linear-gradient(180deg, #0d2743, #071a2d); color: #dce8f5; display: flex; flex-direction: column; }
+  .brand { display: flex; align-items: center; gap: 11px; padding: 0 10px 32px; color: #fff; text-decoration: none; }
+  .brand-mark { width: 37px; height: 37px; border-radius: 11px; display: grid; place-items: center; background: #f0df58; color: #102844; font-size: 21px; font-weight: 800; }
+  .brand strong, .brand small { display: block; } .brand strong { font-size: 15px; } .brand small { margin-top: 3px; color: #8fa4b9; font-size: 11px; }
+  nav { display: grid; gap: 5px; }
+  .nav-item { min-height: 44px; padding: 0 11px; display: flex; gap: 10px; align-items: center; color: #b9c9d8; border-radius: 8px; text-decoration: none; font-size: 14px; }
+  .nav-item span { width: 16px; text-align: center; } .nav-item.active { background: #17486f; color: #fff; box-shadow: inset 3px 0 #52c1fc; }
+  .nav-item.disabled { opacity: .62; cursor: not-allowed; } .nav-item em { margin-left: auto; color: #7d95ab; font-size: 10px; font-style: normal; }
+  .sidebar-note { margin-top: auto; padding: 15px; border: 1px solid rgba(255,255,255,.11); border-radius: 10px; background: rgba(255,255,255,.04); font-size: 12px; line-height: 1.55; }
+  .sidebar-note p { margin: 7px 0 0; color: #a7bacb; }
+  .workspace { width: min(1420px, 100%); margin: 0 auto; padding: 28px 36px 104px; }
+  .topbar { display: flex; justify-content: space-between; gap: 20px; align-items: center; padding-bottom: 24px; }
+  .eyebrow, .section-kicker { margin: 0 0 6px; color: #5f7b9a; letter-spacing: .08em; font-size: 11px; font-weight: 800; }
+  h1, h2, p { margin-top: 0; } h1 { margin-bottom: 0; font-size: clamp(26px, 3vw, 34px); letter-spacing: -.04em; } h2 { margin-bottom: 0; font-size: 19px; letter-spacing: -.02em; }
+  .topbar-actions, .save-bar > div { display: flex; gap: 11px; align-items: center; }
+  button, .preview-link { border: 0; border-radius: 7px; min-height: 40px; padding: 0 16px; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+  .primary-button { background: #103a63; color: #fff; box-shadow: 0 4px 8px rgba(16,58,99,.18); } .primary-button:hover { background: #0a2d4e; }
+  .preview-link, .text-button { background: #fff; color: #26445f; border: 1px solid #d5e0eb; } .text-button { background: transparent; }
+  .prototype-banner { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 20px; padding: 14px 16px; background: #fff9e6; border: 1px solid #f0d378; border-radius: 9px; color: #765814; font-size: 13px; line-height: 1.5; }
+  .prototype-banner span { width: 18px; height: 18px; flex: 0 0 auto; border-radius: 50%; display: grid; place-items: center; background: #db9e10; color: #fff; font-weight: 800; font-size: 12px; } .prototype-banner p { margin: 0; }
+  .content-form { display: grid; gap: 18px; } .card, .next-card { padding: 26px; background: #fff; border: 1px solid #e1e9f0; border-radius: 12px; box-shadow: 0 3px 12px rgba(38,68,95,.04); }
+  .card-heading { display: flex; justify-content: space-between; gap: 24px; align-items: flex-start; margin-bottom: 23px; }.card-heading > p { max-width: 340px; margin: 3px 0 0; color: #71869a; font-size: 13px; line-height: 1.5; text-align: right; }
+  .field-grid { display: grid; gap: 17px; }.two-columns { grid-template-columns: repeat(2, minmax(0, 1fr)); }.full-width { grid-column: 1 / -1; }
+  label { display: grid; gap: 7px; color: #2a455e; font-size: 13px; font-weight: 700; } input, textarea { width: 100%; padding: 11px 12px; border: 1px solid #cfdae5; border-radius: 7px; background: #fff; color: #19334b; font: inherit; font-size: 14px; font-weight: 400; outline: none; } textarea { resize: vertical; line-height: 1.45; } input:focus, textarea:focus { border-color: #3c8bc6; box-shadow: 0 0 0 3px rgba(60,139,198,.13); }
+  .image-editor-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }.image-field { padding: 14px; border: 1px solid #dce6ee; border-radius: 9px; background: #fbfdff; }.image-field img { width: 100%; height: 180px; display: block; object-fit: cover; border-radius: 6px; background: #d8e2eb; }.mobile-image-field img { object-position: center; }.image-field-copy { display: grid; gap: 3px; margin: 13px 0; }.image-field-copy small { color: #778a9c; font-size: 12px; }.file-picker { width: max-content; min-height: 34px; padding: 0 12px; display: inline-flex; align-items: center; border-radius: 6px; background: #e9f3fa; color: #24618d; font-size: 12px; cursor: pointer; }.file-picker input { display: none; }.url-field { margin-top: 12px; font-size: 12px; font-weight: 600; }.url-field input { padding: 9px; font-size: 12px; }
+  .next-card { display: flex; justify-content: space-between; align-items: center; gap: 18px; background: linear-gradient(110deg, #102e4d, #1d527b); color: #fff; }.next-card .section-kicker { color: #98c9eb; }.next-card p:not(.section-kicker) { max-width: 760px; margin: 10px 0 0; color: #d4e4f0; font-size: 14px; line-height: 1.55; }.next-card > span { padding: 7px 10px; border-radius: 100px; background: rgba(255,255,255,.14); color: #d6f1ff; font-size: 12px; font-weight: 700; white-space: nowrap; }
+  .save-bar { position: fixed; z-index: 5; bottom: 0; left: 250px; right: 0; min-height: 72px; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 14px 36px; border-top: 1px solid #dbe5ed; background: rgba(255,255,255,.95); backdrop-filter: blur(10px); }.save-bar p { margin: 0; color: #6e8397; font-size: 13px; }.save-bar p.saved { color: #238456; }
+  @media (max-width: 820px) { .admin-shell { grid-template-columns: 1fr; }.sidebar { display: none; }.workspace { padding: 20px 16px 98px; }.topbar, .card-heading { align-items: flex-start; flex-direction: column; }.topbar-actions { width: 100%; }.topbar-actions > * { flex: 1; }.card, .next-card { padding: 19px; }.two-columns, .image-editor-grid { grid-template-columns: 1fr; }.card-heading > p { text-align: left; }.save-bar { left: 0; padding: 12px 16px; }.save-bar > p { display: none; }.save-bar > div { width: 100%; }.save-bar button { flex: 1; }.next-card { align-items: flex-start; flex-direction: column; } }
+</style>

@@ -1,0 +1,11 @@
+{
+  "name": "Aurion",
+  "description": "A current Rydex template model brand.",
+  "logo": "/assets/brands/aurion.svg",
+  "seo": {
+    "title": "Aurion Models | Rydex",
+    "description": "A current Rydex template model brand.",
+    "ogImage": "/assets/brands/aurion.svg"
+  },
+  "logoAlt": "Aurion brand logo"
+}

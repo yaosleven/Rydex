@@ -1,0 +1,27 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'accent' | 'outline' | 'text';
+  class?: string;
+}
+
+const { href, variant = 'accent', class: className } = Astro.props;
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag href={href} class:list={['clean-button', `clean-button--${variant}`, className]}>
+  <slot />
+  <span aria-hidden="true">↗</span>
+</Tag>
+
+<style>
+  .clean-button { display: inline-flex; align-items: center; justify-content: space-between; gap: 1.25rem; min-height: 3.375rem; padding: 0.3rem 0.3rem 0.3rem 1.25rem; border: 1px solid transparent; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; line-height: 1; text-decoration: none; text-transform: uppercase; transition: background-color var(--clean-transition), color var(--clean-transition), border-color var(--clean-transition); }
+  .clean-button > span { display: grid; width: 2.625rem; aspect-ratio: 1; place-items: center; background: currentColor; color: var(--clean-ink); font-size: 1.2rem; transition: transform var(--clean-transition); }
+  .clean-button:hover > span { transform: rotate(45deg); }
+  .clean-button--accent { background: var(--clean-accent); color: var(--clean-ink); }
+  .clean-button--accent > span { background: var(--clean-ink); color: var(--clean-accent); }
+  .clean-button--outline { border-color: var(--clean-text); color: var(--clean-text); background: transparent; }
+  .clean-button--outline > span { background: var(--clean-text); color: var(--clean-ink); }
+  .clean-button--text { min-height: auto; padding: 0 0 0.625rem; border-bottom-color: var(--clean-line); color: var(--clean-text); }
+  .clean-button--text > span { width: auto; background: transparent; color: var(--clean-accent); }
+</style>

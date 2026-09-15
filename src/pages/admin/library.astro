@@ -1,0 +1,80 @@
+---
+import { getCollection } from 'astro:content';
+
+const [pages, brands] = await Promise.all([getCollection('pages'), getCollection('brands')]);
+const routeForPage: Record<string, string> = {
+  home: '/', about: '/about.html', contact: '/contact.html', blog: '/blog.html', 'blog-2': '/blog-2.html',
+  events: '/events.html', guides: '/guides.html', reviews: '/reviews.html', changelog: '/changelog.html',
+  licenses: '/licenses.html', 'style-guide': '/style-guide.html', catalog: '/models.html',
+  luxora: '/luxora.html', velox: '/velox.html', aurion: '/aurion.html', coupe: '/coupe.html', sedan: '/sedan.html', suv: '/suv.html',
+  '360deg-camera': '/360deg-camera.html', bluetooth: '/bluetooth.html', 'built-in-gps': '/built-in-gps.html',
+  'leather-seats': '/leather-seats.html', 'led-headlights': '/led-headlights.html', 'sound-system': '/sound-system.html', 'sunroof-6rm2o-xlnu2': '/sunroof-6rm2o-xlnu2.html',
+};
+const entries = [
+  ...brands.map(({ id, data }) => ({ id: `brand:${id}`, label: `品牌 · ${data.name}`, kind: '品牌', preview: `/${id}.html?content-preview=1`, data })),
+  ...pages.filter(({ id }) => !['home', 'about', 'contact'].includes(id)).map(({ id, data }) => ({ id: `page:${id}`, label: `页面 · ${data.page}`, kind: '页面', preview: routeForPage[id] ? `${routeForPage[id]}${routeForPage[id].includes('?') ? '&' : '?'}content-preview=1` : '', data })),
+];
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta charset="utf-8" /><meta name="viewport" content="width=device-width" /><meta name="robots" content="noindex,nofollow" /><title>页面与品牌编辑｜Rydex</title></head>
+  <body>
+    <main>
+      <aside>
+        <a class="brand" href="/admin/">Rydex 内容中心</a>
+        <nav><a href="/admin/home">首页编辑</a><a href="/admin/models">车型编辑</a><a href="/admin/articles">文章编辑</a><a class="active" href="/admin/library">页面与品牌</a><a href="/admin/settings">设置与页面</a></nav>
+        <p>本机草稿模式<br /><small>不会发布公开内容。</small></p>
+      </aside>
+      <section class="workspace">
+        <header><div><b>PAGE & BRAND CONTENT</b><h1>页面与品牌编辑</h1><p>编辑品牌页、列表页、功能页、辅助页与每页 SEO 字段。</p></div><a href="/admin/">← 内容中心</a></header>
+        <div class="notice">选择一个内容条目后，所有文字、图片路径和 SEO 字段都会列出。保存后可打开对应的本机草稿预览。</div>
+        <label class="picker">选择页面或品牌<select id="entry-select">{entries.map((entry) => <option value={entry.id}>{entry.label}</option>)}</select></label>
+        <form id="form" class="card"><div id="fields" class="grid"></div></form>
+        <footer><span id="status">正在编辑网站默认内容。</span><div><a id="preview" class="preview" target="_blank" rel="noreferrer">查看草稿预览 ↗</a><button id="reset" class="secondary" type="button">恢复默认</button><button id="save" type="button">保存草稿</button></div></footer>
+      </section>
+    </main>
+    <script id="entries" type="application/json" is:inline set:html={JSON.stringify(entries)}></script>
+    <script is:inline>
+      const entries = JSON.parse(document.querySelector('#entries')?.textContent || '[]');
+      const key = 'rydex-page-content-draft-v1';
+      const select = document.querySelector('#entry-select');
+      const fields = document.querySelector('#fields');
+      const status = document.querySelector('#status');
+      const preview = document.querySelector('#preview');
+      let drafts = {};
+      try { drafts = JSON.parse(localStorage.getItem(key) || '{}'); } catch { drafts = {}; }
+
+      const leafFields = (value, path = []) => {
+        if (typeof value === 'string') return [{ path, value }];
+        if (Array.isArray(value)) return value.flatMap((item, index) => leafFields(item, [...path, index]));
+        if (value && typeof value === 'object') return Object.entries(value).flatMap(([name, item]) => leafFields(item, [...path, name]));
+        return [];
+      };
+      const valueAt = (value, path) => path.reduce((current, segment) => current?.[segment], value);
+      const setAt = (value, path, replacement) => { let target = value; path.slice(0, -1).forEach((segment) => target = target[segment]); target[path[path.length - 1]] = replacement; };
+      const current = () => entries.find((entry) => entry.id === select.value) || entries[0];
+      const render = () => {
+        const entry = current(); const draft = drafts[entry.id] || {}; fields.innerHTML = '';
+        leafFields(entry.data).forEach(({ path, value }) => {
+          const label = document.createElement('label'); label.textContent = path.join(' › ');
+          const control = document.createElement(value.length > 90 ? 'textarea' : 'input');
+          control.name = path.join('.'); control.value = valueAt(draft, path) ?? value;
+          if (control.tagName === 'TEXTAREA') control.rows = 3;
+          label.append(control); fields.append(label);
+        });
+        preview.href = entry.preview || '#'; preview.style.display = entry.preview ? 'inline-flex' : 'none';
+        status.textContent = drafts[entry.id] ? '已加载此条目的本机草稿。' : '正在编辑网站默认内容。';
+      };
+      const save = () => { const entry = current(); const next = structuredClone(entry.data); leafFields(entry.data).forEach(({ path }) => setAt(next, path, document.querySelector(`[name="${path.join('.')}"]`)?.value || '')); drafts[entry.id] = next; localStorage.setItem(key, JSON.stringify(drafts)); status.textContent = '草稿已保存到此浏览器。'; };
+      select.addEventListener('change', render); fields.addEventListener('input', () => status.textContent = '有未保存的修改。');
+      document.querySelector('#save').addEventListener('click', save);
+      document.querySelector('#reset').addEventListener('click', () => { delete drafts[current().id]; localStorage.setItem(key, JSON.stringify(drafts)); render(); status.textContent = '已恢复网站默认内容。'; });
+      render();
+    </script>
+  </body>
+</html>
+
+<style>
+  :root{font-family:Inter,system-ui,sans-serif;color:#152c40;background:#f5f8fb}*{box-sizing:border-box}body{margin:0}main{display:grid;grid-template-columns:248px 1fr;min-height:100vh}aside{padding:30px 20px;color:#dbe6ef;background:#102f4d}.brand{display:block;margin:0 0 40px;color:#fff;font-size:19px;font-weight:750;text-decoration:none}nav{display:grid;gap:5px}nav a{padding:11px 12px;border-radius:8px;color:#c7d4df;text-decoration:none;font-size:14px}nav a:hover,nav .active{color:#fff;background:#1b4b72}aside p{position:fixed;bottom:24px;color:#a8bdce;font-size:12px;line-height:1.6}.workspace{width:min(100%,1060px);padding:42px;margin:0 auto}header{display:flex;justify-content:space-between;gap:24px;align-items:flex-start}header b{color:#517f9f;font-size:11px;letter-spacing:.14em}h1{margin:8px 0;font-size:32px;letter-spacing:-.04em}header p,.notice{color:#647d90;line-height:1.6}header>a{color:#225b88;text-decoration:none}.notice{margin:26px 0 22px;padding:14px 16px;border:1px solid #bcd2e4;border-radius:9px;background:#ecf6fd;font-size:13px}.picker{display:grid;gap:8px;margin-bottom:18px;font-weight:650}.picker select{max-width:560px}.card{padding:24px;border:1px solid #d8e4ed;border-radius:12px;background:#fff}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}.grid label{display:grid;gap:7px;color:#466277;font-size:12px;font-weight:650}.grid input,.grid textarea,.picker select{width:100%;padding:10px 11px;border:1px solid #cbd9e4;border-radius:7px;background:#fff;color:#162e43;font:inherit}.grid textarea{resize:vertical}footer{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-top:20px;color:#61788b;font-size:13px}footer div{display:flex;gap:10px;align-items:center}button,.preview{border:0;border-radius:7px;padding:10px 14px;background:#153f62;color:#fff;font:inherit;font-weight:650;cursor:pointer;text-decoration:none}.secondary{background:#e6edf2;color:#254861}.preview{background:#fff;color:#225b88;border:1px solid #a9c1d4}@media(max-width:760px){main{grid-template-columns:1fr}aside{padding:20px}aside p{display:none}nav{grid-template-columns:repeat(2,1fr)}.workspace{padding:28px 16px}header,footer{align-items:flex-start;flex-direction:column}.grid{grid-template-columns:1fr}footer div{flex-wrap:wrap}}
+</style>

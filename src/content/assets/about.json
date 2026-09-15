@@ -1,0 +1,155 @@
+{
+  "group": "About page assets",
+  "items": [
+    {
+      "path": "/assets/about/hero-desktop.webp",
+      "alt": "Rydex showroom hero image",
+      "purpose": "About page hero",
+      "recommendedWidth": 2400,
+      "recommendedHeight": 1350,
+      "routes": [
+        "/about.html"
+      ]
+    },
+    {
+      "path": "/assets/about/hero-mobile.webp",
+      "alt": "Rydex showroom hero image for mobile",
+      "purpose": "About page hero",
+      "recommendedWidth": 2400,
+      "recommendedHeight": 1350,
+      "routes": [
+        "/about.html"
+      ]
+    },
+    {
+      "path": "/assets/about/intro.webp",
+      "alt": "Rydex premium vehicle showroom interior",
+      "purpose": "About introduction image",
+      "recommendedWidth": 1200,
+      "recommendedHeight": 900,
+      "routes": [
+        "/about.html"
+      ]
+    },
+    {
+      "path": "/assets/about/showroom.webp",
+      "alt": "Rydex elite showroom exterior",
+      "purpose": "About showroom image",
+      "recommendedWidth": 1200,
+      "recommendedHeight": 900,
+      "routes": [
+        "/about.html"
+      ]
+    },
+    {
+      "path": "/assets/about/partners/partner-1.svg",
+      "alt": "Partner brand logo 1",
+      "purpose": "Partner logo",
+      "recommendedWidth": 400,
+      "recommendedHeight": 240,
+      "routes": [
+        "/about.html"
+      ]
+    },
+    {
+      "path": "/assets/about/partners/partner-2.svg",
+      "alt": "Partner brand logo 2",
+      "purpose": "Partner logo",
+      "recommendedWidth": 400,
+      "recommendedHeight": 240,
+      "routes": [
+        "/about.html"
+      ]
+    },
+    {
+      "path": "/assets/about/partners/partner-3.svg",
+      "alt": "Partner brand logo 3",
+      "purpose": "Partner logo",
+      "recommendedWidth": 400,
+      "recommendedHeight": 240,
+      "routes": [
+        "/about.html"
+      ]
+    },
+    {
+      "path": "/assets/about/partners/partner-4.svg",
+      "alt": "Partner brand logo 4",
+      "purpose": "Partner logo",
+      "recommendedWidth": 400,
+      "recommendedHeight": 240,
+      "routes": [
+        "/about.html"
+      ]
+    },
+    {
+      "path": "/assets/about/partners/partner-5.svg",
+      "alt": "Partner brand logo 5",
+      "purpose": "Partner logo",
+      "recommendedWidth": 400,
+      "recommendedHeight": 240,
+      "routes": [
+        "/about.html"
+      ]
+    },
+    {
+      "path": "/assets/about/partners/partner-6.svg",
+      "alt": "Partner brand logo 6",
+      "purpose": "Partner logo",
+      "recommendedWidth": 400,
+      "recommendedHeight": 240,
+      "routes": [
+        "/about.html"
+      ]
+    },
+    {
+      "path": "/assets/about/partners/partner-7.svg",
+      "alt": "Partner brand logo 7",
+      "purpose": "Partner logo",
+      "recommendedWidth": 400,
+      "recommendedHeight": 240,
+      "routes": [
+        "/about.html"
+      ]
+    },
+    {
+      "path": "/assets/about/team/ryan-cole.webp",
+      "alt": "Ryan Cole, Founder at Rydex",
+      "purpose": "About page team member portrait",
+      "recommendedWidth": 800,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/about.html"
+      ]
+    },
+    {
+      "path": "/assets/about/team/cory-nash.webp",
+      "alt": "Cory Nash, Manager at Rydex",
+      "purpose": "About page team member portrait",
+      "recommendedWidth": 800,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/about.html"
+      ]
+    },
+    {
+      "path": "/assets/about/team/tina-raye.webp",
+      "alt": "Tina Raye, Salesman at Rydex",
+      "purpose": "About page team member portrait",
+      "recommendedWidth": 800,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/about.html"
+      ]
+    },
+    {
+      "path": "/assets/about/team/evan-holt.webp",
+      "alt": "Evan Holt, Mechanic at Rydex",
+      "purpose": "About page team member portrait",
+      "recommendedWidth": 800,
+      "recommendedHeight": 1000,
+      "routes": [
+        "/about.html"
+      ]
+    }
+  ]
+}

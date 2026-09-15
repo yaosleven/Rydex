@@ -1,0 +1,254 @@
+<style is:global>
+  .astro-gallery-dialog {
+    position: fixed;
+    z-index: 2147483647;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: rgb(7 7 6 / 92%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 180ms ease;
+  }
+
+  .astro-gallery-dialog.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .astro-gallery-panel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: min(100%, 1120px);
+    max-height: calc(100dvh - 4rem);
+  }
+
+  .astro-gallery-image {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    max-height: calc(100dvh - 8rem);
+    border-radius: 0.75rem;
+    object-fit: contain;
+  }
+
+  .astro-gallery-control {
+    position: absolute;
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border: 1px solid rgb(255 255 255 / 58%);
+    border-radius: 999px;
+    background: rgb(10 10 9 / 76%);
+    color: #fff;
+    cursor: pointer;
+    font: inherit;
+    font-size: 1.6rem;
+    line-height: 1;
+  }
+
+  .astro-gallery-close { top: -3.5rem; right: 0; }
+  .astro-gallery-previous { left: 1rem; }
+  .astro-gallery-next { right: 1rem; }
+  .astro-gallery-caption {
+    position: absolute;
+    right: 0;
+    bottom: -2rem;
+    left: 0;
+    color: rgb(255 255 255 / 78%);
+    text-align: center;
+  }
+
+  @media (max-width: 767px) {
+    .astro-gallery-dialog { padding: 1rem; }
+    .astro-gallery-image { max-height: calc(100dvh - 6rem); }
+    .astro-gallery-control { width: 2.6rem; height: 2.6rem; }
+    .astro-gallery-close { top: -3rem; }
+    .astro-gallery-previous { left: 0.5rem; }
+    .astro-gallery-next { right: 0.5rem; }
+  }
+</style>
+
+<script>
+  const initialiseModelDetailInteractions = () => {
+    const page = document.querySelector<HTMLElement>('.page-wrapper');
+
+    if (!page || page.dataset.astroModelDetailInteractionsReady === 'true') return;
+
+    page.dataset.astroModelDetailInteractionsReady = 'true';
+
+    const menus = [
+      {
+        container: page.querySelector<HTMLElement>('.nav-models-dropdown'),
+        toggle: page.querySelector<HTMLElement>('.nav-models-dropdown .nav-dropdown-toggle'),
+        list: page.querySelector<HTMLElement>('.nav-models-dropdown .nav-dropdown-list'),
+        id: 'model-detail-navigation-models',
+      },
+      {
+        container: page.querySelector<HTMLElement>('.nav-menu-dropdown'),
+        toggle: page.querySelector<HTMLElement>('.nav-menu-dropdown .menu-button'),
+        list: page.querySelector<HTMLElement>('.nav-menu-dropdown .nav-dropdown-list'),
+        id: 'model-detail-navigation-main',
+      },
+    ].filter(
+      (menu): menu is { container: HTMLElement; toggle: HTMLElement; list: HTMLElement; id: string } =>
+        Boolean(menu.container && menu.toggle && menu.list),
+    );
+
+    const closeMenu = (menu: (typeof menus)[number]) => {
+      menu.container.classList.remove('w--open');
+      menu.toggle.classList.remove('w--open');
+      menu.list.classList.remove('w--open');
+      menu.toggle.setAttribute('aria-expanded', 'false');
+      menu.list.setAttribute('aria-hidden', 'true');
+    };
+
+    const openMenu = (menu: (typeof menus)[number]) => {
+      menus.forEach((item) => {
+        if (item !== menu) closeMenu(item);
+      });
+      menu.container.classList.add('w--open');
+      menu.toggle.classList.add('w--open');
+      menu.list.classList.add('w--open');
+      menu.toggle.setAttribute('aria-expanded', 'true');
+      menu.list.setAttribute('aria-hidden', 'false');
+    };
+
+    menus.forEach((menu) => {
+      menu.toggle.setAttribute('role', 'button');
+      menu.toggle.setAttribute('tabindex', '0');
+      menu.toggle.setAttribute('aria-controls', menu.id);
+      menu.toggle.setAttribute('aria-expanded', 'false');
+      menu.toggle.setAttribute('aria-haspopup', 'menu');
+      menu.list.id = menu.id;
+      menu.list.setAttribute('aria-hidden', 'true');
+      closeMenu(menu);
+
+      const toggleMenu = (event: Event) => {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        if (menu.toggle.getAttribute('aria-expanded') === 'true') closeMenu(menu);
+        else openMenu(menu);
+      };
+
+      menu.toggle.addEventListener('click', toggleMenu, true);
+      menu.toggle.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') toggleMenu(event);
+      }, true);
+    });
+
+    const imageLinks = Array.from(page.querySelectorAll<HTMLAnchorElement>('.model-images-wrapper .lightbox-link'));
+    const images = imageLinks
+      .map((link) => {
+        const image = link.querySelector<HTMLImageElement>('img');
+        return image ? { src: image.currentSrc || image.src, alt: image.alt || 'Model image' } : null;
+      })
+      .filter((image): image is { src: string; alt: string } => image !== null);
+
+    if (images.length === 0) return;
+
+    const dialog = document.createElement('div');
+    dialog.className = 'astro-gallery-dialog';
+    dialog.setAttribute('role', 'dialog');
+    dialog.setAttribute('aria-modal', 'true');
+    dialog.setAttribute('aria-label', 'Model image gallery');
+    dialog.setAttribute('aria-hidden', 'true');
+    dialog.innerHTML = `
+      <div class="astro-gallery-panel">
+        <button class="astro-gallery-control astro-gallery-close" type="button" aria-label="Close gallery">×</button>
+        <button class="astro-gallery-control astro-gallery-previous" type="button" aria-label="Previous image">‹</button>
+        <img class="astro-gallery-image" alt="" />
+        <button class="astro-gallery-control astro-gallery-next" type="button" aria-label="Next image">›</button>
+        <div class="astro-gallery-caption" aria-live="polite"></div>
+      </div>`;
+    document.body.append(dialog);
+
+    const galleryImage = dialog.querySelector<HTMLImageElement>('.astro-gallery-image');
+    const caption = dialog.querySelector<HTMLElement>('.astro-gallery-caption');
+    const closeButton = dialog.querySelector<HTMLButtonElement>('.astro-gallery-close');
+    const previousButton = dialog.querySelector<HTMLButtonElement>('.astro-gallery-previous');
+    const nextButton = dialog.querySelector<HTMLButtonElement>('.astro-gallery-next');
+    let activeIndex = 0;
+    let opener: HTMLElement | null = null;
+
+    const renderImage = () => {
+      const image = images[activeIndex];
+      if (!galleryImage || !caption) return;
+      galleryImage.src = image.src;
+      galleryImage.alt = image.alt;
+      caption.textContent = `${activeIndex + 1} / ${images.length}`;
+    };
+
+    const closeGallery = () => {
+      dialog.classList.remove('is-open');
+      dialog.setAttribute('aria-hidden', 'true');
+      document.body.style.removeProperty('overflow');
+      opener?.focus();
+    };
+
+    const openGallery = (index: number, link: HTMLAnchorElement) => {
+      activeIndex = index;
+      opener = link;
+      renderImage();
+      dialog.setAttribute('aria-hidden', 'false');
+      dialog.classList.add('is-open');
+      document.body.style.setProperty('overflow', 'hidden');
+      closeButton?.focus();
+    };
+
+    const showNext = () => {
+      activeIndex = (activeIndex + 1) % images.length;
+      renderImage();
+    };
+
+    const showPrevious = () => {
+      activeIndex = (activeIndex - 1 + images.length) % images.length;
+      renderImage();
+    };
+
+    imageLinks.forEach((link, index) => {
+      link.setAttribute('role', 'button');
+      link.setAttribute('aria-haspopup', 'dialog');
+      link.setAttribute('aria-label', `Open model image ${index + 1} of ${images.length}`);
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        openGallery(index, link);
+      }, true);
+    });
+
+    closeButton?.addEventListener('click', closeGallery);
+    previousButton?.addEventListener('click', showPrevious);
+    nextButton?.addEventListener('click', showNext);
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) closeGallery();
+    });
+
+    document.addEventListener('pointerdown', (event) => {
+      const target = event.target;
+      if (!(target instanceof Node) || menus.some((menu) => menu.container.contains(target))) return;
+      menus.forEach(closeMenu);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        menus.forEach(closeMenu);
+        if (dialog.classList.contains('is-open')) closeGallery();
+      }
+      if (!dialog.classList.contains('is-open')) return;
+      if (event.key === 'ArrowRight') showNext();
+      if (event.key === 'ArrowLeft') showPrevious();
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initialiseModelDetailInteractions, { once: true });
+  } else {
+    initialiseModelDetailInteractions();
+  }
+</script>

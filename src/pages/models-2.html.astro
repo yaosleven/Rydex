@@ -1,0 +1,15 @@
+---
+import WebflowDocument from '../layouts/WebflowDocument.astro';
+import ModelsListing from '../components/models/ModelsListing.astro';
+import ModelsInteractions from '../components/models/ModelsInteractions.astro';
+import { webflowModelsTwo } from '../utils/webflow-models-2';
+import { getEntry } from 'astro:content';
+
+const catalog = await getEntry('pages', 'catalog');
+if (!catalog) throw new Error('Missing required catalog page content.');
+---
+
+<WebflowDocument pageId="68653ef4f6a44b398ddad1f3" title={catalog.data.seo?.title} description={catalog.data.seo?.description} ogImage={catalog.data.seo?.ogImage}>
+  <ModelsListing markup={webflowModelsTwo} />
+  <ModelsInteractions />
+</WebflowDocument>

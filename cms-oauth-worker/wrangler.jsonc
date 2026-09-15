@@ -1,0 +1,9 @@
+{
+  "name": "rydex-cms-oauth",
+  "main": "src/index.js",
+  "compatibility_date": "2026-09-15",
+  "workers_dev": true,
+  "vars": {
+    "CMS_ORIGIN": "https://YOUR_CLOUDFLARE_PAGES_DOMAIN"
+  }
+}

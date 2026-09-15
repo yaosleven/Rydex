@@ -1,0 +1,46 @@
+---
+import { getCollection } from 'astro:content';
+import RawMarkup from '../webflow/RawMarkup.astro';
+import { applyWebflowContent, type WebflowReplacement } from '../../utils/webflow-content';
+import { modelsAssetReplacements, modelsAssets } from '../../data/models-assets';
+
+interface Props { markup: string; }
+
+const { markup } = Astro.props;
+const modelEntries = await getCollection('models');
+const brandEntries = await getCollection('brands');
+const modelReplacements: WebflowReplacement[] = modelEntries.flatMap(({ data }) => [
+  [data.original.title, data.title],
+  [data.original.brand, data.brand],
+  [data.original.type, data.type],
+  [data.original.daily, data.pricing.daily],
+]);
+const editableMarkup = applyWebflowContent(markup, modelReplacements);
+const cardAssetBySlug: Record<string, string> = {
+  'rapt-horizon': modelsAssets.cards.raptHorizon,
+  'velocit-crest': modelsAssets.cards.velocitCrest,
+  'xplorer-glide': modelsAssets.cards.xplorerGlide,
+  'cest-tunder': modelsAssets.cards.cestTunder,
+  'glide-vortex': modelsAssets.cards.glideVortex,
+  'sumit-senity': modelsAssets.cards.sumitSenity,
+  'senity-pulse': modelsAssets.cards.senityPulse,
+};
+const brandAssetByName: Record<string, string> = {
+  Luxora: modelsAssets.brands.luxora,
+  Velox: modelsAssets.brands.velox,
+  Aurion: modelsAssets.brands.aurion,
+};
+const mediaReplacements: WebflowReplacement[] = [
+  ...modelEntries.flatMap(({ data }) => {
+    const original = cardAssetBySlug[data.slug];
+    const replacement = data.heroImage ?? data.media?.hero;
+    return original && replacement ? [[original, replacement] as const] : [];
+  }),
+  ...brandEntries.flatMap(({ data }) => {
+    const original = brandAssetByName[data.name];
+    return original ? [[original, data.logo] as const] : [];
+  }),
+];
+---
+
+<RawMarkup markup={editableMarkup} replacements={[...modelsAssetReplacements, ...mediaReplacements]} />

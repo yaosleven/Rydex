@@ -1,0 +1,151 @@
+{
+  "title": "Glide Vortex",
+  "slug": "glide-vortex",
+  "brand": "Aurion",
+  "type": "SUV",
+  "media": {
+    "hero": "/assets/models/glide-vortex/card.webp",
+    "gallery": [
+      "/assets/models/glide-vortex/gallery-1.webp",
+      "/assets/models/glide-vortex/gallery-2.webp",
+      "/assets/models/glide-vortex/gallery-3.webp"
+    ]
+  },
+  "originalMedia": {
+    "hero": "/static/picture/686f7a28adef37939d8c0ebc_glide-vortex.webp",
+    "gallery": [
+      "/static/picture/688c4c31b702b8d8b58ee8ed_additional-image-1.webp",
+      "/static/picture/688c4c318351b5a1b1a71e56_additional-image-2.webp",
+      "/static/picture/688c4c31b700b10106cf511c_additional-image-3.webp"
+    ]
+  },
+  "pricing": {
+    "daily": "$100",
+    "weekly": "$600",
+    "monthly": "$2,200"
+  },
+  "original": {
+    "title": "Glide Vortex",
+    "brand": "Aurion",
+    "type": "SUV",
+    "daily": "$100",
+    "weekly": "$600",
+    "monthly": "$2,200",
+    "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidid ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullam laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupida non proident, sunt in culpa qui officia deserunt."
+  },
+  "seo": {
+    "title": "Glide Vortex | Rydex",
+    "description": "Glide Vortex SUV from Aurion.",
+    "ogImage": "/assets/models/glide-vortex/card.webp"
+  },
+  "imageAlt": "Glide Vortex SUV vehicle",
+  "mediaAlt": {
+    "hero": "Glide Vortex SUV hero image",
+    "gallery": [
+      "Glide Vortex vehicle gallery image 1",
+      "Glide Vortex vehicle gallery image 2",
+      "Glide Vortex vehicle gallery image 3"
+    ]
+  },
+  "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidid ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullam laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupida non proident, sunt in culpa qui officia deserunt.",
+  "specifications": [
+    {
+      "label": "Model Brand",
+      "value": "Aurion"
+    },
+    {
+      "label": "Type",
+      "value": "SUV"
+    },
+    {
+      "label": "Model Year",
+      "value": "2022"
+    },
+    {
+      "label": "Transmission",
+      "value": "Manual"
+    },
+    {
+      "label": "Fuel Type",
+      "value": "Diesel"
+    },
+    {
+      "label": "Engine",
+      "value": "5.0 L"
+    },
+    {
+      "label": "Mileage",
+      "value": "4,300 KM"
+    },
+    {
+      "label": "Horse Power",
+      "value": "490 HP"
+    },
+    {
+      "label": "Cylinders",
+      "value": "6"
+    },
+    {
+      "label": "Seats",
+      "value": "4"
+    },
+    {
+      "label": "Baggage",
+      "value": "3"
+    },
+    {
+      "label": "Doors",
+      "value": "2"
+    }
+  ],
+  "originalSpecifications": [
+    {
+      "label": "Model Brand",
+      "value": "Aurion"
+    },
+    {
+      "label": "Type",
+      "value": "SUV"
+    },
+    {
+      "label": "Model Year",
+      "value": "2022"
+    },
+    {
+      "label": "Transmission",
+      "value": "Manual"
+    },
+    {
+      "label": "Fuel Type",
+      "value": "Diesel"
+    },
+    {
+      "label": "Engine",
+      "value": "5.0 L"
+    },
+    {
+      "label": "Mileage",
+      "value": "4,300 KM"
+    },
+    {
+      "label": "Horse Power",
+      "value": "490 HP"
+    },
+    {
+      "label": "Cylinders",
+      "value": "6"
+    },
+    {
+      "label": "Seats",
+      "value": "4"
+    },
+    {
+      "label": "Baggage",
+      "value": "3"
+    },
+    {
+      "label": "Doors",
+      "value": "2"
+    }
+  ]
+}

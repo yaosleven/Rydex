@@ -1,0 +1,17 @@
+@import './tokens.css';
+
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--clean-ink); color: var(--clean-text); scroll-behavior: smooth; }
+body { min-width: 320px; margin: 0; background: var(--clean-ink); color: var(--clean-text); font-family: var(--clean-font); line-height: 1.5; }
+a { color: inherit; }
+img { display: block; max-width: 100%; }
+button, input, textarea, select { font: inherit; }
+:where(a, button, input, textarea, select):focus-visible { outline: 2px solid var(--clean-accent); outline-offset: 4px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.skip-link { position: fixed; z-index: 100; top: var(--clean-space-3); left: var(--clean-space-3); padding: var(--clean-space-2) var(--clean-space-3); background: var(--clean-accent); color: var(--clean-ink); font-weight: 700; transform: translateY(-200%); }
+.skip-link:focus { transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+}
