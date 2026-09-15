@@ -3,7 +3,7 @@ backend:
   name: github
   repo: yaosleven/Rydex
   branch: main
-  base_url: https://RYDEX_CMS_OAUTH.WORKERS.DEV
+  base_url: https://rydex-cms-oauth.294117693.workers.dev
   auth_endpoint: auth
   use_graphql: true
 

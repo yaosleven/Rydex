@@ -13,3 +13,6 @@ npm-debug.log*
 /about-*.png
 /home-*.png
 /models-*.png
+
+.dev.vars*
+!.dev.vars.example
