@@ -388,3 +388,279 @@ collections:
                 fields:
                   - { label: 问题, name: question, widget: string }
                   - { label: 回答, name: answer, widget: text }
+
+  # These three files are deliberately configured separately from the generic
+  # page library. They are the pages a non-technical editor changes most often,
+  # so their fields remain named and grouped instead of exposing copy/images
+  # as an opaque JSON object.
+  - name: core_pages
+    label: 核心页面
+    format: json
+    files:
+      - name: home
+        label: 首页
+        file: src/content/pages/home.json
+        fields:
+          - { label: 页面标识（不要修改）, name: page, widget: string }
+          - label: SEO
+            name: seo
+            widget: object
+            fields:
+              - { label: 页面标题, name: title, widget: string }
+              - { label: 页面描述, name: description, widget: text }
+              - { label: 分享图片（OG）, name: ogImage, widget: image, required: false }
+          - label: 首屏 Hero
+            name: copy
+            widget: object
+            fields:
+              - { label: 左侧地点, name: heroLocation, widget: string }
+              - { label: 顶部系列名称, name: heroCollection, widget: string }
+              - { label: 右侧说明, name: heroDescription, widget: text }
+              - { label: 栏目标签, name: heroEyebrow, widget: string }
+              - { label: 主标题, name: heroTitle, widget: string }
+              - { label: 主按钮文字, name: heroPrimaryCta, widget: string }
+              - { label: 次按钮文字, name: heroSecondaryCta, widget: string }
+              - { label: 关于区标签, name: aboutEyebrow, widget: string }
+              - { label: 关于区标题, name: aboutTitle, widget: text }
+              - { label: 关于区说明, name: aboutBody, widget: text }
+              - { label: 关于区按钮, name: aboutCta, widget: string }
+              - { label: 指标 1 标签, name: aboutMetric1, widget: string }
+              - { label: 指标 2 标签, name: aboutMetric2, widget: string }
+              - { label: 指标 3 标签, name: aboutMetric3, widget: string }
+              - { label: 指标 4 标签, name: aboutMetric4, widget: string }
+              - { label: 车型区标签, name: modelsEyebrow, widget: string }
+              - { label: 车型区标题, name: modelsTitle, widget: string }
+              - { label: 车型区说明, name: modelsBody, widget: text }
+              - { label: 车型区按钮, name: modelsCta, widget: string }
+              - { label: 车型卡片 1 名称, name: model1Name, widget: string }
+              - { label: 车型卡片 1 品牌, name: model1Brand, widget: string }
+              - { label: 车型卡片 1 价格, name: model1Price, widget: string }
+              - { label: 车型卡片 1 里程, name: model1Mileage, widget: string }
+              - { label: 车型卡片 1 功率, name: model1Power, widget: string }
+              - { label: 车型卡片 1 引擎, name: model1Engine, widget: string }
+              - { label: 车型卡片 2 名称, name: model2Name, widget: string }
+              - { label: 车型卡片 2 品牌, name: model2Brand, widget: string }
+              - { label: 车型卡片 2 价格, name: model2Price, widget: string }
+              - { label: 车型卡片 2 里程, name: model2Mileage, widget: string }
+              - { label: 车型卡片 2 功率, name: model2Power, widget: string }
+              - { label: 车型卡片 2 引擎, name: model2Engine, widget: string }
+              - { label: 车型卡片 3 名称, name: model3Name, widget: string }
+              - { label: 车型卡片 3 品牌, name: model3Brand, widget: string }
+              - { label: 车型卡片 3 价格, name: model3Price, widget: string }
+              - { label: 车型卡片 3 里程, name: model3Mileage, widget: string }
+              - { label: 车型卡片 3 功率, name: model3Power, widget: string }
+              - { label: 车型卡片 3 引擎, name: model3Engine, widget: string }
+              - { label: 车型卡片 4 名称, name: model4Name, widget: string }
+              - { label: 车型卡片 4 品牌, name: model4Brand, widget: string }
+              - { label: 车型卡片 4 价格, name: model4Price, widget: string }
+              - { label: 车型卡片 4 里程, name: model4Mileage, widget: string }
+              - { label: 车型卡片 4 功率, name: model4Power, widget: string }
+              - { label: 车型卡片 4 引擎, name: model4Engine, widget: string }
+              - { label: 优势区标签, name: benefitsEyebrow, widget: string }
+              - { label: 优势区标题, name: benefitsTitle, widget: text }
+              - { label: 优势 1 标题, name: benefit1Title, widget: string }
+              - { label: 优势 1 正文, name: benefit1Body, widget: text }
+              - { label: 优势 2 标题, name: benefit2Title, widget: string }
+              - { label: 优势 2 正文, name: benefit2Body, widget: text }
+              - { label: 优势 3 标题, name: benefit3Title, widget: string }
+              - { label: 优势 3 正文, name: benefit3Body, widget: text }
+              - { label: 优势 4 标题, name: benefit4Title, widget: string }
+              - { label: 优势 4 正文, name: benefit4Body, widget: text }
+              - { label: 评价区标签, name: testimonialsEyebrow, widget: string }
+              - { label: 评价区标题, name: testimonialsTitle, widget: text }
+              - { label: 评价内容, name: testimonialQuote, widget: text }
+              - { label: 评价 1 姓名, name: testimonial1Name, widget: string }
+              - { label: 评价 1 地区, name: testimonial1Location, widget: string }
+              - { label: 评价 2 姓名, name: testimonial2Name, widget: string }
+              - { label: 评价 2 地区, name: testimonial2Location, widget: string }
+              - { label: 评价 3 姓名, name: testimonial3Name, widget: string }
+              - { label: 评价 3 地区, name: testimonial3Location, widget: string }
+              - { label: 评价 4 姓名, name: testimonial4Name, widget: string }
+              - { label: 评价 4 地区, name: testimonial4Location, widget: string }
+              - { label: 评价 5 姓名, name: testimonial5Name, widget: string }
+              - { label: 评价 5 地区, name: testimonial5Location, widget: string }
+              - { label: 评价 6 姓名, name: testimonial6Name, widget: string }
+              - { label: 评价 6 地区, name: testimonial6Location, widget: string }
+              - { label: 评价 7 姓名, name: testimonial7Name, widget: string }
+              - { label: 评价 7 地区, name: testimonial7Location, widget: string }
+              - { label: 评价 8 姓名, name: testimonial8Name, widget: string }
+              - { label: 评价 8 地区, name: testimonial8Location, widget: string }
+              - { label: 评价 9 姓名, name: testimonial9Name, widget: string }
+              - { label: 评价 9 地区, name: testimonial9Location, widget: string }
+              - { label: 评价 10 姓名, name: testimonial10Name, widget: string }
+              - { label: 评价 10 地区, name: testimonial10Location, widget: string }
+              - { label: 评价 11 姓名, name: testimonial11Name, widget: string }
+              - { label: 评价 11 地区, name: testimonial11Location, widget: string }
+              - { label: 评价 12 姓名, name: testimonial12Name, widget: string }
+              - { label: 评价 12 地区, name: testimonial12Location, widget: string }
+              - { label: 流程区标签, name: stepsEyebrow, widget: string }
+              - { label: 流程区标题, name: stepsTitle, widget: text }
+              - { label: 流程区按钮, name: stepsCta, widget: string }
+              - { label: 步骤 1 标题, name: step1Title, widget: string }
+              - { label: 步骤 1 正文, name: step1Body, widget: text }
+              - { label: 步骤 2 标题, name: step2Title, widget: string }
+              - { label: 步骤 2 正文, name: step2Body, widget: text }
+              - { label: 步骤 3 标题, name: step3Title, widget: string }
+              - { label: 步骤 3 正文, name: step3Body, widget: text }
+              - { label: 步骤 4 标题, name: step4Title, widget: string }
+              - { label: 步骤 4 正文, name: step4Body, widget: text }
+              - { label: 文章区标签, name: journalEyebrow, widget: string }
+              - { label: 文章区标题, name: journalTitle, widget: text }
+              - { label: 文章区按钮, name: journalCta, widget: string }
+              - { label: 文章 1 标题, name: journal1Title, widget: string }
+              - { label: 文章 1 分类, name: journal1Category, widget: string }
+              - { label: 文章 2 标题, name: journal2Title, widget: string }
+              - { label: 文章 2 分类, name: journal2Category, widget: string }
+              - { label: 文章 3 标题, name: journal3Title, widget: string }
+              - { label: 文章 3 分类, name: journal3Category, widget: string }
+          - label: 首页图片
+            name: images
+            widget: object
+            fields:
+              - { label: Logo, name: logo, widget: image }
+              - { label: Hero 桌面图（2400×1350）, name: heroDesktop, widget: image }
+              - { label: Hero 手机图（1080×1350）, name: heroMobile, widget: image }
+              - { label: 车型卡片 1（1200×900）, name: model1, widget: image }
+              - { label: 车型卡片 2（1200×900）, name: model2, widget: image }
+              - { label: 车型卡片 3（1200×900）, name: model3, widget: image }
+              - { label: 车型卡片 4（1200×900）, name: model4, widget: image }
+              - { label: 优势图标：日历, name: benefitCalendar, widget: image }
+              - { label: 优势图标：价格, name: benefitPrice, widget: image }
+              - { label: 优势图标：车辆, name: benefitVehicle, widget: image }
+              - { label: 优势图标：服务, name: benefitService, widget: image }
+              - { label: 评价头像：Thomas, name: testimonialThomas, widget: image }
+              - { label: 评价头像：Michael, name: testimonialMichael, widget: image }
+              - { label: 评价头像：Laura, name: testimonialLaura, widget: image }
+              - { label: 评价头像：Emily, name: testimonialEmily, widget: image }
+              - { label: 评价头像：Daniel, name: testimonialDaniel, widget: image }
+              - { label: 评价头像：James, name: testimonialJames, widget: image }
+              - { label: 步骤图标：搜索, name: stepSearch, widget: image }
+              - { label: 步骤图标：钥匙, name: stepKey, widget: image }
+              - { label: 步骤图标：询盘, name: stepEnquiry, widget: image }
+              - { label: 步骤图标：车辆, name: stepVehicle, widget: image }
+              - { label: 文章图 1（1200×900）, name: journal1, widget: image }
+              - { label: 文章图 2（1200×900）, name: journal2, widget: image }
+              - { label: 文章图 3（1200×900）, name: journal3, widget: image }
+              - { label: 品牌 Logo：Velox, name: brandVelox, widget: image }
+              - { label: 品牌 Logo：Aurion, name: brandAurion, widget: image }
+          - label: 首页链接
+            name: links
+            widget: object
+            fields:
+              - { label: Hero 主按钮, name: heroPrimary, widget: string }
+              - { label: Hero 次按钮, name: heroSecondary, widget: string }
+              - { label: 关于按钮, name: about, widget: string }
+              - { label: 车型按钮, name: models, widget: string }
+              - { label: 流程按钮, name: steps, widget: string }
+              - { label: 文章按钮, name: journal, widget: string }
+          - { label: 素材清单（系统保留）, name: assetInventory, widget: hidden, required: false }
+          - { label: 团队数据（系统保留）, name: team, widget: hidden, required: false }
+
+      - name: about
+        label: About 页面
+        file: src/content/pages/about.json
+        fields:
+          - { label: 页面标识（不要修改）, name: page, widget: string }
+          - label: SEO
+            name: seo
+            widget: object
+            fields:
+              - { label: 页面标题, name: title, widget: string }
+              - { label: 页面描述, name: description, widget: text }
+              - { label: 分享图片（OG）, name: ogImage, widget: image, required: false }
+          - label: 页面文案
+            name: copy
+            widget: object
+            fields:
+              - { label: 首屏标签, name: heroEyebrow, widget: string }
+              - { label: 首屏标题, name: heroTitle, widget: string }
+              - { label: 介绍标签, name: introEyebrow, widget: string }
+              - { label: 介绍标题, name: introTitle, widget: text }
+              - { label: 介绍正文, name: introBody, widget: text }
+              - { label: 介绍按钮, name: introCta, widget: string }
+              - { label: 数据标签, name: statisticsEyebrow, widget: string }
+              - { label: 数据标题, name: statisticsTitle, widget: string }
+              - { label: 展厅标签, name: showroomEyebrow, widget: string }
+              - { label: 展厅标题, name: showroomTitle, widget: string }
+              - { label: 展厅地址, name: showroomAddress, widget: text }
+              - { label: 团队标签, name: teamEyebrow, widget: string }
+              - { label: 团队标题, name: teamTitle, widget: string }
+              - { label: 团队按钮, name: teamCta, widget: string }
+              - { label: 指标 1 标签, name: metricBookings, widget: string }
+              - { label: 指标 2 标签, name: metricModels, widget: string }
+              - { label: 指标 3 标签, name: metricClients, widget: string }
+              - { label: 指标 4 标签, name: metricDaily, widget: string }
+          - label: 页面图片
+            name: images
+            widget: object
+            fields:
+              - { label: Hero 桌面图（2400×1350）, name: heroDesktop, widget: image }
+              - { label: Hero 手机图（1080×1350）, name: heroMobile, widget: image }
+              - { label: 介绍图片, name: intro, widget: image }
+              - { label: 展厅图片, name: showroom, widget: image }
+              - { label: 合作方 Logo 1, name: partner1, widget: image }
+              - { label: 合作方 Logo 2, name: partner2, widget: image }
+              - { label: 合作方 Logo 3, name: partner3, widget: image }
+              - { label: 合作方 Logo 4, name: partner4, widget: image }
+              - { label: 合作方 Logo 5, name: partner5, widget: image }
+              - { label: 合作方 Logo 6, name: partner6, widget: image }
+              - { label: 合作方 Logo 7, name: partner7, widget: image }
+          - label: 数据指标
+            name: metrics
+            widget: list
+            fields:
+              - { label: 标签, name: label, widget: string }
+              - { label: 数值, name: value, widget: string }
+              - { label: 单位/后缀, name: suffix, widget: string }
+          - label: 团队成员
+            name: team
+            widget: list
+            fields:
+              - { label: 姓名, name: name, widget: string }
+              - { label: 职位, name: role, widget: string }
+              - { label: 照片, name: image, widget: image }
+              - { label: 图片 Alt 文本, name: alt, widget: string }
+          - { label: 素材清单（系统保留）, name: assetInventory, widget: hidden, required: false }
+          - { label: 链接（系统保留）, name: links, widget: hidden, required: false }
+
+      - name: contact
+        label: Contact 页面
+        file: src/content/pages/contact.json
+        fields:
+          - { label: 页面标识（不要修改）, name: page, widget: string }
+          - label: SEO
+            name: seo
+            widget: object
+            fields:
+              - { label: 页面标题, name: title, widget: string }
+              - { label: 页面描述, name: description, widget: text }
+              - { label: 分享图片（OG）, name: ogImage, widget: image, required: false }
+          - label: 页面文案与表单
+            name: copy
+            widget: object
+            fields:
+              - { label: 首屏标签, name: heroEyebrow, widget: string }
+              - { label: 首屏标题, name: heroTitle, widget: string }
+              - { label: 首屏说明, name: heroBody, widget: text }
+              - { label: 联系方式说明, name: methodDescription, widget: text }
+              - { label: 在线聊天名称, name: chatLabel, widget: string }
+              - { label: 名字输入提示, name: firstNamePlaceholder, widget: string }
+              - { label: 姓氏输入提示, name: lastNamePlaceholder, widget: string }
+              - { label: 邮箱输入提示, name: emailPlaceholder, widget: string }
+              - { label: 电话输入提示, name: phonePlaceholder, widget: string }
+              - { label: 留言输入提示, name: messagePlaceholder, widget: text }
+              - { label: 提交按钮, name: submitLabel, widget: string }
+              - { label: 提交中提示, name: submittingLabel, widget: string }
+              - { label: 成功提示, name: successMessage, widget: text }
+              - { label: 失败提示, name: errorMessage, widget: text }
+          - label: 页面图标
+            name: images
+            widget: object
+            fields:
+              - { label: 成功图标, name: success, widget: image }
+              - { label: 电话图标, name: phone, widget: image }
+              - { label: 邮箱图标, name: email, widget: image }
+              - { label: 聊天图标, name: chat, widget: image }
+          - { label: 团队数据（系统保留）, name: team, widget: hidden, required: false }
+          - { label: 素材清单（系统保留）, name: assetInventory, widget: hidden, required: false }
+          - { label: 链接（系统保留）, name: links, widget: hidden, required: false }
