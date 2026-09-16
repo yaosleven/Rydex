@@ -56,8 +56,15 @@ export default {
       if (!tokenResponse.ok || !payload.access_token) return html('<p>GitHub sign-in failed. Close this window and try again.</p>');
 
       const message = JSON.stringify(`authorization:github:success:${JSON.stringify({ token: payload.access_token, provider: 'github' })}`);
-      const origin = JSON.stringify(env.CMS_ORIGIN);
-      return html(`<!doctype html><title>Signed in</title><script>window.opener?.postMessage(${message}, ${origin}); window.close();</script><p>Sign-in complete. You may close this window.</p>`);
+      const cmsOrigin = JSON.stringify(env.CMS_ORIGIN);
+      return html(`<!doctype html><title>Signing in</title><script>
+        window.addEventListener('message', (event) => {
+          if (event.origin !== ${cmsOrigin} || event.data !== 'authorizing:github') return;
+          window.opener?.postMessage(${message}, event.origin);
+          window.close();
+        });
+        window.opener?.postMessage('authorizing:github', '*');
+      </script><p>Signing in…</p>`);
     }
 
     return new Response('Not Found', { status: 404 });
