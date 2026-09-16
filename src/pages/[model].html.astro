@@ -5,6 +5,7 @@ import ContactInteractions from '../components/contact/ContactInteractions.astro
 import BlogInteractions from '../components/blog/BlogInteractions.astro';
 import ModelDetailInteractions from '../components/models/ModelDetailInteractions.astro';
 import ModelsInteractions from '../components/models/ModelsInteractions.astro';
+import ModelsListing from '../components/models/ModelsListing.astro';
 import { getCollection, getEntry } from 'astro:content';
 import WebflowDocument from '../layouts/WebflowDocument.astro';
 import { toWebflowPage } from '../utils/webflow-page';
@@ -147,6 +148,13 @@ const aboutPage = model === 'about' ? await getEntry('pages', 'about') : undefin
 const contactPage = model === 'contact' ? await getEntry('pages', 'contact') : undefined;
 const catalogSlugs = new Set(['luxora', 'velox', 'aurion', 'coupe', 'sedan', 'suv', '360deg-camera', 'bluetooth', 'built-in-gps', 'leather-seats', 'led-headlights', 'sound-system', 'sunroof-6rm2o-xlnu2']);
 const catalogPage = model && catalogSlugs.has(model) ? await getEntry('pages', 'catalog') : undefined;
+const catalogFilter = model === 'luxora' ? { brand: 'Luxora' }
+  : model === 'velox' ? { brand: 'Velox' }
+    : model === 'aurion' ? { brand: 'Aurion' }
+      : model === 'coupe' ? { type: 'Coupe' }
+        : model === 'sedan' ? { type: 'Sedan' }
+          : model === 'suv' ? { type: 'SUV' }
+            : undefined;
 const utilitySlugs = new Set(['changelog', 'licenses', 'style-guide']);
 const utilityPage = model && utilitySlugs.has(model) ? await getEntry('pages', 'utility') : undefined;
 const articleListingSlugs = new Set(['blog', 'blog-2', 'guides', 'events', 'reviews']);
@@ -197,7 +205,9 @@ const routeReplacements = routePage ? routePageReplacements(routePage) : [];
   description={pageDescription}
   ogImage={pageOgImage}
 >
-  <ModelDetail markup={content ? applyModelContent(page.body, content) : aboutPage ? applyAboutMetricValues(page.body, aboutPage.data.metrics) : page.body} replacements={[...modelDetailSharedAssetReplacements, ...articlePageReplacements(articleEntries), ...mediaReplacements, ...pageReplacements, ...routeReplacements, ...replacements]} />
+  {catalogPage
+    ? <ModelsListing markup={page.body} replacements={[...catalogPageReplacements(catalogPage), ...routeReplacements]} filter={catalogFilter} />
+    : <ModelDetail markup={content ? applyModelContent(page.body, content) : aboutPage ? applyAboutMetricValues(page.body, aboutPage.data.metrics) : page.body} replacements={[...modelDetailSharedAssetReplacements, ...articlePageReplacements(articleEntries), ...mediaReplacements, ...pageReplacements, ...routeReplacements, ...replacements]} />}
   {content && <ModelDraftPreview slug={content.slug} defaults={content} />}
   {articleContent && <ArticleDraftPreview defaults={articleContent.data} />}
   {aboutPage && <ContentDraftPreview storageKey="rydex-site-page-draft-v1" section="about" defaults={{ heroTitle: aboutPage.data.copy.heroTitle, introTitle: aboutPage.data.copy.introTitle, introBody: aboutPage.data.copy.introBody, showroomTitle: aboutPage.data.copy.showroomTitle, showroomAddress: aboutPage.data.copy.showroomAddress, heroDesktop: aboutPage.data.images.heroDesktop, heroMobile: aboutPage.data.images.heroMobile }} />}
@@ -229,6 +239,7 @@ const routeReplacements = routePage ? routePageReplacements(routePage) : [];
     model === 'sound-system' ||
     model === 'sunroof-6rm2o-xlnu2'
   ) && <ModelsInteractions />}
+  {catalogPage && <ModelsInteractions />}
   {(
     model === 'blog' ||
     model === 'blog-2' ||

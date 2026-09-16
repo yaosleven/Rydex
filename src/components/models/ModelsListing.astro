@@ -4,9 +4,13 @@ import RawMarkup from '../webflow/RawMarkup.astro';
 import { applyWebflowContent, type WebflowReplacement } from '../../utils/webflow-content';
 import { modelsAssetReplacements, modelsAssets } from '../../data/models-assets';
 
-interface Props { markup: string; }
+interface Props {
+  markup: string;
+  replacements?: readonly WebflowReplacement[];
+  filter?: { brand?: string; type?: string };
+}
 
-const { markup } = Astro.props;
+const { markup, replacements = [], filter } = Astro.props;
 const modelEntries = await getCollection('models');
 const brandEntries = await getCollection('brands');
 const modelReplacements: WebflowReplacement[] = modelEntries.flatMap(({ data }) => data.original ? [
@@ -15,7 +19,7 @@ const modelReplacements: WebflowReplacement[] = modelEntries.flatMap(({ data }) 
   [data.original.type, data.type],
   [data.original.daily, data.pricing.daily],
 ] : []);
-const editableMarkup = applyWebflowContent(markup, modelReplacements);
+const editableMarkup = applyWebflowContent(markup, [...modelReplacements, ...replacements]);
 const cardAssetBySlug: Record<string, string> = {
   'rapt-horizon': modelsAssets.cards.raptHorizon,
   'velocit-crest': modelsAssets.cards.velocitCrest,
@@ -66,3 +70,21 @@ const withAdditionalModels = cardMarkup
 ---
 
 <RawMarkup markup={withAdditionalModels} replacements={[...modelsAssetReplacements, ...mediaReplacements]} />
+
+{filter && <script is:inline define:vars={{ filter }}>
+  const applyCatalogFilter = () => {
+    document.querySelectorAll('.models-list .model-card').forEach((card) => {
+      const item = card.closest<HTMLElement>('.collection-item');
+      const brand = card.querySelector('.model-brand .text-400')?.textContent?.trim();
+      const type = card.querySelector('.model-card-specs > div:first-child')?.textContent?.trim();
+      const visible = (!filter.brand || brand === filter.brand) && (!filter.type || type === filter.type);
+      if (item) item.hidden = !visible;
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyCatalogFilter, { once: true });
+  } else {
+    applyCatalogFilter();
+  }
+</script>}
