@@ -58,7 +58,26 @@ export async function getStaticPaths() {
     import('../reference/original-ultimate-guide-to-choosing-coupe-rentals.html?raw'),
   ]);
 
-  return [
+  const fixedModelSlugs = new Set([
+    'cest-tunder', 'glide-vortex', 'senity-pulse', 'sumit-senity',
+    'velocit-crest', 'rapt-horizon', 'xplorer-glide',
+  ]);
+  const raptTemplate = modelsBySlug.get('rapt-horizon');
+  if (!raptTemplate?.original || !raptTemplate.originalMedia) throw new Error('Missing Rapt Horizon model template data.');
+
+  const resolveTemplateMappings = (data: typeof raptTemplate) => {
+    const template = modelsBySlug.get(data.template) ?? raptTemplate;
+    return {
+      ...data,
+      original: data.original ?? template.original ?? raptTemplate.original,
+      originalMedia: data.originalMedia ?? template.originalMedia ?? raptTemplate.originalMedia,
+      originalSpecifications: data.originalSpecifications?.length
+        ? data.originalSpecifications
+        : (template.originalSpecifications?.length ? template.originalSpecifications : raptTemplate.originalSpecifications),
+    };
+  };
+
+  const fixedPaths = [
     ['cest-tunder', 'Cest Tunder'],
     ['glide-vortex', 'Glide Vortex'],
     ['senity-pulse', 'Senity Pulse'],
@@ -97,8 +116,24 @@ export async function getStaticPaths() {
     ['ultimate-guide-to-choosing-coupe-rentals', 'Ultimate Guide To Choosing Coupe Rentals - Rydex'],
   ].map(([slug, name], index) => ({
     params: { model: slug },
-    props: { name, page: toWebflowPage(sources[index].default, `/${slug}.html`), content: modelsBySlug.get(slug) },
+    props: { name, page: toWebflowPage(sources[index].default, `/${slug}.html`), content: modelsBySlug.has(slug) ? resolveTemplateMappings(modelsBySlug.get(slug)!) : undefined },
   }));
+
+  const additionalModelPaths = modelEntries
+    .filter(({ data }) => !fixedModelSlugs.has(data.slug))
+    .map(({ data }) => {
+      const source = data.template === 'velocit-crest' ? sources[1].default : data.template === 'xplorer-glide' ? sources[2].default : sources[0].default;
+      return {
+        params: { model: data.slug },
+        props: {
+          name: data.title,
+          page: toWebflowPage(source, `/${data.slug}.html`),
+          content: resolveTemplateMappings(data),
+        },
+      };
+    });
+
+  return [...fixedPaths, ...additionalModelPaths];
 }
 
 const { name, page, content } = Astro.props;
@@ -124,7 +159,7 @@ if ((model === 'about' && !aboutPage) || (model === 'contact' && !contactPage) |
 const pageTitle = content?.seo?.title ?? articleContent?.data.seo?.title ?? brandContent?.data.seo?.title ?? routePage?.data.seo?.title ?? (name.endsWith(' - Rydex') ? name : `${name} - Rydex`);
 const pageDescription = content?.seo?.description ?? articleContent?.data.seo?.description ?? brandContent?.data.seo?.description ?? routePage?.data.seo?.description;
 const pageOgImage = content?.seo?.ogImage ?? articleContent?.data.seo?.ogImage ?? brandContent?.data.seo?.ogImage ?? routePage?.data.seo?.ogImage;
-const replacements = content
+const replacements = content?.original
   ? [
       [content.original.title, content.title],
       [content.original.brand, content.brand],

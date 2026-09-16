@@ -13,19 +13,23 @@ const raptHorizon = await getEntry('models', 'rapt-horizon');
 if (!raptHorizon) {
   throw new Error('The Rapt Horizon content entry is missing.');
 }
+if (!raptHorizon.data.original) {
+  throw new Error('The Rapt Horizon template mapping is missing.');
+}
 
 const content = raptHorizon.data;
+const original = content.original!;
 const seo = content.seo ?? {
   title: 'Rapt Horizon - Rydex',
   description: 'Rapt Horizon model details, pricing and specifications.',
 };
 const replacements = [
-  [content.original.title, content.title],
-  [content.original.brand, content.brand],
-  [content.original.type, content.type],
-  [content.original.daily, content.pricing.daily],
-  [content.original.weekly, content.pricing.weekly],
-  [content.original.monthly, content.pricing.monthly],
+  [original.title, content.title],
+  [original.brand, content.brand],
+  [original.type, content.type],
+  [original.daily, content.pricing.daily],
+  [original.weekly, content.pricing.weekly],
+  [original.monthly, content.pricing.monthly],
 ] as const;
 const mediaReplacements = content.media && content.originalMedia
   ? [

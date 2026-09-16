@@ -33,6 +33,7 @@ const models = defineCollection({
   schema: z.object({
     title: z.string(),
     slug: z.string(),
+    template: z.enum(['rapt-horizon', 'velocit-crest', 'xplorer-glide']).default('rapt-horizon'),
     brand: z.string(),
     type: z.string(),
     summary: z.string().optional(),
@@ -61,7 +62,7 @@ const models = defineCollection({
       daily: z.string(),
       weekly: z.string(),
       monthly: z.string(),
-    }),
+    }).optional(),
     originalSpecifications: z.array(z.object({ label: z.string(), value: z.string() })).default([]),
   }),
 });

@@ -19,6 +19,7 @@ function replaceSpecification(markup: string, fromLabel: string, fromValue: stri
 
 /** Replaces each model's long description and labelled specification rows safely by their Webflow context. */
 export function applyModelContent(markup: string, data: ModelData): string {
+  if (!data.original) return markup;
   let output = data.original.summary
     ? applyWebflowContent(markup, [[data.original.summary, data.summary ?? data.original.summary]])
     : markup;

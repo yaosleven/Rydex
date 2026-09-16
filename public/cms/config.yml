@@ -93,11 +93,12 @@ collections:
     label: 车型
     folder: src/content/models
     format: json
-    create: false
+    create: true
     slug: '{{fields.slug}}'
     fields:
       - { label: 名称, name: title, widget: string }
       - { label: URL 标识, name: slug, widget: string, pattern: ['^[a-z0-9-]+$', '请使用英文小写、数字和连字符'] }
+      - { label: 详情页母版, name: template, widget: select, options: ['rapt-horizon', 'velocit-crest', 'xplorer-glide'], default: 'rapt-horizon', hint: '新车型会复制此车型的高保真详情页结构与动效。' }
       - { label: 品牌, name: brand, widget: string }
       - { label: 类型, name: type, widget: string }
       - { label: 摘要, name: summary, widget: text, required: false }
@@ -136,6 +137,7 @@ collections:
       - label: 保留的原版映射（不要改动）
         name: original
         widget: object
+        required: false
         fields:
           - { label: 原名称, name: title, widget: string }
           - { label: 原品牌, name: brand, widget: string }

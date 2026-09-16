@@ -9,12 +9,12 @@ interface Props { markup: string; }
 const { markup } = Astro.props;
 const modelEntries = await getCollection('models');
 const brandEntries = await getCollection('brands');
-const modelReplacements: WebflowReplacement[] = modelEntries.flatMap(({ data }) => [
+const modelReplacements: WebflowReplacement[] = modelEntries.flatMap(({ data }) => data.original ? [
   [data.original.title, data.title],
   [data.original.brand, data.brand],
   [data.original.type, data.type],
   [data.original.daily, data.pricing.daily],
-]);
+] : []);
 const editableMarkup = applyWebflowContent(markup, modelReplacements);
 const cardAssetBySlug: Record<string, string> = {
   'rapt-horizon': modelsAssets.cards.raptHorizon,
@@ -41,6 +41,28 @@ const mediaReplacements: WebflowReplacement[] = [
     return original ? [[original, data.logo] as const] : [];
   }),
 ];
+
+const builtInModelSlugs = new Set([
+  'rapt-horizon', 'velocit-crest', 'xplorer-glide', 'cest-tunder',
+  'glide-vortex', 'sumit-senity', 'senity-pulse',
+]);
+const additionalModels = modelEntries.filter(({ data }) => !builtInModelSlugs.has(data.slug));
+
+const escapeHtml = (value: string) => value.replace(/[&<>'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[character]!));
+const cardMarkup = additionalModels.map(({ data }) => {
+  const brandLogo = brandEntries.find(({ data: brand }) => brand.name === data.brand)?.data.logo ?? modelsAssets.brands.velox;
+  const image = data.heroImage ?? data.media?.hero ?? modelsAssets.cards.raptHorizon;
+  const alt = data.mediaAlt?.hero ?? data.imageAlt ?? `${data.title} vehicle`;
+  return `<div data-model-brand="${escapeHtml(data.brand)}" data-model-type="${escapeHtml(data.type)}" data-w-id="e406e786-463c-c35b-2ff9-f56271b6e31c" role="listitem" class="collection-item w-dyn-item"><a data-w-id="d3beb5b9-5a47-a3a5-4868-c07dedffb508" href="${escapeHtml(data.slug)}.html" class="model-card w-inline-block"><div class="model-card-image"><img loading="lazy" src="${escapeHtml(image)}" alt="${escapeHtml(alt)}" class="image-default"></div><div class="model-card-info"><div class="model-brand"><img loading="lazy" src="${escapeHtml(brandLogo)}" alt="${escapeHtml(data.brand)} logo" class="model-brand-logo"><div class="text-400">${escapeHtml(data.brand)}</div></div><div class="model-card-details"><div class="x-large-text pure-color-text">${escapeHtml(data.title)}</div><div class="model-card-specs"><div>${escapeHtml(data.type)}</div><div class="model-card-specs-divider"></div><div class="model-card-price"><div>${escapeHtml(data.pricing.daily)}</div><div>/day</div></div></div></div></div></div></a></div>`;
+}).join('');
+
+const navMarkup = additionalModels.map(({ data }) => `<div role="listitem" class="collection-item w-dyn-item"><a data-w-id="b18ddafa-3b83-6229-9600-867b3164b7b3" href="${escapeHtml(data.slug)}.html" class="link-regular w-inline-block"><div class="link-text-wrapper"><div class="link-text">${escapeHtml(data.title)}</div><div class="link-text-hover">${escapeHtml(data.title)}</div></div></a></div>`).join('');
+
+const withAdditionalModels = cardMarkup
+  ? editableMarkup
+    .replace(/(<div role="list" class="collection-list nav-models-list w-dyn-items">[\s\S]*?)(<\/div><\/div><\/nav><\/div><form)/, `$1${navMarkup}$2`)
+    .replace(/(<div role="list" class="collection-list models-list w-dyn-items">[\s\S]*?)(<\/div><div data-w-id="3ebaec18)/, `$1${cardMarkup}$2`)
+  : editableMarkup;
 ---
 
-<RawMarkup markup={editableMarkup} replacements={[...modelsAssetReplacements, ...mediaReplacements]} />
+<RawMarkup markup={withAdditionalModels} replacements={[...modelsAssetReplacements, ...mediaReplacements]} />
