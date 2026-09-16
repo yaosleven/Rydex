@@ -10,7 +10,7 @@
     "cms:worker:deploy": "wrangler deploy --config cms-oauth-worker/wrangler.jsonc"
   },
   "engines": {
-    "node": ">=20.19.0 <25"
+    "node": ">=22.12.0 <25"
   },
   "dependencies": {
     "@astrojs/check": "latest",
