@@ -4,6 +4,7 @@
   "compatibility_date": "2026-09-15",
   "workers_dev": true,
   "vars": {
-    "CMS_ORIGIN": "https://rydex-b2b-site.pages.dev"
+    "CMS_ORIGIN": "https://rydex-b2b-site.pages.dev",
+    "GITHUB_OAUTH_CLIENT_ID": "Ov23liu8eUPEAj1kJ8Xl"
   }
 }
