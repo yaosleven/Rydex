@@ -9,7 +9,7 @@ backend:
 
 media_folder: public/uploads
 public_folder: /uploads
-publish_mode: simple
+publish_mode: editorial_workflow
 
 collections:
   - name: settings
@@ -624,6 +624,70 @@ collections:
               - { label: 图片 Alt 文本, name: alt, widget: string }
           - { label: 素材清单（系统保留）, name: assetInventory, widget: hidden, required: false }
           - { label: 链接（系统保留）, name: links, widget: hidden, required: false }
+
+  - name: article_listing_pages
+    label: 文章列表页
+    format: json
+    files:
+      - { name: blog, label: Blog 列表, file: src/content/pages/blog.json, fields: &article_listing_fields
+          [ { label: 页面标识, name: page, widget: string }, { label: SEO, name: seo, widget: object, fields: [ { label: 标题, name: title, widget: string }, { label: 描述, name: description, widget: text }, { label: OG 图片, name: ogImage, widget: image, required: false } ] }, { label: 列表文案, name: copy, widget: object, fields: [ { label: 栏目标签, name: eyebrow, widget: string }, { label: 页面标题, name: blogTitle, widget: string }, { label: 分类前缀, name: categoryPrefix, widget: string }, { label: 筛选标题, name: filterLabel, widget: string }, { label: 全部, name: all, widget: string }, { label: Reviews, name: reviews, widget: string }, { label: Guides, name: guides, widget: string }, { label: Events, name: events, widget: string }, { label: 下一页, name: next, widget: string }, { label: 上一页, name: previous, widget: string } ] }, { label: 素材清单（系统保留）, name: assetInventory, widget: hidden, required: false }, { label: 图片（系统保留）, name: images, widget: hidden, required: false }, { label: 链接（系统保留）, name: links, widget: hidden, required: false }, { label: 团队（系统保留）, name: team, widget: hidden, required: false } ] }
+      - { name: blog_2, label: Blog 第 2 页, file: src/content/pages/blog-2.json, fields: *article_listing_fields }
+      - { name: guides, label: Guides 列表, file: src/content/pages/guides.json, fields: *article_listing_fields }
+      - { name: events, label: Events 列表, file: src/content/pages/events.json, fields: *article_listing_fields }
+      - { name: reviews, label: Reviews 列表, file: src/content/pages/reviews.json, fields: *article_listing_fields }
+
+  - name: catalog_pages
+    label: 车型筛选页面
+    format: json
+    files:
+      - { name: catalog, label: Models 主列表与筛选, file: src/content/pages/catalog.json, fields: &catalog_fields
+          [ { label: 页面标识, name: page, widget: string }, { label: SEO, name: seo, widget: object, fields: [ { label: 标题, name: title, widget: string }, { label: 描述, name: description, widget: text }, { label: OG 图片, name: ogImage, widget: image, required: false } ] }, { label: 筛选文案, name: copy, widget: object, fields: [ { label: 页面标题, name: pageTitle, widget: string }, { label: 品牌筛选标题, name: brandFilter, widget: string }, { label: 类型筛选标题, name: typeFilter, widget: string }, { label: 功能筛选标题, name: featureFilter, widget: string }, { label: 功能筛选前缀, name: featurePrefix, widget: string }, { label: Luxora, name: luxora, widget: string }, { label: Velox, name: velox, widget: string }, { label: Aurion, name: aurion, widget: string }, { label: Coupe, name: coupe, widget: string }, { label: Sedan, name: sedan, widget: string }, { label: SUV, name: suv, widget: string }, { label: 360 Camera, name: camera, widget: string }, { label: Bluetooth, name: bluetooth, widget: string }, { label: GPS, name: gps, widget: string }, { label: Leather Seats, name: leather, widget: string }, { label: LED Headlights, name: headlights, widget: string }, { label: Sound System, name: sound, widget: string }, { label: Sunroof, name: sunroof, widget: string } ] }, { label: 素材清单（系统保留）, name: assetInventory, widget: hidden, required: false }, { label: 图片（系统保留）, name: images, widget: hidden, required: false }, { label: 链接（系统保留）, name: links, widget: hidden, required: false }, { label: 团队（系统保留）, name: team, widget: hidden, required: false } ] }
+      - { name: luxora, label: Luxora 品牌页, file: src/content/pages/luxora.json, fields: &catalog_heading_fields [ { label: 页面标识, name: page, widget: string }, { label: SEO, name: seo, widget: object, fields: [ { label: 标题, name: title, widget: string }, { label: 描述, name: description, widget: text }, { label: OG 图片, name: ogImage, widget: image, required: false } ] }, { label: 页面文案, name: copy, widget: object, fields: [ { label: 标题, name: heading, widget: string }, { label: 列表标签, name: collectionLabel, widget: string } ] }, { label: 素材清单（系统保留）, name: assetInventory, widget: hidden, required: false }, { label: 图片（系统保留）, name: images, widget: hidden, required: false }, { label: 链接（系统保留）, name: links, widget: hidden, required: false }, { label: 团队（系统保留）, name: team, widget: hidden, required: false } ] }
+      - { name: velox, label: Velox 品牌页, file: src/content/pages/velox.json, fields: *catalog_heading_fields }
+      - { name: aurion, label: Aurion 品牌页, file: src/content/pages/aurion.json, fields: *catalog_heading_fields }
+      - { name: coupe, label: Coupe 类型页, file: src/content/pages/coupe.json, fields: *catalog_heading_fields }
+      - { name: sedan, label: Sedan 类型页, file: src/content/pages/sedan.json, fields: *catalog_heading_fields }
+      - { name: suv, label: SUV 类型页, file: src/content/pages/suv.json, fields: *catalog_heading_fields }
+
+  - name: feature_pages
+    label: 车型功能页
+    format: json
+    files:
+      - { name: camera, label: 360° Camera, file: src/content/pages/360deg-camera.json, fields: &feature_fields [ { label: 页面标识, name: page, widget: string }, { label: SEO, name: seo, widget: object, fields: [ { label: 标题, name: title, widget: string }, { label: 描述, name: description, widget: text }, { label: OG 图片, name: ogImage, widget: image, required: false } ] }, { label: 页面文案, name: copy, widget: object, fields: [ { label: 前缀, name: prefix, widget: string }, { label: 标题, name: heading, widget: string } ] }, { label: 素材清单（系统保留）, name: assetInventory, widget: hidden, required: false }, { label: 图片（系统保留）, name: images, widget: hidden, required: false }, { label: 链接（系统保留）, name: links, widget: hidden, required: false }, { label: 团队（系统保留）, name: team, widget: hidden, required: false } ] }
+      - { name: bluetooth, label: Bluetooth, file: src/content/pages/bluetooth.json, fields: *feature_fields }
+      - { name: gps, label: Built-in GPS, file: src/content/pages/built-in-gps.json, fields: *feature_fields }
+      - { name: leather, label: Leather Seats, file: src/content/pages/leather-seats.json, fields: *feature_fields }
+      - { name: headlights, label: LED Headlights, file: src/content/pages/led-headlights.json, fields: *feature_fields }
+      - { name: sound, label: Sound System, file: src/content/pages/sound-system.json, fields: *feature_fields }
+      - { name: sunroof, label: Sunroof, file: src/content/pages/sunroof-6rm2o-xlnu2.json, fields: *feature_fields }
+
+  - name: utility_pages
+    label: 搜索、404 与辅助页面
+    format: json
+    files:
+      - { name: shared, label: 搜索、404、许可证与变更日志文案, file: src/content/pages/utility.json, fields: &utility_fields [ { label: 页面标识, name: page, widget: string }, { label: SEO, name: seo, widget: object, fields: [ { label: 标题, name: title, widget: string }, { label: 描述, name: description, widget: text }, { label: OG 图片, name: ogImage, widget: image, required: false } ] }, { label: 页面文案, name: copy, widget: object, fields: [ { label: 搜索标题, name: searchTitle, widget: string }, { label: 搜索提示, name: searchPlaceholder, widget: string }, { label: 搜索浏览提示, name: searchBrowse, widget: string }, { label: 搜索结果提示, name: searchAvailable, widget: string }, { label: 无搜索结果提示, name: searchEmpty, widget: string }, { label: 404 代码, name: notFoundCode, widget: string }, { label: 404 标题, name: notFoundTitle, widget: string }, { label: 404 说明, name: notFoundBody, widget: text }, { label: 404 按钮, name: notFoundCta, widget: string }, { label: Changelog 说明, name: changelogDescription, widget: text }, { label: Changelog 版本, name: changelogVersion, widget: string }, { label: Changelog 发布项, name: changelogRelease, widget: string }, { label: Licenses 说明, name: licenseIntro, widget: text }, { label: Style Guide 说明, name: styleGuideIntro, widget: text } ] }, { label: 素材清单（系统保留）, name: assetInventory, widget: hidden, required: false }, { label: 图片（系统保留）, name: images, widget: hidden, required: false }, { label: 链接（系统保留）, name: links, widget: hidden, required: false }, { label: 团队（系统保留）, name: team, widget: hidden, required: false } ] }
+      - { name: changelog, label: Changelog 页面标题, file: src/content/pages/changelog.json, fields: &simple_heading_fields [ { label: 页面标识, name: page, widget: string }, { label: SEO, name: seo, widget: object, fields: [ { label: 标题, name: title, widget: string }, { label: 描述, name: description, widget: text }, { label: OG 图片, name: ogImage, widget: image, required: false } ] }, { label: 页面文案, name: copy, widget: object, fields: [ { label: 标题, name: heading, widget: string }, { label: 版本, name: version, widget: string, required: false } ] }, { label: 素材清单（系统保留）, name: assetInventory, widget: hidden, required: false }, { label: 图片（系统保留）, name: images, widget: hidden, required: false }, { label: 链接（系统保留）, name: links, widget: hidden, required: false }, { label: 团队（系统保留）, name: team, widget: hidden, required: false } ] }
+      - { name: licenses, label: Licenses 页面标题, file: src/content/pages/licenses.json, fields: *simple_heading_fields }
+      - { name: style_guide, label: Style Guide 页面标题, file: src/content/pages/style-guide.json, fields: *simple_heading_fields }
+
+  - name: asset_groups
+    label: 图片素材清单
+    folder: src/content/assets
+    format: json
+    create: false
+    slug: '{{slug}}'
+    fields:
+      - { label: 分组名称, name: group, widget: string }
+      - label: 图片素材
+        name: items
+        widget: list
+        fields:
+          - { label: 图片路径, name: path, widget: image }
+          - { label: Alt 文本, name: alt, widget: string }
+          - { label: 用途, name: purpose, widget: string }
+          - { label: 建议宽度, name: recommendedWidth, widget: number, value_type: int }
+          - { label: 建议高度, name: recommendedHeight, widget: number, value_type: int }
+          - { label: 使用页面, name: routes, widget: list, field: { label: 路径, name: route, widget: string } }
 
       - name: contact
         label: Contact 页面

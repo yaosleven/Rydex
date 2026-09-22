@@ -2,7 +2,7 @@ name: Deploy Rydex site to Cloudflare Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, 'cms/**']
   workflow_dispatch:
 
 concurrency:
@@ -38,4 +38,4 @@ jobs:
         run: npm run build
 
       - name: Deploy to Cloudflare Pages
-        run: npx wrangler pages deploy dist --project-name rydex-b2b-site --branch main
+        run: npx wrangler pages deploy dist --project-name rydex-b2b-site --branch "${{ github.ref_name }}"
